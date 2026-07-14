@@ -43,7 +43,7 @@ export default function AnimatedCounter({
             snap: { value: 1 },
             onUpdate() {
               if (element) {
-                element.textContent = Math.floor(obj.value).toLocaleString('he-IL') + suffix
+                element.textContent = Math.floor(obj.value).toLocaleString('en-US') + suffix
               }
             },
           })

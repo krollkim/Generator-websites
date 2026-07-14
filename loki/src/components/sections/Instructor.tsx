@@ -3,7 +3,7 @@ import ScrollReveal from '@/components/ui/ScrollReveal'
 import PixelIcon from '@/components/icons/PixelIcon'
 
 /**
- * "המדריך שלך" — Loki himself. President-Loki pop-head on one side, a
+ * "Your Instructor" — Loki himself. President-Loki pop-head on one side, a
  * deadpan third-person bio and faculty "facts" on the other.
  */
 interface InstructorFact {

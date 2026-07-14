@@ -53,9 +53,10 @@
   box-sizing: border-box;
 }
 
-/* RTL is also set on <html dir="rtl"> in layout.tsx — belt-and-suspenders. */
+/* LTR is also set on <html dir="ltr"> in layout.tsx — belt-and-suspenders.
+   (Project iron rule: every site in this series is English-first, LTR.) */
 html {
-  direction: rtl;
+  direction: ltr;
   scroll-behavior: smooth;
 }
 
@@ -94,6 +95,11 @@ body {
   text-shadow: 0 0 24px rgba(34, 255, 136, 0.45);
 }
 
+/* Soft gold halo for the big achievement numbers */
+.text-glow-gold {
+  text-shadow: 0 0 22px rgba(201, 162, 39, 0.45);
+}
+
 /* Rich helmet-gold — gradient text instead of flat yellow */
 .gold-text {
   background: linear-gradient(135deg, #f5d67b 0%, #c9a227 45%, #9a7b1e 80%, #f0cd66 100%);
@@ -102,8 +108,9 @@ body {
   color: transparent;
 }
 
-/* Campus-noticeboard marquee (divider section). Direction-aware: in RTL the
-   track is duplicated, so translating by 50% loops seamlessly. */
+/* Campus-noticeboard marquee (divider section). The track is duplicated, so
+   translating by -50% loops seamlessly; in LTR the ticker slides left and
+   upcoming text enters from the right. */
 .marquee-track {
   display: flex;
   width: max-content;
@@ -111,7 +118,7 @@ body {
 }
 @keyframes marquee {
   from { transform: translateX(0); }
-  to { transform: translateX(50%); } /* RTL: content flows right, track slides right */
+  to { transform: translateX(-50%); }
 }
 
 /* Retro scanline texture for dark panels */

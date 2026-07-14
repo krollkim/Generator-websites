@@ -1,8 +1,8 @@
 {
   "meta": {
-    "purpose": "Showcase landing page for a fictional business: 'The Academy for Phone Pranks' run by Loki, the Norse trickster god. Dark-mischievous vibe: deep black + dark green base, gold + electric-green accents. Display-only site (no backend).",
-    "language": "Hebrew (he-IL), RTL",
-    "tone": "חצוף, שובב, מתחזה-לאקדמי. קופי שנשמע כמו מוסד לימודים רציני שמלמד דברים מגוחכים לחלוטין.",
+    "purpose": "Showcase landing page for a fictional business: 'The Academy of Phone Pranks' run by Loki, the Norse trickster god. Dark-mischievous vibe: deep black + dark green base, gold + electric-green accents. Display-only site (no backend).",
+    "language": "English (en), LTR",
+    "tone": "Cheeky, mischievous, mock-academic. Copy reads like a serious institution teaching something completely ridiculous.",
     "colors": {
       "bg": "#070a07",
       "surface": "#0d1710",
@@ -18,218 +18,164 @@
     "icons": "pixelarticons (retro 8-bit SVG), converted to JSX components with currentColor."
   },
   "brand": {
-    "name": "האקדמיה לתעלולים טלפוניים",
-    "tagline": "התואר היחיד שההורים שלכם יתחרטו שמימנו.",
-    "principal": "בהנהלת לוקי, אל התעלולים"
+    "name": "The Academy of Phone Pranks",
+    "tagline": "The only degree your parents will regret paying for.",
+    "principal": "Under the management of Loki, God of Mischief"
   },
   "nav": {
     "links": [
-      {
-        "label": "מה לומדים",
-        "href": "#what"
-      },
-      {
-        "label": "תוכנית הלימודים",
-        "href": "#curriculum"
-      },
-      {
-        "label": "המדריך",
-        "href": "#instructor"
-      },
-      {
-        "label": "המלצות",
-        "href": "#testimonials"
-      }
+      { "label": "What You'll Learn", "href": "#what" },
+      { "label": "Curriculum", "href": "#curriculum" },
+      { "label": "The Instructor", "href": "#instructor" },
+      { "label": "Testimonials", "href": "#testimonials" }
     ],
-    "cta": {
-      "label": "הרשמה",
-      "href": "#enroll"
-    }
+    "cta": { "label": "Enroll", "href": "#enroll" }
   },
   "sections": {
     "hero": {
-      "badge": "בהנהלת לוקי, אל התעלולים · מחזור תשפ״ז",
-      "headline": "ברוכים הבאים לאקדמיה לתעלולים טלפוניים",
-      "subhead": "המוסד האקדמי המוביל (והיחיד) ללימודי מתיחה טלפונית. סגל בכיר של אל אחד, ואחוזי הצחוק הגבוהים בתשע הממלכות.",
-      "ctaPrimary": {
-        "label": "הירשמו לסמסטר הקרוב",
-        "href": "#enroll"
-      },
-      "ctaSecondary": {
-        "label": "לתוכנית הלימודים",
-        "href": "#curriculum"
-      },
+      "badge": "Dean: Loki, God of Mischief · Class of '27",
+      "headline": "Welcome to the Academy of Phone Pranks",
+      "subhead": "The world's leading (and only) institution for the fine art of the prank call. A faculty of exactly one god, and the highest laugh rates in all Nine Realms.",
+      "ctaPrimary": { "label": "Enroll for Next Semester", "href": "#enroll" },
+      "ctaSecondary": { "label": "View the Curriculum", "href": "#curriculum" },
       "backgroundImage": "/images/hero-background.jpg"
     },
     "whatWeDo": {
-      "title": "מה לומדים אצלנו",
-      "subtitle": "ארבעה עמודי תווך של הונאה טלפונית איכותית.",
+      "title": "What You'll Learn",
+      "subtitle": "Four pillars of quality telephone deception.",
       "items": [
         {
           "icon": "phone",
-          "title": "אמנות שיחת המתיחה",
-          "body": "מהחיוג הראשון ועד הניתוק המושלם — כל שיחה היא מופע, וכל צליל תפוס הוא קהל שורק."
+          "title": "The Art of the Prank Call",
+          "body": "From the first dial to the perfect hang-up — every call is a performance, and every busy tone is a standing ovation."
         },
         {
           "icon": "script",
-          "title": "תסריטאות תעלולים",
-          "body": "כותבים תרחישים כל כך טובים, שגם הקורבן יספר עליהם בארוחת שישי. בגאווה."
+          "title": "Prank Scriptwriting",
+          "body": "Scenarios so good, even the victims retell them at family dinners. Proudly."
         },
         {
           "icon": "mask",
-          "title": "קולות ודמויות",
-          "body": "פקיד עירייה, דוד מאמריקה, רובוט שירות לקוחות. הכל בגרון אחד, בלי להישבר."
+          "title": "Voices & Characters",
+          "body": "City hall clerk, uncle from abroad, customer-service robot. All in one throat, without cracking once."
         },
         {
           "icon": "zap",
-          "title": "קור רוח אלוהי",
-          "body": "לא לצחוק באמצע השיחה. הקורס הכי קשה במוסד. רוב הנכשלים — נכשלו כאן."
+          "title": "Divine Composure",
+          "body": "Not laughing mid-call. The hardest course we offer. Most dropouts fail right here."
         }
       ]
     },
     "divider": {
       "courseCode": "PRANK-101",
-      "title": "מבוא לתעלולים",
+      "title": "Intro to Pranks",
       "marquee": [
-        "PRANK-101 · מבוא לתעלולים · ההרשמה בעיצומה",
-        "אין מקומות חנייה בקמפוס. אין קמפוס.",
-        "ההרצאה הבאה: איך לענות לטלפון של עצמך",
-        "שיעורי בית להיום: להתקשר. פשוט להתקשר.",
-        "ספריית האקדמיה סגורה. לנצח. תתמודדו."
+        "PRANK-101 · Intro to Pranks · Enrollment now open",
+        "No parking on campus. No campus.",
+        "Next lecture: how to answer your own phone call",
+        "Tonight's homework: just call someone. Anyone.",
+        "The academy library is closed. Forever. Cope."
       ]
     },
     "curriculum": {
-      "title": "תוכנית הלימודים",
-      "subtitle": "ארבעה קורסי חובה. אפס קורסי בחירה. אנחנו לא בוחרים בכם — אתם בוחרים בכאוס.",
+      "title": "The Curriculum",
+      "subtitle": "Four required courses. Zero electives. We don't choose you — you choose chaos.",
       "courses": [
         {
           "code": "PRANK-101",
-          "credits": "3 נק״ז",
-          "title": "מבוא לתעלולים טלפוניים",
-          "body": "יסודות החיוג המתעתע: נשימה, טיימינג, ולמה לעולם לא מתקשרים מהמספר של עצמכם."
+          "credits": "3 credits",
+          "title": "Intro to Phone Pranks",
+          "body": "Fundamentals of deceptive dialing: breathing, timing, and why you never, ever call from your own number."
         },
         {
           "code": "VOICE-204",
-          "credits": "4 נק״ז",
-          "title": "קולות ודמויות מתקדמים",
-          "body": "שבעה מבטאים, ארבעה גילאים, ודמות אחת של סבתא שאי אפשר לנתק לה בפנים."
+          "credits": "4 credits",
+          "title": "Advanced Voices & Characters",
+          "body": "Seven accents, four age groups, and one grandmother character nobody has the heart to hang up on."
         },
         {
           "code": "SCRIPT-305",
-          "credits": "3 נק״ז",
-          "title": "תסריטי מופת",
-          "body": "מ״הפיצה שלך בדרך״ ועד ״זכית בקרוז לאסגארד״ — כתיבת תרחישים שנכנסים להיסטוריה."
+          "credits": "3 credits",
+          "title": "Masterpiece Scripts",
+          "body": "From \"your pizza is on the way\" to \"you've won a cruise to Asgard\" — writing scenarios that go down in history."
         },
         {
           "code": "CHAOS-401",
-          "credits": "5 נק״ז",
-          "title": "סמינר כאוס יישומי",
-          "body": "הפרויקט המסכם: מתיחה רב-שלבית בהנחיה אישית של לוקי. מי ששורד — מוסמך."
+          "credits": "5 credits",
+          "title": "Applied Chaos Seminar",
+          "body": "The capstone project: a multi-stage prank personally supervised by Loki. Survive it, and you're certified."
         }
       ],
       "certification": {
-        "title": "תעודת טריקסטר מוסמך™",
-        "body": "בוגרי האקדמיה מקבלים תעודה מוזהבת (הזהב לא אמיתי, כמו רוב ההבטחות שלנו) וחברות מלאה בלשכת המתחזים הארצית.",
+        "title": "Certified Trickster Diploma™",
+        "body": "Graduates receive a gold-plated diploma (the gold is fake, like most of our promises) and full membership in the National Guild of Impersonators.",
         "stats": [
-          {
-            "value": 12000,
-            "suffix": "+",
-            "label": "שיחות נותקו מרוב צחוק"
-          },
-          {
-            "value": 97,
-            "suffix": "%",
-            "label": "מהבוגרים לא זוהו עד היום"
-          },
-          {
-            "value": 9,
-            "suffix": "",
-            "label": "ממלכות. אפס תלונות שנענו"
-          }
+          { "value": 12000, "suffix": "+", "label": "Calls ended by uncontrollable laughter" },
+          { "value": 97, "suffix": "%", "label": "Of graduates remain unidentified to this day" },
+          { "value": 9, "suffix": "", "label": "Realms. Zero complaints ever answered" }
         ]
       }
     },
     "instructor": {
-      "title": "המדריך שלך",
-      "name": "לוקי, אל התעלולים",
-      "role": "דיקן, מרצה בכיר, וכל שאר הסגל",
+      "title": "Your Instructor",
+      "name": "Loki, God of Mischief",
+      "role": "Dean, senior lecturer, and the entire faculty",
       "bio": [
-        "אלף שנות ניסיון בהתחזות, הונאה ותחבולות ברמה בין-ממלכתית. הצליח לעבוד על ת׳ור פעמיים באותו טריק בדיוק.",
-        "מאז שגילה את הטלפון — אף מספר לא בטוח. מלמד מתוך אהבה אמיתית ועמוקה לכאוס, ומצפה מתלמידיו לפחות."
+        "A thousand years of experience in impersonation, deception and inter-realm scheming. Once fooled Thor twice with the exact same trick.",
+        "Ever since he discovered the telephone, no number is safe. Teaches out of a deep, genuine love of chaos — and expects nothing less from his students."
       ],
       "facts": [
-        {
-          "label": "שעות קבלה",
-          "value": "לעולם לא"
-        },
-        {
-          "label": "משרד",
-          "value": "משתנה לפי מצב הרוח"
-        },
-        {
-          "label": "מייל",
-          "value": "עונה רק לפניות שנפתחות ב״הוד רשעותך״"
-        }
+        { "label": "Office hours", "value": "Never" },
+        { "label": "Office", "value": "Depends on his mood" },
+        { "label": "Email", "value": "Only answers messages that open with \"Your Wickedness\"" }
       ],
       "image": "/images/loki-pop-suit.png"
     },
     "testimonials": {
-      "title": "בוגרים (וקורבנות) ממליצים",
-      "subtitle": "כל ההמלצות אמיתיות. סמכו עלינו. אנחנו אקדמיה לתעלולים.",
+      "title": "Graduates (and Victims) Approve",
+      "subtitle": "All testimonials are real. Trust us. We're a prank academy.",
       "items": [
         {
-          "quote": "נרשמתי בטעות אחרי שקיבלתי שיחת מתיחה מהאקדמיה עצמה. הטריק הכי טוב שראיתי. חמש כוכבים.",
-          "name": "ת׳ור",
-          "role": "אח של ההנהלה"
+          "quote": "I enrolled by accident after getting a prank call from the academy itself. Best trick I've ever seen. Five stars.",
+          "name": "Thor",
+          "role": "Brother of the management"
         },
         {
-          "quote": "מאז הקורס אני לא עונה לאף שיחה. גם לא מהעבודה. גם לא מאמא. תודה? אני חושב?",
-          "name": "קורבן מרוצה",
-          "role": "בוגר בעל כורחו"
+          "quote": "Since taking the course I don't answer any calls. Not from work. Not from mom. Thank you? I think?",
+          "name": "A Satisfied Victim",
+          "role": "Graduate against his will"
         },
         {
-          "quote": "הבן שלי סיים בהצטיינות יתרה. עכשיו אני חיה בפחד מתמיד, אבל גאה. מאוד גאה.",
-          "name": "אמא של בוגר",
-          "role": "עונה רק לשיחות וידאו"
+          "quote": "My son graduated with honors. I now live in constant fear, but I'm proud. So very proud.",
+          "name": "A Graduate's Mom",
+          "role": "Accepts video calls only"
         }
       ]
     },
     "midCtas": {
       "afterCurriculum": {
-        "line": "מוכנים להצטרף למחזור תשפ״ז?",
-        "cta": { "label": "שריינו מקום בסמסטר הקרוב", "href": "#enroll" }
+        "line": "Ready to join the Class of '27?",
+        "cta": { "label": "Save My Seat This Semester", "href": "#enroll" }
       },
       "afterTestimonials": {
-        "line": "רוצים להיות ההמלצה הבאה?",
-        "cta": { "label": "הירשמו לפני שנתחרט", "href": "#enroll" }
+        "line": "Want to be the next testimonial?",
+        "cta": { "label": "Enroll Before We Change Our Minds", "href": "#enroll" }
       }
     },
     "enroll": {
-      "title": "הטלפון מצלצל. תענו.",
-      "subtitle": "ההרשמה לסמסטר הקרוב נסגרת ברגע שיימאס לנו. וזה קורה מהר.",
-      "cta": {
-        "label": "הירשמו לאמנות שיחת המתיחה",
-        "href": "#"
-      },
-      "microcopy": "מחייג לאסגארד…",
+      "title": "The phone is ringing. Answer it.",
+      "subtitle": "Enrollment closes the moment we get bored. That happens fast.",
+      "cta": { "label": "Master the Art of the Prank Call", "href": "#" },
+      "microcopy": "Dialing Asgard…",
       "image": "/images/loki-pop-cape.png"
     }
   },
   "footer": {
-    "tagline": "האקדמיה לתעלולים טלפוניים · כל הזכויות שמורות (גנבנו גם אותן)"
+    "tagline": "The Academy of Phone Pranks · All rights reserved (we stole those too)"
   },
   "copy_voice_rules": {
-    "address": "פנייה ישירה בגוף שני רבים ('אתם', 'שלכם') — כמו מוסד שמדבר אל מחזור סטודנטים.",
-    "avoid": [
-      "קופי תאגידי",
-      "רצינות אמיתית",
-      "הסברים מתנצלים"
-    ],
-    "embrace": [
-      "משפטים קצרים וחדים",
-      "הומור יבש בסוגריים",
-      "ביטחון מופרז",
-      "ז'רגון אקדמי מומצא"
-    ]
+    "address": "Speak directly to the visitor ('you', 'your') — like an institution addressing its incoming class.",
+    "avoid": ["Corporate copy", "Actual seriousness", "Apologetic explanations"],
+    "embrace": ["Short punchy sentences", "Dry humor in parentheses", "Overconfidence", "Invented academic jargon"]
   }
 }

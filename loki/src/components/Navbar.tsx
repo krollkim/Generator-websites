@@ -34,7 +34,7 @@ export default function Navbar({ brand, links, cta }: NavbarProps) {
         {/* Desktop links (center) */}
         <nav className="hidden md:flex gap-8 flex-1 justify-center">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="text-ink/85 hover:text-accent transition-colors">
+            <a key={l.href} href={l.href} className="text-ink/85 hover:text-gold transition-colors">
               {l.label}
             </a>
           ))}
@@ -52,7 +52,7 @@ export default function Navbar({ brand, links, cta }: NavbarProps) {
         <button
           type="button"
           className="md:hidden text-ink text-2xl leading-none"
-          aria-label="תפריט"
+          aria-label="Menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
@@ -67,7 +67,7 @@ export default function Navbar({ brand, links, cta }: NavbarProps) {
             <a
               key={l.href}
               href={l.href}
-              className="text-ink hover:text-accent transition-colors"
+              className="text-ink hover:text-gold transition-colors"
               onClick={() => setOpen(false)}
             >
               {l.label}

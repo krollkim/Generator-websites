@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 /**
- * "מבוא לתעלולים 101" — a narrow campus-noticeboard divider with a looping
+ * "PRANK-101 · Intro to Pranks" — a narrow campus-noticeboard divider with a looping
  * marquee of prank one-liners. The marquee clips inside its own wrapper, so
  * the pop-head can burst out ABOVE the bar instead of being cropped by it.
  */

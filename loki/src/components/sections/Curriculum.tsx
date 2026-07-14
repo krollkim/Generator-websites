@@ -6,7 +6,7 @@ import PaperPlanes from '@/components/ui/PaperPlanes'
 import PixelIcon from '@/components/icons/PixelIcon'
 
 /**
- * "תוכנית הלימודים" — course cards with a deliberately broken grid (council
+ * "The Curriculum" — course cards with a deliberately broken grid (council
  * verdict: one violation beats ten additions): cards tilt and drift, and
  * CHAOS-401 — Loki's own seminar — literally dodges the cursor (DodgingCard,
  * the site's single signed mischief moment). Certification banner follows.
@@ -53,14 +53,14 @@ function CourseCardBody({ course, chaos = false }: { course: Course; chaos?: boo
           {course.credits}
         </span>
       </div>
-      <h3 className="mt-4 font-display text-2xl font-bold text-ink transition-colors group-hover:text-accent">
+      <h3 className="mt-4 font-display text-2xl font-bold text-ink transition-colors group-hover:text-gold">
         {course.title}
       </h3>
       <p className="mt-2 leading-relaxed text-muted">{course.body}</p>
       {chaos && (
         <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-gold">
           <PixelIcon name="zap" size={16} />
-          בהנחיית לוקי. הכרטיס הזה כבר בורח.
+          Taught by Loki. This card is already running.
         </p>
       )}
     </>
@@ -88,8 +88,12 @@ export default function Curriculum({ title, subtitle, courses, certification }: 
           <PaperPlanes className="absolute inset-x-0 -top-20 -bottom-4 z-20 hidden md:block" />
 
           <ScrollReveal className="text-center">
-            <p className="font-mono text-sm tracking-widest text-gold">קטלוג הקורסים · תשפ״ז</p>
+            <p className="font-mono text-sm tracking-widest text-gold">Course Catalog · Class of &#39;27</p>
             <h2 className="mt-2 font-display text-3xl font-black text-ink md:text-5xl">{title}</h2>
+            <span
+              className="mx-auto mt-4 block h-1 w-16 rounded-pill bg-linear-to-l from-gold/15 via-gold to-gold/15"
+              aria-hidden="true"
+            />
             <p className="mx-auto mt-4 max-w-2xl text-lg text-muted">{subtitle}</p>
           </ScrollReveal>
 
@@ -100,16 +104,18 @@ export default function Curriculum({ title, subtitle, courses, certification }: 
             course.code === CHAOS_CODE ? (
               <div key={course.code} className="md:rotate-2">
                 <DodgingCard
-                  surrenderText="״טוב, ניצחתם. שיעור ראשון: התמדה.״ — לוקי"
+                  surrenderText="“Fine, you win. Lesson one: persistence.” — Loki"
                   className={`${cardBase} border-gold/50 hover:border-gold hover:shadow-[0_0_30px_rgba(201,162,39,0.2)]`}
                 >
                   <CourseCardBody course={course} chaos />
                 </DodgingCard>
               </div>
             ) : (
+              /* Supporting courses — borderless, gold border on hover only.
+                 CHAOS-401 (gold frame + dodge) stays the single focal card. */
               <div
                 key={course.code}
-                className={`${cardBase} hover:border-accent/60 hover:shadow-[0_0_30px_rgba(34,255,136,0.1)] ${
+                className={`group rounded-card border border-transparent bg-surface/60 p-7 transition-all hover:border-gold/40 hover:bg-surface hover:shadow-[0_0_30px_rgba(201,162,39,0.1)] ${
                   i === 1 ? 'md:-rotate-1 md:translate-y-6' : i === 0 ? 'md:rotate-1' : 'md:-rotate-1'
                 }`}
               >
@@ -123,7 +129,7 @@ export default function Curriculum({ title, subtitle, courses, certification }: 
         {/* Certification banner */}
         <ScrollReveal className="mt-16">
           <div className="rounded-card border-2 border-gold/40 bg-linear-to-l from-primary/30 via-surface to-surface p-8 md:p-10 md:-rotate-1">
-            <div className="flex flex-col items-center gap-4 text-center md:flex-row md:text-right">
+            <div className="flex flex-col items-center gap-4 text-center md:flex-row md:text-left">
               <span className="inline-flex shrink-0 rounded-card border border-gold/40 bg-bg p-4 text-gold">
                 <PixelIcon name="trophy" size={40} />
               </span>
@@ -141,7 +147,7 @@ export default function Curriculum({ title, subtitle, courses, certification }: 
                   <AnimatedCounter
                     to={stat.value}
                     suffix={stat.suffix}
-                    className="font-display text-4xl font-black text-accent text-glow"
+                    className="gold-text text-glow-gold font-display text-4xl font-black"
                   />
                   <p className="mt-2 text-sm text-muted">{stat.label}</p>
                 </div>

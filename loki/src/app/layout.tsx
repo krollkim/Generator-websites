@@ -23,8 +23,9 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'האקדמיה לתעלולים טלפוניים',
-  description: 'התואר היחיד שההורים שלכם יתחרטו שמימנו. בהנהלת לוקי, אל התעלולים.',
+  title: 'The Academy of Phone Pranks',
+  description:
+    "The only degree your parents will regret paying for. Under the management of Loki, God of Mischief.",
 }
 
 export default function RootLayout({
@@ -33,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="he" dir="rtl" className={`${heebo.variable} ${rubik.variable}`}>
+    <html lang="en" dir="ltr" className={`${heebo.variable} ${rubik.variable}`}>
       <body className="font-sans antialiased">{children}</body>
     </html>
   )

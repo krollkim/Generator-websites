@@ -10,11 +10,13 @@ import PixelIcon from '@/components/icons/PixelIcon'
 interface MidCTAProps {
   line: string
   cta: NavLink
+  /** Vertical-rhythm override — vary the breathing room per placement. */
+  className?: string
 }
 
-export default function MidCTA({ line, cta }: MidCTAProps) {
+export default function MidCTA({ line, cta, className = 'pb-24' }: MidCTAProps) {
   return (
-    <ScrollReveal className="px-6 pb-24">
+    <ScrollReveal className={`px-6 ${className}`}>
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-5 text-center">
         <p className="font-display text-2xl font-bold text-ink md:text-3xl">{line}</p>
         <a

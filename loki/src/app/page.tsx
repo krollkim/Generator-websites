@@ -13,8 +13,8 @@ import brand from '../../brand.json'
 
 /**
  * LANDING mode — single page. Navbar + Footer live here (PIC pattern).
- * Section order: Hero → מה לומדים → divider (מבוא לתעלולים) → תוכנית לימודים
- * → המדריך → המלצות → CTA. Copy is wired from brand.json `sections`.
+ * Section order: Hero → What You'll Learn → divider (Intro to Pranks) →
+ * Curriculum → Instructor → Testimonials → CTA. Copy comes from brand.json.
  */
 export default function Home() {
   const s = brand.sections
@@ -44,7 +44,7 @@ export default function Home() {
           courses={s.curriculum.courses}
           certification={s.curriculum.certification}
         />
-        <MidCTA line={s.midCtas.afterCurriculum.line} cta={s.midCtas.afterCurriculum.cta} />
+        <MidCTA line={s.midCtas.afterCurriculum.line} cta={s.midCtas.afterCurriculum.cta} className="pb-32" />
         <Instructor
           title={s.instructor.title}
           name={s.instructor.name}
@@ -58,7 +58,7 @@ export default function Home() {
           subtitle={s.testimonials.subtitle}
           items={s.testimonials.items}
         />
-        <MidCTA line={s.midCtas.afterTestimonials.line} cta={s.midCtas.afterTestimonials.cta} />
+        <MidCTA line={s.midCtas.afterTestimonials.line} cta={s.midCtas.afterTestimonials.cta} className="pb-16" />
         <EnrollCTA
           title={s.enroll.title}
           subtitle={s.enroll.subtitle}

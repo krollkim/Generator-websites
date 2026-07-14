@@ -4,8 +4,9 @@ import PixelIcon from '@/components/icons/PixelIcon'
 
 /**
  * Hero — President Loki himself as a full-bleed background (grinning, arms
- * open), copy on the right (RTL start), a side gradient keeping it readable
- * and a bottom gradient melting into --color-bg.
+ * open), copy pinned to the RIGHT half (preserving the original composition:
+ * Loki visible on the left, dark gradient under the copy on the right) and a
+ * bottom gradient melting into --color-bg.
  */
 interface HeroProps {
   badge: string
@@ -59,7 +60,9 @@ export default function Hero({
       />
 
       <div className="mx-auto w-full max-w-6xl">
-        <div className="flex max-w-xl flex-col items-center text-center md:items-start md:text-right">
+        {/* ms-auto keeps the copy block on the right half in LTR — same spot
+            it occupied in the original RTL composition. */}
+        <div className="flex max-w-xl flex-col items-center text-center md:ms-auto md:items-start md:text-left">
           <span className="inline-flex items-center gap-2 rounded-pill border border-gold/40 bg-bg/60 px-4 py-1.5 text-sm font-medium text-gold backdrop-blur-sm">
             <PixelIcon name="sunglasses" size={18} />
             {badge}
