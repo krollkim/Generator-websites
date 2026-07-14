@@ -47,9 +47,9 @@ const PLANES: PlaneSpec[] = [
   // From the right, high — glides across the section's opening
   { d: 'M 1160 55 C 820 10, 640 115, 420 50 C 260 10, 120 95, -160 55', color: 'var(--color-accent)', window: 240, sizePx: 42 },
   // From the right, low — the stretch below/across the last cards
-  { d: 'M 1160 540 C 800 585, 580 470, 360 555 C 220 590, 80 495, -160 545', color: 'var(--color-gold)', window: 220, sizePx: 38 },
+  { d: 'M 1160 540 C 800 585, 580 470, 360 555 C 220 590, 80 495, -160 545', color: 'var(--color-accent)', window: 220, sizePx: 38 },
   // From the left, weaving between them
-  { d: 'M -160 305 C 180 250, 400 370, 620 290 C 780 240, 900 350, 1160 300', color: 'var(--color-accent)', window: 220, sizePx: 36 },
+  { d: 'M -160 305 C 180 250, 400 370, 620 290 C 780 240, 900 350, 1160 300', color: 'var(--color-gold)', window: 220, sizePx: 36 },
 ]
 
 function planeShape(size: number): string {
