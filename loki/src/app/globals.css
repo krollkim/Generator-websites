@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Tailwind v4 CSS-first theme (NO tailwind.config.ts).
+   Loki palette from brand.json meta.colors:
+   deep green-black base, dark Loki green, gold, electric green.
+   ============================================================ */
+@theme {
+  --color-bg: #070a07;
+  --color-surface: #0d1710;
+  --color-ink: #e8f5e9;
+  --color-muted: #7d9982;
+  --color-primary: #14532d; /* dark Loki green — frames, blocks */
+  --color-accent: #22ff88; /* electric green — CTA, glow */
+  --color-gold: #c9a227; /* helmet gold — subheads, lines */
+  --color-mischief: #a78bfa; /* third villainous accent, sparingly */
+
+  --font-sans: var(--font-heebo), "Heebo", system-ui, sans-serif;
+  --font-display: var(--font-rubik), "Rubik", var(--font-heebo), sans-serif;
+
+  --radius-pill: 999px;
+  --radius-card: 16px;
+
+  /* Mischievous micro-animations */
+  --animate-ring: ring 2.4s ease-in-out infinite;
+  --animate-wiggle: wiggle 0.4s ease-in-out;
+  --animate-bob: bob 3.5s ease-in-out infinite;
+  --animate-blink: blink 1.4s steps(1) infinite;
+
+  @keyframes ring {
+    0%, 60%, 100% { transform: rotate(0deg); }
+    62%, 66%, 70%, 74% { transform: rotate(8deg); }
+    64%, 68%, 72%, 76% { transform: rotate(-8deg); }
+    78% { transform: rotate(0deg); }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-2deg); }
+    75% { transform: rotate(2deg); }
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+  }
+}
+
+/* ===== Base ===== */
+* {
+  box-sizing: border-box;
+}
+
+/* RTL is also set on <html dir="rtl"> in layout.tsx — belt-and-suspenders. */
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* ===== Loki helpers ===== */
+
+/* Electric-green glow for CTAs */
+.glow-accent {
+  box-shadow:
+    0 0 18px rgba(34, 255, 136, 0.35),
+    0 0 50px rgba(34, 255, 136, 0.12);
+}
+.glow-accent:hover {
+  box-shadow:
+    0 0 24px rgba(34, 255, 136, 0.55),
+    0 0 70px rgba(34, 255, 136, 0.2);
+}
+
+.text-glow {
+  text-shadow: 0 0 24px rgba(34, 255, 136, 0.45);
+}
+
+/* Rich helmet-gold — gradient text instead of flat yellow */
+.gold-text {
+  background: linear-gradient(135deg, #f5d67b 0%, #c9a227 45%, #9a7b1e 80%, #f0cd66 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Campus-noticeboard marquee (divider section). Direction-aware: in RTL the
+   track is duplicated, so translating by 50% loops seamlessly. */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(50%); } /* RTL: content flows right, track slides right */
+}
+
+/* Retro scanline texture for dark panels */
+.scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(34, 255, 136, 0.05) 0px,
+    rgba(34, 255, 136, 0.05) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+/* ============================================================
+   Motion helpers (library-agnostic). Pair with gsap-scroll-reveal.
+   ============================================================ */
+
+/* Prevent flash of un-animated content before GSAP boots. */
+.intro-hidden {
+  opacity: 0;
+}
+
+/* Accessibility: respect users who opted out of motion. */
+@media (prefers-reduced-motion: reduce) {
+  .intro-hidden {
+    opacity: 1;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

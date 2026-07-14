@@ -1,0 +1,38 @@
+# dependencies (any depth — every generated site has its own node_modules)
+node_modules/
+
+# next.js build output
+.next/
+out/
+
+# build artifacts
+dist/
+build/
+coverage/
+
+# playwright artifacts (console logs, snapshots, traces)
+.playwright/
+.playwright-mcp/
+
+# logs
+logs/
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# misc
+.DS_Store
+*.pem
+temp/
+tmp/
+cache/
+backup/
+archive/
+vendor/
+
+# env files
+.env*
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
