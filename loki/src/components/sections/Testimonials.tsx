@@ -1,6 +1,6 @@
+import Image from 'next/image'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import StaggerReveal from '@/components/ui/StaggerReveal'
-import PeekingPop from '@/components/ui/PeekingPop'
 import PixelIcon from '@/components/icons/PixelIcon'
 
 /**
@@ -21,12 +21,15 @@ interface TestimonialsProps {
 export default function Testimonials({ title, subtitle, items }: TestimonialsProps) {
   return (
     <section id="testimonials" className="relative overflow-hidden px-6 py-24">
-      {/* Loki peeking in from the right edge — one deliberate grid violation */}
-      <PeekingPop
+      {/* Loki peeking in from the right edge — one deliberate grid violation.
+          Static on purpose (no float). */}
+      <Image
         src="/images/loki-pop-cape.png"
+        alt=""
         width={443}
         height={500}
-        className="absolute top-10 -right-10 w-20 -rotate-24 md:top-16 md:-right-14 md:w-36"
+        className="pointer-events-none absolute top-10 -right-10 w-20 -rotate-24 md:top-16 md:-right-14 md:w-36"
+        aria-hidden="true"
       />
 
       <div className="mx-auto max-w-6xl">
