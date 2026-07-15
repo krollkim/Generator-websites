@@ -82,8 +82,12 @@ export default function Curriculum({ title, subtitle, courses, certification }: 
             instead a sticky zero-height band rides along with the scroll and
             the planes glide inside it, always in view. */}
         <div className="relative">
+          {/* w-full is required: an SVG is a replaced element, so inset-x-0
+              alone doesn't stretch it — the browser derives width from the
+              viewBox ratio instead (774px on a 390px screen, planes fly
+              off-frame). */}
           <div className="pointer-events-none sticky top-24 z-20 h-0 md:hidden">
-            <PaperPlanes className="absolute inset-x-0 top-0 h-[55vh]" />
+            <PaperPlanes className="absolute inset-x-0 top-0 h-[55vh] w-full" />
           </div>
           <PaperPlanes className="absolute inset-x-0 -top-20 -bottom-4 z-20 hidden md:block" />
 
