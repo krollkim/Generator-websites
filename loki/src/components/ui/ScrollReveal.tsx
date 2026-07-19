@@ -12,11 +12,11 @@ interface ScrollRevealProps {
  * Single-block fade-up. Use this to reveal ONE element/section as a whole.
  *
  * Do NOT wrap a grid of cards in this AND also use StaggerReveal on the same
- * cards — both animate `opacity`, and the two tweens fight, producing the
+ * cards - both animate `opacity`, and the two tweens fight, producing the
  * "two-stage"/double-fade feel. One element = one reveal owner.
  *
  * Defaults below (duration 0.55, y 30, ease power2.out, start 'top 85%') are
- * sensible starting points — tune per project.
+ * sensible starting points - tune per project.
  */
 export default function ScrollReveal({ children, className = '' }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null)

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 /**
- * "PRANK-101 · Intro to Pranks" — a narrow campus-noticeboard divider with a looping
+ * "PRANK-101 · Intro to Pranks" - a narrow campus-noticeboard divider with a looping
  * marquee of prank one-liners. The marquee clips inside its own wrapper, so
  * the pop-head can burst out ABOVE the bar instead of being cropped by it.
  */
@@ -18,7 +18,7 @@ export default function PrankDivider({ courseCode, title, marquee, peekImage }: 
 
   return (
     <section
-      aria-label={`${courseCode} — ${title}`}
+      aria-label={`${courseCode} - ${title}`}
       className="relative border-y-2 border-accent/30 bg-primary/25"
     >
       <div className="overflow-hidden py-5 scanlines">
@@ -35,7 +35,7 @@ export default function PrankDivider({ courseCode, title, marquee, peekImage }: 
       </div>
 
       {/* Pop-head standing on the bar's bottom line. The PNG has ~9.2%
-          transparent margin below the feet — the negative bottom offsets
+          transparent margin below the feet - the negative bottom offsets
           compensate so the visible feet sit on the line. */}
       <Image
         src={peekImage}

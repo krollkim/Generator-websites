@@ -3,14 +3,14 @@ import ScrollReveal from '@/components/ui/ScrollReveal'
 import PixelIcon from '@/components/icons/PixelIcon'
 
 /**
- * Strategic mid-page CTA — one cheeky line + the signature glowing green
+ * Strategic mid-page CTA - one cheeky line + the signature glowing green
  * button. Used exactly twice (after the curriculum, after the testimonials)
  * so the page doesn't turn into a CTA carpet.
  */
 interface MidCTAProps {
   line: string
   cta: NavLink
-  /** Vertical-rhythm override — vary the breathing room per placement. */
+  /** Vertical-rhythm override - vary the breathing room per placement. */
   className?: string
 }
 

@@ -3,8 +3,8 @@ import StaggerReveal from '@/components/ui/StaggerReveal'
 import PixelIcon, { type PixelIconName } from '@/components/icons/PixelIcon'
 
 /**
- * "What You'll Learn" — the four pillars of quality phone deception.
- * The first pillar is the PRIMARY card (gold frame + gold keyline) — one
+ * "What You'll Learn" - the four pillars of quality phone deception.
+ * The first pillar is the PRIMARY card (gold frame + gold keyline) - one
  * focal point instead of four identical tiles; the rest sit borderless on
  * the background and gain a gold border on hover. Heading carries the gold
  * achievement underline. Rhythm: tighter toward the divider below.
@@ -52,7 +52,7 @@ export default function WhatWeDo({ title, subtitle, items }: WhatWeDoProps) {
         >
           {items.map((item, i) =>
             i === 0 ? (
-              /* Primary pillar — the focal card */
+              /* Primary pillar - the focal card */
               <div
                 key={item.title}
                 className="rounded-card border border-gold/40 bg-surface p-6 transition-all hover:-translate-y-1.5 hover:border-gold hover:animate-wiggle"
@@ -65,7 +65,7 @@ export default function WhatWeDo({ title, subtitle, items }: WhatWeDoProps) {
                 <p className="mt-2 leading-relaxed text-muted">{item.body}</p>
               </div>
             ) : (
-              /* Supporting pillars — borderless, content on the background */
+              /* Supporting pillars - borderless, content on the background */
               <div
                 key={item.title}
                 className={`rounded-card border border-transparent p-6 transition-all hover:-translate-y-1.5 hover:border-gold/40 hover:bg-surface/60 hover:animate-wiggle ${

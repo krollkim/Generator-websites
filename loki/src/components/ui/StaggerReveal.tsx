@@ -6,19 +6,19 @@ import { gsap } from '@/lib/gsap'
 interface StaggerRevealProps {
   children: ReactNode
   className?: string
-  /** Grid columns — resets the stagger each row (LP-style cascade). */
+  /** Grid columns - resets the stagger each row (LP-style cascade). */
   columns?: number
   /** Delay between cards within a row (seconds). LP uses 0.15. */
   stagger?: number
 }
 
 /**
- * Card "wave" reveal — ported 1:1 from the NUTZ-LP landing page.
+ * Card "wave" reveal - ported 1:1 from the NUTZ-LP landing page.
  *
  * Mechanism (identical to LP): each card has its OWN GSAP ScrollTrigger
  * (`trigger: card`, `start: 'top 88%'`, `toggleActions: 'play none none none'`).
  * ScrollTrigger is driven by GSAP's ticker so it stays glued to the scroll and
- * feels smooth — the same engine our (smooth) ScrollReveal uses. Earlier this
+ * feels smooth - the same engine our (smooth) ScrollReveal uses. Earlier this
  * component used an IntersectionObserver, which felt detached/"stuck".
  *
  * Within a row the cards cascade by `(i % columns) * stagger`, so the delay

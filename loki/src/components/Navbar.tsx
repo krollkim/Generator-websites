@@ -25,7 +25,7 @@ export default function Navbar({ brand, links, cta }: NavbarProps) {
   return (
     <header className="fixed top-0 inset-x-0 z-50 border-b border-accent/15 bg-bg/85 backdrop-blur-md">
       <div className="max-w-7xl mx-auto h-16 px-4 sm:px-8 flex items-center justify-between">
-        {/* Brand — sits right in RTL */}
+        {/* Brand - sits right in RTL */}
         <a href="#top" className="flex items-center gap-2 font-display font-bold tracking-tight text-gold select-none">
           <PixelIcon name="phoneCall" size={20} className="text-accent" />
           {brand}

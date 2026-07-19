@@ -4,10 +4,10 @@ import { useRef, useState, type ReactNode } from 'react'
 
 /**
  * The site's one signed mischief moment: a card that dodges the cursor twice,
- * then gives up and confesses. Used on the CHAOS-401 course card only —
+ * then gives up and confesses. Used on the CHAOS-401 course card only -
  * one deliberate violation, not an effect pile.
  *
- * Keyboard/touch users and reduced-motion users never see the dodge — the card
+ * Keyboard/touch users and reduced-motion users never see the dodge - the card
  * simply behaves (the trick is pointer-hover only, and content is always
  * reachable since the card gives up after MAX_DODGES).
  */

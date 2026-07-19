@@ -3,7 +3,7 @@ import ScrollReveal from '@/components/ui/ScrollReveal'
 import PixelIcon from '@/components/icons/PixelIcon'
 
 /**
- * "Your Instructor" — Loki himself. President-Loki pop-head on one side, a
+ * "Your Instructor" - Loki himself. President-Loki pop-head on one side, a
  * deadpan third-person bio and faculty "facts" on the other.
  */
 interface InstructorFact {
@@ -24,7 +24,7 @@ export default function Instructor({ title, name, role, bio, facts, image }: Ins
   return (
     <section id="instructor" className="border-y border-primary/40 bg-surface/60 px-6 py-24">
       <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2">
-        {/* Pop figure — bobs gently, tilts on hover */}
+        {/* Pop figure - bobs gently, tilts on hover */}
         <ScrollReveal className="order-first flex justify-center">
           <div className="relative isolate">
             <div className="absolute inset-0 -z-10 rounded-full bg-accent/10 blur-3xl" />

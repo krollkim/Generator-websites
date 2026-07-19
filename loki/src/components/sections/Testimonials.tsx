@@ -4,7 +4,7 @@ import StaggerReveal from '@/components/ui/StaggerReveal'
 import PixelIcon from '@/components/icons/PixelIcon'
 
 /**
- * "Graduates (and Victims) Approve" — funny testimonial cards, gold pixel stars.
+ * "Graduates (and Victims) Approve" - funny testimonial cards, gold pixel stars.
  */
 interface Testimonial {
   quote: string
@@ -21,7 +21,7 @@ interface TestimonialsProps {
 export default function Testimonials({ title, subtitle, items }: TestimonialsProps) {
   return (
     <section id="testimonials" className="relative overflow-hidden px-6 pt-20 pb-24">
-      {/* Loki peeking in from the right edge — one deliberate grid violation.
+      {/* Loki peeking in from the right edge - one deliberate grid violation.
           Static on purpose (no float). */}
       <Image
         src="/images/loki-pop-cape.png"
@@ -44,7 +44,7 @@ export default function Testimonials({ title, subtitle, items }: TestimonialsPro
 
         <StaggerReveal columns={3} stagger={0.15} className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
           {items.map((item, i) => (
-            /* Middle card is the PRIMARY one — gold frame + slightly larger;
+            /* Middle card is the PRIMARY one - gold frame + slightly larger;
                side cards sit borderless on the background. */
             <figure
               key={item.name}

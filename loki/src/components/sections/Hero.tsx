@@ -3,7 +3,7 @@ import type { NavLink } from '@/components/Navbar'
 import PixelIcon from '@/components/icons/PixelIcon'
 
 /**
- * Hero — President Loki himself as a full-bleed background (grinning, arms
+ * Hero - President Loki himself as a full-bleed background (grinning, arms
  * open), copy pinned to the RIGHT half (preserving the original composition:
  * Loki visible on the left, dark gradient under the copy on the right) and a
  * bottom gradient melting into --color-bg.
@@ -47,7 +47,7 @@ export default function Hero({
         <div className="absolute inset-0 scanlines" />
       </div>
 
-      {/* Caped Funko Loki popping sideways out of the left screen edge —
+      {/* Caped Funko Loki popping sideways out of the left screen edge -
           rotated 90°, feet off-screen, only the head peeking in, level with
           the headline. */}
       <Image
@@ -60,7 +60,7 @@ export default function Hero({
       />
 
       <div className="mx-auto w-full max-w-6xl">
-        {/* ms-auto keeps the copy block on the right half in LTR — same spot
+        {/* ms-auto keeps the copy block on the right half in LTR - same spot
             it occupied in the original RTL composition. */}
         <div className="flex max-w-xl flex-col items-center text-center md:ms-auto md:items-start md:text-left">
           <span className="inline-flex items-center gap-2 rounded-pill border border-gold/40 bg-bg/60 px-4 py-1.5 text-sm font-medium text-gold backdrop-blur-sm">

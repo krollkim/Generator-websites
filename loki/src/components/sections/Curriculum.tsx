@@ -6,9 +6,9 @@ import PaperPlanes from '@/components/ui/PaperPlanes'
 import PixelIcon from '@/components/icons/PixelIcon'
 
 /**
- * "The Curriculum" — course cards with a deliberately broken grid (council
+ * "The Curriculum" - course cards with a deliberately broken grid (council
  * verdict: one violation beats ten additions): cards tilt and drift, and
- * CHAOS-401 — Loki's own seminar — literally dodges the cursor (DodgingCard,
+ * CHAOS-401 - Loki's own seminar - literally dodges the cursor (DodgingCard,
  * the site's single signed mischief moment). Certification banner follows.
  */
 interface Course {
@@ -74,16 +74,16 @@ export default function Curriculum({ title, subtitle, courses, certification }: 
     <section id="curriculum" className="overflow-hidden px-6 py-24">
       <div className="mx-auto max-w-6xl">
         {/* Flight zone: from the section top (right under the marquee
-            divider) to the end of the four course cards — never over the
+            divider) to the end of the four course cards - never over the
             certification banner. Planes fly ABOVE the cards (z-20,
-            pointer-events-none) — classroom air traffic.
+            pointer-events-none) - classroom air traffic.
             Desktop: one overlay spanning the whole zone. Mobile: the zone is
-            ~2200px tall, so a fixed overlay keeps the planes off-screen —
+            ~2200px tall, so a fixed overlay keeps the planes off-screen -
             instead a sticky zero-height band rides along with the scroll and
             the planes glide inside it, always in view. */}
         <div className="relative">
           {/* w-full is required: an SVG is a replaced element, so inset-x-0
-              alone doesn't stretch it — the browser derives width from the
+              alone doesn't stretch it - the browser derives width from the
               viewBox ratio instead (774px on a 390px screen, planes fly
               off-frame). */}
           <div className="pointer-events-none sticky top-24 z-20 h-0 md:hidden">
@@ -108,14 +108,14 @@ export default function Curriculum({ title, subtitle, courses, certification }: 
             course.code === CHAOS_CODE ? (
               <div key={course.code} className="md:rotate-2">
                 <DodgingCard
-                  surrenderText="“Fine, you win. Lesson one: persistence.” — Loki"
+                  surrenderText="“Fine, you win. Lesson one: persistence.” - Loki"
                   className={`${cardBase} border-gold/50 hover:border-gold hover:shadow-[0_0_30px_rgba(201,162,39,0.2)]`}
                 >
                   <CourseCardBody course={course} chaos />
                 </DodgingCard>
               </div>
             ) : (
-              /* Supporting courses — borderless, gold border on hover only.
+              /* Supporting courses - borderless, gold border on hover only.
                  CHAOS-401 (gold frame + dodge) stays the single focal card. */
               <div
                 key={course.code}

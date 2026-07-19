@@ -11,20 +11,20 @@ if (typeof window !== 'undefined') {
 /**
  * Classroom paper planes gliding across the curriculum section, scrubbed by
  * scroll (GSAP ScrollTrigger + MotionPathPlugin). Two enter from the right
- * (one high, one low), one from the left passing between them — each on a
+ * (one high, one low), one from the left passing between them - each on a
  * wavy path, leaving a dotted trail that appears behind it and dissolves.
  *
  * The trail trick: the dotted path is masked by a stroked path whose
  * dash-window (dasharray `${window} ${len}`, dashoffset animated from
- * `window` to `window - len`) slides along with the plane — so only a short
+ * `window` to `window - len`) slides along with the plane - so only a short
  * stretch of trail right behind the plane is visible before "fading in air".
  *
  * The SVG stretches to its zone (preserveAspectRatio="none"), which on a
- * tall mobile column would squash the planes — so each plane shape carries a
+ * tall mobile column would squash the planes - so each plane shape carries a
  * counter-scale (recomputed on resize) that keeps it a fixed *pixel* size on
  * every screen, and the strokes use non-scaling-stroke.
  *
- * Overlay is pointer-events-none and flies ABOVE the cards — small planes,
+ * Overlay is pointer-events-none and flies ABOVE the cards - small planes,
  * dotted trails and low opacity keep the text readable underneath. Hidden
  * entirely for prefers-reduced-motion users.
  */
@@ -42,11 +42,11 @@ const VIEW_W = 1000
 const VIEW_H = 600
 
 // Path ends reach ±160 beyond the viewBox so planes enter and exit fully
-// off-frame — no half-plane parked at the edges when the flight is done.
+// off-frame - no half-plane parked at the edges when the flight is done.
 const PLANES: PlaneSpec[] = [
-  // From the right, high — glides across the section's opening
+  // From the right, high - glides across the section's opening
   { d: 'M 1160 55 C 820 10, 640 115, 420 50 C 260 10, 120 95, -160 55', color: 'var(--color-accent)', window: 240, sizePx: 42 },
-  // From the right, low — the stretch below/across the last cards
+  // From the right, low - the stretch below/across the last cards
   { d: 'M 1160 540 C 800 585, 580 470, 360 555 C 220 590, 80 495, -160 545', color: 'var(--color-accent)', window: 220, sizePx: 38 },
   // From the left, weaving between them
   { d: 'M -160 305 C 180 250, 400 370, 620 290 C 780 240, 900 350, 1160 300', color: 'var(--color-gold)', window: 220, sizePx: 36 },
@@ -86,7 +86,7 @@ export default function PaperPlanes({ className = '' }: { className?: string }) 
     window.addEventListener('resize', applyCounterScale)
 
     const ctx = gsap.context(() => {
-      // Trigger on the stable parent section, not the SVG itself — the mobile
+      // Trigger on the stable parent section, not the SVG itself - the mobile
       // instance is inside a sticky band, whose own position shifts while
       // scrolling and would confuse ScrollTrigger's measurements.
       const tl = gsap.timeline({
@@ -179,7 +179,7 @@ export default function PaperPlanes({ className = '' }: { className?: string }) 
             vectorEffect="non-scaling-stroke"
             mask={`url(#pp-maskdef-${uid}-${i})`}
           />
-          {/* The paper plane itself — inner group carries the counter-scale */}
+          {/* The paper plane itself - inner group carries the counter-scale */}
           <g id={`pp-plane-${uid}-${i}`} opacity="0.85">
             <g id={`pp-shape-${uid}-${i}`}>
               <path d={planeShape(plane.sizePx)} fill={plane.color} />

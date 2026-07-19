@@ -4,7 +4,7 @@ import ScrollReveal from '@/components/ui/ScrollReveal'
 import PixelIcon from '@/components/icons/PixelIcon'
 
 /**
- * Final CTA — "The phone is ringing. Answer it." A ringing pixel phone, a glowing static
+ * Final CTA - "The phone is ringing. Answer it." A ringing pixel phone, a glowing static
  * enroll button with a "call connecting" micro-line, and the caped pop-head.
  */
 interface EnrollCTAProps {

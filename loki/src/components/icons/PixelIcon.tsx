@@ -1,6 +1,6 @@
 /**
  * Retro 8-bit icons, extracted from the `pixelarticons` package (MIT).
- * All paths are 24x24, fill-based, and inherit `currentColor` — color them
+ * All paths are 24x24, fill-based, and inherit `currentColor` - color them
  * with text utilities (text-accent / text-gold / text-muted).
  */
 export type PixelIconName =

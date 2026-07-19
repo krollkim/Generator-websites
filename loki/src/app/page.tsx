@@ -12,7 +12,7 @@ import EnrollCTA from '@/components/sections/EnrollCTA'
 import brand from '../../brand.json'
 
 /**
- * LANDING mode — single page. Navbar + Footer live here (PIC pattern).
+ * LANDING mode - single page. Navbar + Footer live here (PIC pattern).
  * Section order: Hero → What You'll Learn → divider (Intro to Pranks) →
  * Curriculum → Instructor → Testimonials → CTA. Copy comes from brand.json.
  */

@@ -12,7 +12,7 @@ ScrollTrigger.config({ ignoreMobileResize: true })
 /**
  * Mount once in the root layout (inside <body>). Refreshing ScrollTrigger after
  * the first paint guarantees every trigger position is measured against the real
- * laid-out page — this is the cure for "trigger fires too early / positions are
+ * laid-out page - this is the cure for "trigger fires too early / positions are
  * wrong on first load".
  */
 export default function GSAPInit() {

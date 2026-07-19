@@ -17,7 +17,7 @@ interface AnimatedCounterProps {
  * ScrollTrigger: it's a fire-once, self-contained reveal (not a scroll-glued
  * animation), threshold 0.5 reads cleanly, and it never needs to stay synced to
  * scroll position. For scroll-driven section/card reveals use ScrollReveal /
- * StaggerReveal (ScrollTrigger) instead — IntersectionObserver felt "stuck"
+ * StaggerReveal (ScrollTrigger) instead - IntersectionObserver felt "stuck"
  * there.
  */
 export default function AnimatedCounter({
