@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<!-- declared so the browser never falls back to requesting the document itself as a favicon -->
+<link rel="icon" href="data:,">
+<meta name="description" content="מלכת הלילה. מאפייה שאופה כל הלילה באברבנאל 32, פלורנטין. מ 23:00 עד 05:30.">
+<title>מלכת הלילה · מאפיית לילה בפלורנטין</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<!-- ═════════ BASE · tokens, reset, shared column (infrastructure, not a section) ═════════ -->
+<style>
+  :root{
+    /* cold — the environment. the warmth now lives in the photographs,
+       so the crust/seed/pistachio tokens the drawn pastries needed are gone. */
+    --night:#08070f;
+    --ink:#ece9f5;
+    --muted:#8d88a6;
+    --line:rgba(255,255,255,.075);
+    --neon:#ff2f83;
+    --neon-deep:#c4005c;
+    --cold:#5ef0c8;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+
+  body{
+    background:var(--night);
+    color:var(--ink);
+    font-family:"Heebo","Assistant","Noto Sans Hebrew","Arial Hebrew",sans-serif;
+    font-weight:400;
+    line-height:1.55;
+    font-variant-numeric:tabular-nums;
+    overflow-x:hidden;
+  }
+
+  /* street grain over the whole environment */
+  body::after{
+    content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* the 405-wide column, centred on anything bigger */
+  .sec{width:100%;max-width:430px;margin-inline:auto;padding-inline:22px}
+
+  h1,h2,h3,p{margin:0}
+  a{color:inherit;text-decoration:none}
+
+  .display{font-family:"Suez One","Heebo",sans-serif;font-weight:400}
+
+  .eyebrow{font-size:11px;font-weight:500;letter-spacing:.14em;color:var(--muted)}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ═════════════════════════════════════════════════════════════════
+     SECTION 1 · השלט — "פתוח עכשיו"
+     self-contained: markup + style + clock script
+     ════════════════════════════════════════════════════════════════ -->
+<section class="s1" id="sign">
+  <div class="s1-sky" aria-hidden="true"></div>
+
+  <div class="sec s1-inner">
+
+    <div class="s1-top">
+      <span class="eyebrow">אברבנאל 32 · פלורנטין</span>
+      <span class="s1-clock" id="jsClock"><bdi>02:41</bdi></span>
+    </div>
+
+    <div class="s1-mid">
+      <svg class="s1-flower" viewBox="0 0 100 100" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z"/>
+          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(45 50 50)"/>
+          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(90 50 50)"/>
+          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(135 50 50)"/>
+          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(180 50 50)"/>
+          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(225 50 50)"/>
+          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(270 50 50)"/>
+          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(315 50 50)"/>
+          <circle cx="50" cy="50" r="5.5"/>
+        </g>
+      </svg>
+
+      <h1 class="s1-name display">מלכת הלילה</h1>
+      <p class="s1-kicker">בשתיים בלילה הרחוב הזה מריח מתנור</p>
+
+      <div class="s1-status" id="jsStatus" aria-live="polite">
+        <span class="s1-dot" aria-hidden="true"></span>
+        <span id="jsState">פתוח עכשיו</span>
+      </div>
+
+      <p class="s1-until" id="jsUntil">אופים עד <bdi>05:30</bdi> · נשארו עוד שלוש שעות</p>
+    </div>
+
+    <a class="s1-cue" href="#menu">
+      מה יצא מהתנור בעשר הדקות האחרונות
+      <span class="s1-arrow" aria-hidden="true">↓</span>
+    </a>
+
+  </div>
+
+  <div class="s1-spill" aria-hidden="true"></div>
+</section>
+
+<style>
+  .s1{
+    position:relative;
+    min-height:100vh;min-height:100svh;
+    display:flex;flex-direction:column;
+    overflow:hidden;
+    background:var(--night);
+    isolation:isolate;
+  }
+  /* cold street: the neon haze sits over the sign, off to the right */
+  .s1-sky{
+    position:absolute;inset:0;z-index:-2;
+    background:
+      radial-gradient(105% 62% at 82% 22%, rgba(255,47,131,.20), transparent 60%),
+      radial-gradient(80% 55% at 18% 44%, rgba(78,90,200,.13), transparent 62%),
+      linear-gradient(180deg,#0b0917 0%,#08070f 55%,#06050c 100%);
+  }
+  /* warm light out of the window, anchored to the far corner and running
+     off the left and bottom edges rather than sitting contained in the middle.
+     no clip-path here: clip-path is applied AFTER filter, so a blurred
+     wedge comes back with hard edges. soft gradients only. */
+  .s1-spill{
+    position:absolute;bottom:0;left:-38%;right:auto;translate:none;
+    width:118%;height:56%;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(58% 86% at 34% 112%, rgba(255,178,84,.34), rgba(255,158,62,.12) 44%, transparent 72%),
+      radial-gradient(100% 64% at 22% 124%, rgba(255,150,60,.13), transparent 70%);
+  }
+
+  .s1-inner{flex:1;display:flex;flex-direction:column;padding-block:22px 26px}
+
+  .s1-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .s1-clock{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:.06em}
+
+  /* off centre: everything stacks against the inline start (the right, in RTL)
+     and the block sits below the optical middle, so the frame is weighted
+     into one corner instead of being a centred column. */
+  .s1-mid{
+    flex:1;display:flex;flex-direction:column;
+    align-items:flex-start;justify-content:center;
+    text-align:right;padding-top:8vh;
+  }
+
+  .s1-flower{
+    width:34px;height:34px;color:var(--neon);margin-bottom:12px;
+    filter:drop-shadow(0 0 3px var(--neon)) drop-shadow(0 0 11px rgba(255,47,131,.75));
+  }
+
+  .s1-name{
+    font-size:clamp(52px,19vw,84px);
+    max-width:6ch;                /* breaks to two lines, stacked at the edge */
+    margin-inline-start:-12px;    /* eats most of the column gutter so the tube sits
+                                     hard against the edge, but leaves room for the
+                                     halo to fall off. at -22px the glow was cut dead
+                                     at the frame and the stems read as sliced. */
+    line-height:.94;
+    color:#fff2f8;
+    text-shadow:
+      0 0 1px #fff,
+      0 0 6px rgba(255,255,255,.55),
+      0 0 16px var(--neon),
+      0 0 34px var(--neon),
+      0 0 68px var(--neon-deep);
+    animation:tube 11s infinite steps(1,end);
+  }
+  @keyframes tube{
+    0%,38%,40%,64%,66%,100%{opacity:1}
+    39%{opacity:.58}
+    65%{opacity:.74}
+  }
+
+  .s1-kicker{
+    margin-top:18px;max-width:17ch;
+    font-size:15px;font-weight:300;color:#b9b3cc;
+  }
+
+  .s1-status{
+    margin-top:26px;
+    display:inline-flex;align-items:center;gap:9px;
+    padding:9px 16px;border-radius:999px;
+    font-size:14px;font-weight:700;
+    color:#0a1f1a;
+    background:var(--cold);
+    box-shadow:0 0 14px rgba(94,240,200,.45),0 0 40px rgba(94,240,200,.18);
+  }
+  .s1-dot{
+    width:8px;height:8px;border-radius:50%;background:#0a1f1a;
+    animation:beat 2.4s ease-out infinite;
+  }
+  @keyframes beat{
+    0%{box-shadow:0 0 0 0 rgba(10,31,26,.5)}
+    70%,100%{box-shadow:0 0 0 8px rgba(10,31,26,0)}
+  }
+  /* closed state — the tube goes cold and quiet */
+  .s1-status.is-closed{
+    color:#9b95b4;background:transparent;
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:none;
+  }
+  .s1-status.is-closed .s1-dot{background:#5c5673;animation:none}
+
+  .s1-until{margin-top:12px;font-size:13px;font-weight:300;color:var(--muted)}
+
+  /* the cue drops to the opposite corner from the sign, so the eye
+     crosses the frame diagonally instead of running straight down a column */
+  .s1-cue{
+    align-self:flex-end;margin-top:auto;padding-top:26px;
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:500;letter-spacing:.1em;color:#8f89a8;
+  }
+  .s1-arrow{display:inline-block;animation:drift 2.6s ease-in-out infinite}
+  @keyframes drift{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(4px);opacity:1}}
+</style>
+
+<script>
+(function(){
+  var clockEl = document.getElementById('jsClock'),
+      stateEl = document.getElementById('jsState'),
+      untilEl = document.getElementById('jsUntil'),
+      pillEl  = document.getElementById('jsStatus');
+  if(!clockEl) return;
+
+  var OPEN = 23; /* נפתחים כל לילה ב־23:00 */
+
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function hhmm(f){ return pad(Math.floor(f)) + ':' + pad(Math.round((f % 1) * 60)); }
+
+  /* "עוד 3 שעות ו־12 דקות" / "עוד שעתיים" / "עוד דקה" */
+  function heDuration(mins){
+    var h = Math.floor(mins / 60), m = mins % 60, parts = [];
+    if(h === 1) parts.push('שעה');
+    else if(h === 2) parts.push('שעתיים');
+    else if(h > 2) parts.push(h + ' שעות');
+    if(m === 1) parts.push('דקה');
+    else if(m === 2) parts.push('שתי דקות');
+    else if(m > 2) parts.push(m + ' דקות');
+    if(!parts.length) parts.push('רגע');
+    return parts.join(', ');
+  }
+
+  function tick(){
+    var d = new Date(),
+        h = d.getHours() + d.getMinutes() / 60;
+
+    /* לילה שממשיך אחרי חצות עדיין שייך ליום שלפניו */
+    var night = h < 12 ? (d.getDay() + 6) % 7 : d.getDay();
+    var CLOSE = (night === 5 || night === 6) ? 7 : 5.5;   /* שישי־שבת עד 07:00 */
+
+    var isOpen = (h >= OPEN) || (h < CLOSE);
+
+    clockEl.innerHTML = '<bdi>' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + '</bdi>';
+
+    if(isOpen){
+      var left = Math.round(((h >= OPEN ? CLOSE + 24 : CLOSE) - h) * 60);
+      pillEl.classList.remove('is-closed');
+      stateEl.textContent = 'פתוח עכשיו';
+      untilEl.innerHTML = 'אופים עד <bdi>' + hhmm(CLOSE) + '</bdi> · נשארו עוד ' + heDuration(left);
+    } else {
+      var till = Math.round((OPEN - h) * 60);
+      pillEl.classList.add('is-closed');
+      stateEl.textContent = 'סגור עכשיו';
+      untilEl.innerHTML = 'נפתחים בשעה <bdi>23:00</bdi> · עוד ' + heDuration(till);
+    }
+  }
+
+  tick();
+  setInterval(tick, 20000);
+})();
+</script>
+<!-- ═════ SECTION 1 END ═════ -->
+
+
+<!-- ═════════════════════════════════════════════════════════════════
+     SECTION 2 · ארבעה דברים — full-bleed photographs, name over image
+     self-contained: markup + style + the one scroll moment
+     ════════════════════════════════════════════════════════════════ -->
+<section class="s2" id="menu">
+
+  <article class="blk blk--right blk--pin" id="burekasPin">
+    <div class="pin-stage">
+      <canvas class="pin-canvas" id="burekasCanvas" width="810" height="1452"
+              role="img" aria-label="בורקס גבינה נפתח לארבע שכבות: שומשום וזיגוג ביצה, עלי בצק, גבינה, תחתית"></canvas>
+
+      <!-- label positions are measured from seq/f_121.webp, not estimated -->
+      <div class="pin-labels" id="burekasLabels" aria-hidden="true">
+        <div class="lbl"><span class="lbl-text">שומשום וזיגוג ביצה</span><span class="lbl-line"></span></div>
+        <div class="lbl"><span class="lbl-text">עלי בצק</span><span class="lbl-line"></span></div>
+        <div class="lbl"><span class="lbl-text">גבינה</span><span class="lbl-line"></span></div>
+        <div class="lbl"><span class="lbl-text">תחתית</span><span class="lbl-line"></span></div>
+      </div>
+
+      <div class="blk-txt">
+        <h2 class="blk-name">בורקס</h2>
+        <p class="blk-desc">שכבות על שכבות, גבינה שנמסה בפנים</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="blk blk--left">
+    <div class="blk-media">
+      <img class="blk-img" src="sambusak.png" alt="סמבוסק עם שומשום, תפוח אדמה מתובל נשפך מהקצה" decoding="async">
+    </div>
+    <div class="blk-txt">
+      <h2 class="blk-name">סמבוסק</h2>
+      <p class="blk-desc">בצק רך, תפוח אדמה מתובל, שומשום</p>
+    </div>
+  </article>
+
+  <article class="blk blk--right blk--breakout blk--scrub" id="knafehBlk">
+    <div class="blk-media">
+      <canvas class="blk-canvas" id="knafehCanvas" width="810" height="810"
+              role="img" aria-label="קנאפה חמה, פרוסה מורמת וגבינה שנמתחת בחוטים"></canvas>
+    </div>
+    <div class="blk-txt">
+      <h2 class="blk-name">קנאפה</h2>
+      <p class="blk-desc">קדאיף חם, גבינה שנמתחת, פיסטוק</p>
+    </div>
+  </article>
+
+  <article class="blk blk--left">
+    <div class="blk-media">
+      <img class="blk-img" src="zalabia.png" alt="זלאביה מטוגנת, ספירלה בצבע ענבר מבריקה מסירופ" decoding="async">
+    </div>
+    <div class="blk-txt">
+      <h2 class="blk-name">זלאביה</h2>
+      <p class="blk-desc">מטוגנת עכשיו, טובלת בסירופ, עוד חמה</p>
+    </div>
+  </article>
+
+  <p class="s2-drinks">שוקו חם, קפה שחור, תה נענע, <bdi>6 ₪</bdi></p>
+
+</section>
+
+<style>
+  .s2{position:relative;background:var(--night);font-size:0}
+
+  /* full bleed, edge to edge, butted. no container, no frame, no gap. */
+  .blk{position:relative;min-height:70vh;z-index:1;font-size:1rem}
+
+  .blk-media{
+    position:relative;
+    width:100%;height:70vh;
+    overflow:hidden;          /* clips the scroll-scale only — no padding, radius or shadow */
+  }
+  /* the קנאפה canvas is treated exactly like the photographs it sits between */
+  .blk-img,.blk-canvas{
+    display:block;width:100%;height:100%;
+    object-fit:cover;object-position:50% 50%;
+    /* each photograph carries a near-black margin around its subject. shown at
+       1:1 those margins stack at every seam and read as a gap between photos,
+       so crop into the frame and let the subject reach the edges. */
+    transform:scale(1.28);
+  }
+  /* a floor under the name only. it must NOT reach full strength at the bottom
+     edge: at .78 it blackened the last ~50px of every photo, which together with
+     the next photo's dark top is what made the seams look like bands. */
+  .blk-media::after{
+    content:"";position:absolute;inset:auto 0 0 0;height:50%;
+    background:linear-gradient(to top,
+      rgba(4,3,8,.34) 0%,
+      rgba(4,3,8,.60) 20%,
+      rgba(4,3,8,.30) 62%,
+      rgba(4,3,8,0) 100%);
+    pointer-events:none;
+  }
+
+  /* the name sits ON the photograph, across its lower third */
+  .blk-txt{position:absolute;bottom:6%;inset-inline:0;padding-inline:18px;z-index:2}
+  .blk--right .blk-txt{text-align:right}
+  .blk--left .blk-txt{text-align:left}
+
+  .blk-name{
+    font-family:"Suez One","Heebo",sans-serif;font-weight:400;
+    font-size:25vw;          /* ≈101px at 405 — against 14px copy that is a 7.2 : 1 ratio */
+    line-height:.84;
+    letter-spacing:-.025em;
+    color:#fff;
+    text-shadow:0 3px 26px rgba(0,0,0,.62),0 0 70px rgba(0,0,0,.5);
+  }
+  .blk-desc{
+    margin-top:12px;
+    font-size:14px;font-weight:300;line-height:1.5;
+    color:#e8e3f2;
+    text-shadow:0 1px 12px rgba(0,0,0,.9);
+  }
+
+  /* the קנאפה frame needs a gentler crop than the stills: at 1.28 the top of
+     the lifted wedge was being cut off. this block only. */
+  .blk--scrub .blk-canvas{transform:scale(1.10)}
+
+  /* the name breaks past the bottom of its photograph into the block below */
+  .blk--breakout{z-index:3}
+  .blk--breakout .blk-txt{bottom:-11%}
+
+  /* one quiet line of type on the background under the last photograph */
+  .s2-drinks{
+    padding:30px 18px 38px;
+    font-size:12px;font-weight:300;letter-spacing:.07em;
+    color:var(--muted);text-align:right;
+  }
+
+  /* ───────── the one signature moment · the בורקס block ─────────
+     rule 7: the block pins and scroll scrubs a frame sequence, so the
+     pastry comes apart under the reader's thumb. nothing else moves. */
+  .blk--pin{height:350vh;min-height:0}          /* 100vh pinned + 250vh of scrub */
+  .pin-stage{
+    position:sticky;top:0;height:100vh;
+    overflow:hidden;background:var(--night);
+  }
+  .pin-canvas{
+    display:block;width:100%;height:100%;
+    object-fit:cover;                            /* same crop discipline as the photos */
+    position:relative;z-index:1;
+  }
+  /* the same floor the photographs get, so the name stays readable */
+  .pin-stage::after{
+    content:"";position:absolute;inset:auto 0 0 0;height:50%;z-index:2;
+    background:linear-gradient(to top,
+      rgba(4,3,8,.34) 0%,rgba(4,3,8,.60) 20%,rgba(4,3,8,.30) 62%,rgba(4,3,8,0) 100%);
+    pointer-events:none;
+  }
+  .pin-stage .blk-txt{z-index:4}
+
+  .pin-labels{position:absolute;inset:0;z-index:3;pointer-events:none}
+  .lbl{
+    position:absolute;left:10px;                 /* bounded, or a long label runs off frame */
+    transform:translateY(-50%);                  /* top + right are set in JS from the frame */
+    display:flex;align-items:center;gap:7px;
+    direction:ltr;                               /* so the line sits to the LEFT of the text */
+    opacity:0;
+  }
+  .lbl-text{
+    direction:rtl;unicode-bidi:isolate;text-align:right;
+    font-size:11px;font-weight:500;letter-spacing:.02em;line-height:1.35;
+    color:#fff;
+    text-shadow:0 1px 9px rgba(0,0,0,.95);
+  }
+  .lbl-line{
+    flex:1;height:1px;min-width:14px;
+    background:var(--neon);
+    box-shadow:0 0 5px var(--neon);
+    transform:scaleX(var(--ls,0));transform-origin:left center;
+  }
+
+  /* reduced motion: no pin, no scrub — the finished frame with every label */
+  .blk--pin.is-static{height:100vh}
+  .blk--pin.is-static .pin-stage{position:relative}
+  .blk--pin.is-static .lbl{opacity:1}
+  .blk--pin.is-static .lbl-line{transform:scaleX(1)}
+</style>
+
+<script>
+(function(){
+  var pin = document.getElementById('burekasPin');
+  if(!pin) return;
+  var canvas = document.getElementById('burekasCanvas'),
+      ctx    = canvas.getContext('2d'),
+      labels = [].slice.call(document.querySelectorAll('#burekasLabels .lbl'));
+
+  var TOTAL   = 121,     /* seq/f_001.webp … seq/f_121.webp */
+      OPEN_AT = 0.80,    /* layers fully apart at 80% of the pin */
+      STEP    = 0.05,    /* each label starts 5% after the one before */
+      FADE    = 0.045;
+
+  /* measured off seq/f_121.webp: layer centre y and left edge, as % of the frame */
+  var GEO = [
+    { y: 23.05, l: 28.02 },
+    { y: 42.11, l: 19.26 },
+    { y: 59.70, l: 21.36 },
+    { y: 76.15, l: 19.38 }
+  ];
+
+  var frames = new Array(TOTAL), loaded = 0, started = false, queued = false, shown = -1;
+
+  function src(i){ var n = '' + (i + 1); while(n.length < 3) n = '0' + n; return 'seq/f_' + n + '.webp'; }
+
+  function paint(img){
+    if(img && img.complete && img.naturalWidth) ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  }
+
+  /* object-fit:cover maths, so a label lands on its layer at any viewport */
+  function placeLabels(){
+    var w = canvas.clientWidth, h = canvas.clientHeight;
+    if(!w || !h) return;
+    var s  = Math.max(w / 810, h / 1452),
+        dw = 810 * s, dh = 1452 * s,
+        ox = (w - dw) / 2, oy = (h - dh) / 2;
+    for(var i = 0; i < labels.length; i++){
+      labels[i].style.top   = (oy + GEO[i].y / 100 * dh) + 'px';
+      labels[i].style.right = (w - (ox + GEO[i].l / 100 * dw)) + 'px';
+    }
+  }
+
+  function tick(){
+    queued = false;
+    var scrub = pin.offsetHeight - window.innerHeight;
+    var p = scrub > 0 ? (-pin.getBoundingClientRect().top) / scrub : 0;
+    p = p < 0 ? 0 : p > 1 ? 1 : p;
+
+    var i = Math.round(Math.min(1, p / OPEN_AT) * (TOTAL - 1));
+    if(i !== shown){ paint(frames[i]); shown = i; }
+
+    for(var k = 0; k < labels.length; k++){
+      var t = (p - (OPEN_AT + k * STEP)) / FADE;
+      t = t < 0 ? 0 : t > 1 ? 1 : t;
+      labels[k].style.opacity = t;
+      labels[k].style.setProperty('--ls', t.toFixed(3));
+    }
+  }
+  function queue(){ if(!queued){ queued = true; requestAnimationFrame(tick); } }
+
+  function preload(){
+    if(started) return;
+    started = true;
+    for(var i = 0; i < TOTAL; i++){
+      (function(i){
+        var img = new Image();
+        img.decoding = 'async';
+        img.onload = img.onerror = function(){
+          if(++loaded === 1){ paint(frames[0]); placeLabels(); }
+          if(loaded === TOTAL) tick();
+        };
+        img.src = src(i);
+        frames[i] = img;
+      })(i);
+    }
+  }
+
+  /* start fetching well before the block arrives */
+  function maybePreload(){
+    if(!started && pin.getBoundingClientRect().top < window.innerHeight * 1.5) preload();
+  }
+
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    pin.classList.add('is-static');
+    var last = new Image();
+    last.onload = function(){
+      paint(last);
+      placeLabels();
+      /* set inline too, so this never depends on stylesheet specificity */
+      for(var k = 0; k < labels.length; k++){
+        labels[k].style.opacity = 1;
+        labels[k].style.setProperty('--ls', 1);
+      }
+    };
+    last.src = src(TOTAL - 1);
+    addEventListener('resize', placeLabels);
+    return;
+  }
+
+  maybePreload();
+  addEventListener('scroll', function(){ maybePreload(); queue(); }, {passive:true});
+  addEventListener('resize', function(){ placeLabels(); queue(); });
+})();
+
+/* ── the קנאפה block: no pin, the frame just tracks the block's pass
+      through the viewport. seq-knafeh is the 3.0s→end trim of the lift. ── */
+(function(){
+  var blk = document.getElementById('knafehBlk');
+  if(!blk) return;
+  var canvas = document.getElementById('knafehCanvas'),
+      ctx = canvas.getContext('2d');
+
+  var TOTAL = 49, frames = new Array(TOTAL), started = false, queued = false, shown = -1;
+
+  function src(i){ var n = '' + (i + 1); while(n.length < 3) n = '0' + n; return 'seq-knafeh/k_' + n + '.webp'; }
+  function paint(img){
+    if(img && img.complete && img.naturalWidth) ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  }
+
+  function tick(){
+    queued = false;
+    var r = blk.getBoundingClientRect(), vh = window.innerHeight;
+    /* 0 as the block enters from the bottom (top === vh), 1 once its top has
+       risen to 15% from the top of the screen, then held. this puts the peak
+       of the cheese pull while the block is fully in view, instead of after
+       it has already left the top. */
+    var END = 0.15 * vh;
+    var p = (vh - r.top) / (vh - END);
+    p = p < 0 ? 0 : p > 1 ? 1 : p;
+    var i = Math.round(p * (TOTAL - 1));
+    if(i !== shown){ paint(frames[i]); shown = i; }
+  }
+  function queue(){ if(!queued){ queued = true; requestAnimationFrame(tick); } }
+
+  function preload(){
+    if(started) return;
+    started = true;
+    var done = 0;
+    for(var i = 0; i < TOTAL; i++){
+      (function(i){
+        var img = new Image();
+        img.decoding = 'async';
+        img.onload = img.onerror = function(){ if(++done === 1) paint(frames[0]); if(done === TOTAL) tick(); };
+        img.src = src(i);
+        frames[i] = img;
+      })(i);
+    }
+  }
+  function maybePreload(){
+    if(!started && blk.getBoundingClientRect().top < window.innerHeight * 1.5) preload();
+  }
+
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var last = new Image();
+    last.onload = function(){ paint(last); };
+    last.src = src(TOTAL - 1);
+    return;
+  }
+
+  maybePreload();
+  addEventListener('scroll', function(){ maybePreload(); queue(); }, {passive:true});
+  addEventListener('resize', queue);
+})();
+</script>
+<!-- ═════ SECTION 2 END ═════ -->
+
+<!-- ═════════════════════════════════════════════════════════════════
+     SECTION 3 · הסגירה — the lit window, and everything you need to get there
+     replaces the old "איפה" + "שעות" pair with one section that owns the screen
+     ════════════════════════════════════════════════════════════════ -->
+<section class="s3" id="closing">
+
+  <div class="close-stage">
+    <img class="close-img" src="storefront.png"
+         alt="חלון המאפייה מואר באור חם ברחוב חשוך בפלורנטין, אספלט רטוב מחזיר את האור">
+    <!-- the sign the street is missing. sits on the blank plaster above the
+         window: measured at x 60.8%, wall band y 37%-51% of the photograph -->
+    <h2 class="close-sign display">מלכת הלילה</h2>
+  </div>
+
+  <div class="sec close-info">
+    <p class="close-line">מלכת הלילה הוא פרח שנפתח רק אחרי חצות. גם אנחנו.</p>
+
+    <h3 class="close-addr display">אברבנאל <bdi>32</bdi></h3>
+    <p class="close-hint">פלורנטין, תל אביב. השלט הוורוד הוא היחיד שדולק ברחוב.</p>
+
+    <dl class="close-hours">
+      <div class="row"><dt>ראשון עד חמישי</dt><dd><bdi>23:00</bdi> עד <bdi>05:30</bdi></dd></div>
+      <div class="row"><dt>שישי ושבת</dt><dd><bdi>23:00</bdi> עד <bdi>07:00</bdi></dd></div>
+      <div class="row"><dt>בשעות היום</dt><dd class="dim">ישנים</dd></div>
+    </dl>
+
+    <div class="close-actions">
+      <a class="btn btn-warm" href="https://waze.com/ul?q=%D7%90%D7%91%D7%A8%D7%91%D7%A0%D7%90%D7%9C%2032%20%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91">פתחו ניווט</a>
+      <a class="btn btn-cold" href="tel:+97237770230"><bdi>03-777-0230</bdi></a>
+    </div>
+
+    <p class="close-rules">בלי משלוחים · בלי הזמנה מראש · באים, מריחים, קונים.</p>
+    <p class="close-mark">מלכת הלילה · פלורנטין</p>
+  </div>
+
+</section>
+
+<style>
+  .s3{position:relative;background:var(--night)}
+
+  /* rule 9: the photograph owns the screen. rule 3: it runs to every edge. */
+  .close-stage{position:relative;height:100vh;overflow:hidden}
+  .close-img{
+    display:block;width:100%;height:100%;
+    object-fit:cover;object-position:50% 50%;
+  }
+  /* the street is cold, the window is warm — deepen everything but the glow */
+  .close-stage::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      linear-gradient(to bottom, rgba(6,5,14,.55) 0%, rgba(6,5,14,0) 34%),
+      linear-gradient(to top,   rgba(6,5,14,.80) 0%, rgba(6,5,14,0) 26%);
+  }
+
+  /* rule 6: type over the image. the sign finally lit, echoing the hero tube. */
+  .close-sign{
+    position:absolute;left:60.8%;top:43.5%;
+    transform:translate(-50%,-50%);
+    max-width:6ch;text-align:center;
+    font-size:38px;line-height:1.02;letter-spacing:.01em;
+    color:#fff2f8;
+    text-shadow:
+      0 0 1px #fff,
+      0 0 5px rgba(255,255,255,.5),
+      0 0 13px var(--neon),
+      0 0 27px var(--neon),
+      0 0 54px var(--neon-deep);
+    animation:tube 11s infinite steps(1,end);   /* the same tube as the hero */
+  }
+
+  /* rule 5: the products ended on the left, so the closing text sits right */
+  .close-info{padding-block:38px 46px;text-align:right}
+
+  .close-line{font-size:14px;font-weight:300;color:#8f89a8;line-height:1.7;max-width:30ch}
+  .close-addr{font-size:34px;line-height:1.15;margin-top:26px;color:#f3eefb}
+  .close-hint{margin-top:9px;font-size:14px;font-weight:300;color:var(--muted);max-width:30ch}
+
+  .close-hours{margin:26px 0 0}
+  .close-hours .row{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding-block:11px;border-bottom:1px solid rgba(255,255,255,.055);
+  }
+  .close-hours dt{font-size:13px;font-weight:500;color:#a49eba}
+  .close-hours dd{margin:0;font-size:13px;font-weight:700;color:#ded9ee;letter-spacing:.03em}
+  .close-hours dd.dim{font-weight:300;color:#6f6a86}
+
+  .close-actions{margin-top:24px;display:flex;gap:10px}
+  .btn{
+    flex:1;display:grid;place-items:center;
+    min-height:50px;border-radius:13px;
+    font-size:15px;font-weight:700;
+  }
+  /* the lit doorway — still the only warm interactive element */
+  .btn-warm{
+    color:#3a1c04;
+    background:linear-gradient(180deg,#ffc873,#f0a343);
+    box-shadow:0 0 22px rgba(255,170,72,.28),inset 0 1px 0 rgba(255,255,255,.5);
+  }
+  .btn-cold{
+    color:#ded9ee;
+    border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.03);
+  }
+
+  .close-rules{margin-top:20px;font-size:12.5px;font-weight:300;color:#6f6a86;line-height:1.7}
+  .close-mark{margin-top:22px;font-size:10.5px;font-weight:500;letter-spacing:.16em;color:#4c4763}
+</style>
+<!-- ═════ SECTION 3 END ═════ -->
+
+</body>
+</html>
