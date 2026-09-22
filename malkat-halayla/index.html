@@ -343,7 +343,6 @@
     </div>
   </article>
 
-  <p class="s2-drinks">שוקו חם, קפה שחור, תה נענע, <bdi>6 ₪</bdi></p>
 
 </section>
 
@@ -408,12 +407,8 @@
   .blk--breakout{z-index:3}
   .blk--breakout .blk-txt{bottom:-11%}
 
-  /* one quiet line of type on the background under the last photograph */
-  .s2-drinks{
-    padding:30px 18px 38px;
-    font-size:12px;font-weight:300;letter-spacing:.07em;
-    color:var(--muted);text-align:right;
-  }
+  /* the drinks line moved to the practical section: standing alone on a bare
+     strip between two full-bleed photographs it read as leftover, not design */
 
   /* ───────── the one signature moment · the בורקס block ─────────
      rule 7: the block pins and scroll scrubs a frame sequence, so the
@@ -632,113 +627,132 @@
 <!-- ═════ SECTION 2 END ═════ -->
 
 <!-- ═════════════════════════════════════════════════════════════════
-     SECTION 3 · הסגירה — the lit window, and everything you need to get there
-     replaces the old "איפה" + "שעות" pair with one section that owns the screen
+     SECTION 3 · החלון — the payoff. the photograph now carries a line.
      ════════════════════════════════════════════════════════════════ -->
-<section class="s3" id="closing">
-
-  <div class="close-stage">
-    <img class="close-img" src="storefront.png"
+<section class="s3" id="window">
+  <div class="win-stage">
+    <img class="win-img" src="storefront.png"
          alt="חלון המאפייה מואר באור חם ברחוב חשוך בפלורנטין, אספלט רטוב מחזיר את האור">
-    <!-- the sign the street is missing. sits on the blank plaster above the
-         window: measured at x 60.8%, wall band y 37%-51% of the photograph -->
-    <h2 class="close-sign display">מלכת הלילה</h2>
+
+    <!-- the sign. measured from the photograph: wall band y 37%-51%, x 60.8% -->
+    <h2 class="win-sign display">מלכת הלילה</h2>
+
+    <!-- the line the section was missing. sits low, over the dark asphalt. -->
+    <p class="win-say display">הרחוב חשוך.<br>החלון הזה לא.</p>
   </div>
-
-  <div class="sec close-info">
-    <p class="close-line">מלכת הלילה הוא פרח שנפתח רק אחרי חצות. גם אנחנו.</p>
-
-    <h3 class="close-addr display">אברבנאל <bdi>32</bdi></h3>
-    <p class="close-hint">פלורנטין, תל אביב. השלט הוורוד הוא היחיד שדולק ברחוב.</p>
-
-    <dl class="close-hours">
-      <div class="row"><dt>ראשון עד חמישי</dt><dd><bdi>23:00</bdi> עד <bdi>05:30</bdi></dd></div>
-      <div class="row"><dt>שישי ושבת</dt><dd><bdi>23:00</bdi> עד <bdi>07:00</bdi></dd></div>
-      <div class="row"><dt>בשעות היום</dt><dd class="dim">ישנים</dd></div>
-    </dl>
-
-    <div class="close-actions">
-      <a class="btn btn-warm" href="https://waze.com/ul?q=%D7%90%D7%91%D7%A8%D7%91%D7%A0%D7%90%D7%9C%2032%20%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91">פתחו ניווט</a>
-      <a class="btn btn-cold" href="tel:+97237770230"><bdi>03-777-0230</bdi></a>
-    </div>
-
-    <p class="close-rules">בלי משלוחים · בלי הזמנה מראש · באים, מריחים, קונים.</p>
-    <p class="close-mark">מלכת הלילה · פלורנטין</p>
-  </div>
-
 </section>
 
 <style>
   .s3{position:relative;background:var(--night)}
+  .win-stage{position:relative;height:100vh;overflow:hidden}
+  .win-img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 42%}
 
-  /* rule 9: the photograph owns the screen. rule 3: it runs to every edge. */
-  .close-stage{position:relative;height:100vh;overflow:hidden}
-  .close-img{
-    display:block;width:100%;height:100%;
-    object-fit:cover;object-position:50% 50%;
-  }
-  /* the street is cold, the window is warm — deepen everything but the glow */
-  .close-stage::after{
+  /* keep the street cold and the window warm: darken the ends, not the glow */
+  .win-stage::after{
     content:"";position:absolute;inset:0;pointer-events:none;
     background:
-      linear-gradient(to bottom, rgba(6,5,14,.55) 0%, rgba(6,5,14,0) 34%),
-      linear-gradient(to top,   rgba(6,5,14,.80) 0%, rgba(6,5,14,0) 26%);
+      linear-gradient(to bottom, rgba(6,5,14,.50) 0%, rgba(6,5,14,0) 26%),
+      linear-gradient(to top,   rgba(6,5,14,.88) 0%, rgba(6,5,14,.20) 34%, rgba(6,5,14,0) 52%);
   }
 
-  /* rule 6: type over the image. the sign finally lit, echoing the hero tube. */
-  .close-sign{
-    position:absolute;left:60.8%;top:43.5%;
+  .win-sign{
+    position:absolute;left:60.8%;top:36%;
     transform:translate(-50%,-50%);
     max-width:6ch;text-align:center;
-    font-size:38px;line-height:1.02;letter-spacing:.01em;
+    font-size:30px;line-height:1.02;
     color:#fff2f8;
     text-shadow:
-      0 0 1px #fff,
-      0 0 5px rgba(255,255,255,.5),
-      0 0 13px var(--neon),
-      0 0 27px var(--neon),
-      0 0 54px var(--neon-deep);
-    animation:tube 11s infinite steps(1,end);   /* the same tube as the hero */
+      0 0 1px #fff, 0 0 4px rgba(255,255,255,.5),
+      0 0 11px var(--neon), 0 0 22px var(--neon), 0 0 46px var(--neon-deep);
+    animation:tube 11s infinite steps(1,end);
   }
 
-  /* rule 5: the products ended on the left, so the closing text sits right */
-  .close-info{padding-block:38px 46px;text-align:right}
-
-  .close-line{font-size:14px;font-weight:300;color:#8f89a8;line-height:1.7;max-width:30ch}
-  .close-addr{font-size:34px;line-height:1.15;margin-top:26px;color:#f3eefb}
-  .close-hint{margin-top:9px;font-size:14px;font-weight:300;color:var(--muted);max-width:30ch}
-
-  .close-hours{margin:26px 0 0}
-  .close-hours .row{
-    display:flex;align-items:center;justify-content:space-between;gap:12px;
-    padding-block:11px;border-bottom:1px solid rgba(255,255,255,.055);
+  /* rule 2 + rule 6: the biggest thing in this section, laid over the image */
+  .win-say{
+    position:absolute;inset-inline:22px auto;bottom:7%;
+    text-align:right;
+    font-size:clamp(38px,13vw,54px);
+    line-height:1.06;
+    color:#fff;
+    text-shadow:0 2px 20px rgba(0,0,0,.85),0 0 60px rgba(0,0,0,.6);
   }
-  .close-hours dt{font-size:13px;font-weight:500;color:#a49eba}
-  .close-hours dd{margin:0;font-size:13px;font-weight:700;color:#ded9ee;letter-spacing:.03em}
-  .close-hours dd.dim{font-weight:300;color:#6f6a86}
-
-  .close-actions{margin-top:24px;display:flex;gap:10px}
-  .btn{
-    flex:1;display:grid;place-items:center;
-    min-height:50px;border-radius:13px;
-    font-size:15px;font-weight:700;
-  }
-  /* the lit doorway — still the only warm interactive element */
-  .btn-warm{
-    color:#3a1c04;
-    background:linear-gradient(180deg,#ffc873,#f0a343);
-    box-shadow:0 0 22px rgba(255,170,72,.28),inset 0 1px 0 rgba(255,255,255,.5);
-  }
-  .btn-cold{
-    color:#ded9ee;
-    border:1px solid rgba(255,255,255,.16);
-    background:rgba(255,255,255,.03);
-  }
-
-  .close-rules{margin-top:20px;font-size:12.5px;font-weight:300;color:#6f6a86;line-height:1.7}
-  .close-mark{margin-top:22px;font-size:10.5px;font-weight:500;letter-spacing:.16em;color:#4c4763}
 </style>
 <!-- ═════ SECTION 3 END ═════ -->
+
+
+<!-- ═════════════════════════════════════════════════════════════════
+     SECTION 4 · איפה — the practical close, rebuilt so it stops
+     reading like a contact widget: no dividers, no boxed buttons.
+     ════════════════════════════════════════════════════════════════ -->
+<footer class="s4" id="where">
+
+  <div class="sec s4-head">
+    <span class="eyebrow">איפה</span>
+    <h2 class="s4-addr display">אברבנאל <bdi>32</bdi></h2>
+    <p class="s4-sub">פלורנטין, תל אביב. השלט הוורוד הוא היחיד שדולק ברחוב.</p>
+  </div>
+
+  <div class="sec s4-hours">
+    <p><span>ראשון עד חמישי</span><b><bdi>23:00</bdi> עד <bdi>05:30</bdi></b></p>
+    <p><span>שישי ושבת</span><b><bdi>23:00</bdi> עד <bdi>07:00</bdi></b></p>
+    <p class="off"><span>בשעות היום</span><b>ישנים</b></p>
+    <p class="drink"><span>ולשתות</span><b>שוקו חם, קפה שחור, תה נענע. <bdi>6 ₪</bdi></b></p>
+  </div>
+
+  <!-- rule 3: the one action runs the full width and off both edges -->
+  <a class="s4-bar" href="https://waze.com/ul?q=%D7%90%D7%91%D7%A8%D7%91%D7%A0%D7%90%D7%9C%2032%20%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91">פתחו ניווט</a>
+
+  <div class="sec s4-foot">
+    <a class="s4-tel" href="tel:+97237770230"><bdi>03-777-0230</bdi></a>
+    <p class="s4-rules">בלי משלוחים · בלי הזמנה מראש · באים, מריחים, קונים.</p>
+    <p class="s4-line">מלכת הלילה הוא פרח שנפתח רק אחרי חצות. גם אנחנו.</p>
+    <p class="s4-mark">מלכת הלילה · פלורנטין</p>
+  </div>
+
+</footer>
+
+<style>
+  .s4{background:var(--night);padding-block:7vh 6vh;text-align:right}
+
+  .s4-addr{font-size:clamp(40px,15vw,62px);line-height:1.04;margin-top:10px;color:#f3eefb}
+  .s4-sub{margin-top:12px;font-size:14px;font-weight:300;color:var(--muted);max-width:30ch}
+
+  /* hours as type, not as a table. no dividers — weight and colour do the work. */
+  .s4-hours{margin-top:5vh}
+  .s4-hours p{
+    display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+    padding-block:9px;
+    font-size:14px;font-weight:300;color:var(--muted);
+  }
+  .s4-hours b{font-weight:700;color:#ded9ee;letter-spacing:.02em}
+  .s4-hours .off b{font-weight:300;color:#6f6a86}
+  .s4-hours .drink{margin-top:14px}
+  .s4-hours .drink b{font-weight:400;color:#a49eba;font-size:13px}
+
+  /* full bleed, square, no shadow: a lit doorway rather than a UI button */
+  .s4-bar{
+    display:block;margin-block:5vh 0;
+    padding-block:22px;
+    text-align:center;
+    font-size:17px;font-weight:700;letter-spacing:.02em;
+    color:#3a1c04;
+    background:linear-gradient(180deg,#ffc873,#f0a343);
+    box-shadow:0 0 40px rgba(255,170,72,.22);
+  }
+
+  .s4-foot{margin-top:5vh}
+  .s4-tel{
+    display:inline-block;
+    font-size:22px;font-weight:700;letter-spacing:.04em;
+    color:#ded9ee;
+    border-bottom:1px solid rgba(255,255,255,.22);
+    padding-bottom:3px;
+  }
+  .s4-rules{margin-top:20px;font-size:12.5px;font-weight:300;color:#6f6a86;line-height:1.7}
+  .s4-line{margin-top:22px;font-size:13px;font-weight:300;color:#7d7795;line-height:1.7;max-width:30ch}
+  .s4-mark{margin-top:26px;font-size:10.5px;font-weight:500;letter-spacing:.16em;color:#4c4763}
+</style>
+<!-- ═════ SECTION 4 END ═════ -->
 
 </body>
 </html>
