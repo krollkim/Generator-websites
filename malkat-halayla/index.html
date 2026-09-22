@@ -11,7 +11,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Gveret+Levin+AlefAlefAlef&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
 <!-- ═════════ BASE · tokens, reset, shared column (infrastructure, not a section) ═════════ -->
 <style>
@@ -65,183 +65,194 @@
 <body>
 
 <!-- ═════════════════════════════════════════════════════════════════
-     SECTION 1 · השלט — "פתוח עכשיו"
-     self-contained: markup + style + clock script
+     SECTION 1 · הירו — ported from the design handoff (README.md + hero.html).
+     geometry, colour, glow and timings follow the spec. three deliberate
+     departures, all noted inline: the live clock is kept, the ticker carries
+     this site's own four items, and the CTA does not say "order".
      ════════════════════════════════════════════════════════════════ -->
 <section class="s1" id="sign">
-  <div class="s1-sky" aria-hidden="true"></div>
 
-  <div class="sec s1-inner">
+  <img class="s1-photo" src="pastry-table.webp"
+       alt="שולחן לילה עם בורקס, קנאפה, זלאביה וסמבוסק, טבעת ניאון ורודה מאחור" fetchpriority="high">
+  <div class="s1-scrim" aria-hidden="true"></div>
 
-    <div class="s1-top">
-      <span class="eyebrow">אברבנאל 32 · פלורנטין</span>
-      <span class="s1-clock" id="jsClock"><bdi>02:41</bdi></span>
+  <div class="s1-signrow">
+    <div class="s1-sign">
+      <div class="s1-kicker">מאפייה</div>
+      <div class="s1-name">מלכת הלילה</div>
     </div>
-
-    <div class="s1-mid">
-      <svg class="s1-flower" viewBox="0 0 100 100" aria-hidden="true">
-        <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z"/>
-          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(45 50 50)"/>
-          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(90 50 50)"/>
-          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(135 50 50)"/>
-          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(180 50 50)"/>
-          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(225 50 50)"/>
-          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(270 50 50)"/>
-          <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(315 50 50)"/>
-          <circle cx="50" cy="50" r="5.5"/>
-        </g>
-      </svg>
-
-      <h1 class="s1-name display">מלכת הלילה</h1>
-      <p class="s1-kicker">בשתיים בלילה הרחוב הזה מריח מתנור</p>
-
-      <div class="s1-status" id="jsStatus" aria-live="polite">
-        <span class="s1-dot" aria-hidden="true"></span>
-        <span id="jsState">פתוח עכשיו</span>
-      </div>
-
-      <p class="s1-until" id="jsUntil">אופים עד <bdi>05:30</bdi> · נשארו עוד שלוש שעות</p>
-    </div>
-
-    <a class="s1-cue" href="#menu">
-      מה יצא מהתנור בעשר הדקות האחרונות
-      <span class="s1-arrow" aria-hidden="true">↓</span>
-    </a>
-
   </div>
 
-  <div class="s1-spill" aria-hidden="true"></div>
+  <div class="s1-copy">
+    <h1 class="s1-title">התנור<br>לא נכבה<br>עד הבוקר</h1>
+
+    <div class="s1-hours" id="jsHours">
+      <span class="s1-rule" aria-hidden="true"></span>
+      <!-- the spec has a static hours line. the brief's first requirement is
+           "is it open right now", so this line is driven by the clock. -->
+      <span class="s1-hoursText" id="jsUntil" aria-live="polite">אופים עד <bdi dir="ltr">05:30</bdi></span>
+    </div>
+  </div>
+
+  <div class="s1-ticker">
+    <!-- the list is authored twice and the track translates 50%: that is what
+         makes the loop seamless. the spec's items were replaced with ours. -->
+    <div class="s1-track">
+      <span>בורקס גבינה <bdi dir="ltr">00:40</bdi></span><span>·</span><span>סמבוסק <bdi dir="ltr">01:15</bdi></span><span>·</span><span>קנאפה <bdi dir="ltr">02:00</bdi></span><span>·</span><span>זלאביה <bdi dir="ltr">03:30</bdi></span><span>·</span><span>בורקס גבינה <bdi dir="ltr">00:40</bdi></span><span>·</span><span>סמבוסק <bdi dir="ltr">01:15</bdi></span><span>·</span><span>קנאפה <bdi dir="ltr">02:00</bdi></span><span>·</span><span>זלאביה <bdi dir="ltr">03:30</bdi></span><span>·</span>
+    </div>
+  </div>
+
+  <div class="s1-spacer"></div>
+
+  <div class="s1-cta">
+    <!-- the spec says "הזמנה". this bakery takes no orders and no deliveries
+         (see section 4), so the pill leads to the counter instead. the label
+         finishes the headline's own sentence rather than naming section 2. -->
+    <a class="s1-btn" href="#menu">מה יצא מהתנור</a>
+  </div>
+
 </section>
 
 <style>
+  /* tokens from the handoff, scoped to the hero so the page's own palette is
+     untouched. Assistant is mapped onto Heebo, the body face already in use
+     here — the handoff asks for the target codebase's existing tokens. */
   .s1{
-    position:relative;
-    min-height:100vh;min-height:100svh;
+    --ink:#090706;
+    --cream-100:#f9f4ed;
+    --cream-200:#eee7db;
+    --sage-200:#e1eecc;
+    --sage-300:#ccdbb2;
+    --sage-400:#aebf92;
+    --amber-300:#ffc6a5;
+
+    position:relative;overflow:hidden;
+    width:100%;min-height:100vh;min-height:100dvh;
+    background:var(--ink);color:var(--cream-100);
     display:flex;flex-direction:column;
-    overflow:hidden;
-    background:var(--night);
     isolation:isolate;
   }
-  /* cold street: the neon haze sits over the sign, off to the right */
-  .s1-sky{
-    position:absolute;inset:0;z-index:-2;
-    background:
-      radial-gradient(105% 62% at 82% 22%, rgba(255,47,131,.20), transparent 60%),
-      radial-gradient(80% 55% at 18% 44%, rgba(78,90,200,.13), transparent 62%),
-      linear-gradient(180deg,#0b0917 0%,#08070f 55%,#06050c 100%);
+
+  .s1-photo{
+    position:absolute;inset:0;width:100%;height:100%;z-index:0;
+    object-fit:cover;object-position:50% 100%;   /* bottom-anchored: the goods stay in frame */
+    -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 26%);
+            mask-image:linear-gradient(180deg,transparent 0%,#000 26%);
   }
-  /* warm light out of the window, anchored to the far corner and running
-     off the left and bottom edges rather than sitting contained in the middle.
-     no clip-path here: clip-path is applied AFTER filter, so a blurred
-     wedge comes back with hard edges. soft gradients only. */
-  .s1-spill{
-    position:absolute;bottom:0;left:-38%;right:auto;translate:none;
-    width:118%;height:56%;z-index:-1;pointer-events:none;
-    background:
-      radial-gradient(58% 86% at 34% 112%, rgba(255,178,84,.34), rgba(255,158,62,.12) 44%, transparent 72%),
-      radial-gradient(100% 64% at 22% 124%, rgba(255,150,60,.13), transparent 70%);
+  .s1-scrim{
+    position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,
+      rgba(9,7,6,1) 0%,rgba(9,7,6,.82) 30%,rgba(9,7,6,.42) 52%,
+      rgba(9,7,6,.18) 70%,rgba(9,7,6,.6) 100%);
   }
 
-  .s1-inner{flex:1;display:flex;flex-direction:column;padding-block:22px 26px}
+  .s1-signrow,.s1-copy,.s1-ticker,.s1-spacer,.s1-cta{position:relative;z-index:2}
+  .s1-signrow,.s1-copy,.s1-ticker{pointer-events:none}
 
-  .s1-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-  .s1-clock{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:.06em}
-
-  /* off centre: everything stacks against the inline start (the right, in RTL)
-     and the block sits below the optical middle, so the frame is weighted
-     into one corner instead of being a centred column. */
-  .s1-mid{
-    flex:1;display:flex;flex-direction:column;
-    align-items:flex-start;justify-content:center;
-    text-align:right;padding-top:8vh;
+  /* the sign: a tube hanging over the table.
+     the spec draws this tube in cream, but it is the only neon on the page
+     that is not magenta — the wall sign in section 3, the dashes, phone and
+     flower in section 4, and the ring inside the photograph are all magenta.
+     the border IS the tube, so its colour, its glow and the name's halo all
+     move together; splitting them would light one sign in two colours. */
+  .s1-signrow{padding:72px 26px 0;display:flex;justify-content:center}
+  .s1-sign{
+    border:1.5px solid rgba(255,61,135,.78);
+    border-radius:16px;padding:14px 26px 16px;text-align:center;
+    box-shadow:0 0 10px rgba(255,61,135,.55),
+               0 0 34px rgba(255,61,135,.30),
+               inset 0 0 14px rgba(255,61,135,.12);
+    animation:tubeFlicker 12s linear infinite;
   }
-
-  .s1-flower{
-    width:34px;height:34px;color:var(--neon);margin-bottom:12px;
-    filter:drop-shadow(0 0 3px var(--neon)) drop-shadow(0 0 11px rgba(255,47,131,.75));
-  }
-
-  .s1-name{
-    font-size:clamp(52px,19vw,84px);
-    max-width:6ch;                /* breaks to two lines, stacked at the edge */
-    margin-inline-start:-12px;    /* eats most of the column gutter so the tube sits
-                                     hard against the edge, but leaves room for the
-                                     halo to fall off. at -22px the glow was cut dead
-                                     at the frame and the stems read as sliced. */
-    line-height:.94;
-    color:#fff2f8;
-    text-shadow:
-      0 0 1px #fff,
-      0 0 6px rgba(255,255,255,.55),
-      0 0 16px var(--neon),
-      0 0 34px var(--neon),
-      0 0 68px var(--neon-deep);
-    animation:tube 11s infinite steps(1,end);
-  }
-  @keyframes tube{
-    0%,38%,40%,64%,66%,100%{opacity:1}
-    39%{opacity:.58}
-    65%{opacity:.74}
-  }
-
   .s1-kicker{
-    margin-top:18px;max-width:17ch;
-    font-size:15px;font-weight:300;color:#b9b3cc;
+    font-family:"Gveret Levin AlefAlefAlef",cursive;
+    font-size:15px;letter-spacing:.14em;margin-bottom:4px;
+    color:var(--sage-200);
+    text-shadow:0 0 10px color-mix(in srgb,var(--sage-400) 85%,transparent);
+  }
+  /* same recipe as the wall sign in section 3: a near-white core with a
+     magenta halo. that is what makes small neon type read as coloured. */
+  .s1-name{
+    font-family:"Suez One","Heebo",sans-serif;
+    font-size:29px;line-height:1.05;color:#fff2f8;
+    text-shadow:0 0 1px #fff,
+                0 0 4px rgba(255,255,255,.5),
+                0 0 11px rgba(255,61,135,.95),
+                0 0 22px rgba(255,61,135,.7),
+                0 0 46px rgba(196,0,92,.55);
   }
 
-  .s1-status{
-    margin-top:26px;
-    display:inline-flex;align-items:center;gap:9px;
-    padding:9px 16px;border-radius:999px;
-    font-size:14px;font-weight:700;
-    color:#0a1f1a;
-    background:var(--cold);
-    box-shadow:0 0 14px rgba(94,240,200,.45),0 0 40px rgba(94,240,200,.18);
+  .s1-copy{padding:34px 26px 0;display:flex;flex-direction:column;gap:14px}
+  .s1-title{
+    font-family:"Suez One","Heebo",sans-serif;font-weight:400;
+    font-size:52px;line-height:.98;color:#fff8ef;
+    text-shadow:0 6px 30px rgba(0,0,0,.8);
   }
-  .s1-dot{
-    width:8px;height:8px;border-radius:50%;background:#0a1f1a;
-    animation:beat 2.4s ease-out infinite;
+  .s1-hours{display:flex;align-items:center;gap:12px}
+  .s1-rule{
+    height:2px;width:46px;flex:0 0 auto;
+    background:var(--sage-300);box-shadow:0 0 10px var(--sage-400);
   }
-  @keyframes beat{
-    0%{box-shadow:0 0 0 0 rgba(10,31,26,.5)}
-    70%,100%{box-shadow:0 0 0 8px rgba(10,31,26,0)}
+  .s1-hoursText{
+    font-size:15px;white-space:nowrap;
+    color:color-mix(in srgb,var(--cream-100) 85%,transparent);
+    text-shadow:0 2px 10px rgba(0,0,0,.8);
   }
-  /* closed state — the tube goes cold and quiet */
-  .s1-status.is-closed{
-    color:#9b95b4;background:transparent;
-    border:1px solid rgba(255,255,255,.14);
-    box-shadow:none;
-  }
-  .s1-status.is-closed .s1-dot{background:#5c5673;animation:none}
+  /* when the oven is out, the sage rule goes out with it */
+  .s1-hours.is-closed .s1-rule{background:#4d5348;box-shadow:none}
+  .s1-hours.is-closed .s1-hoursText{color:color-mix(in srgb,var(--cream-100) 55%,transparent)}
 
-  .s1-until{margin-top:12px;font-size:13px;font-weight:300;color:var(--muted)}
-
-  /* the cue drops to the opposite corner from the sign, so the eye
-     crosses the frame diagonally instead of running straight down a column */
-  .s1-cue{
-    align-self:flex-end;margin-top:auto;padding-top:26px;
-    display:inline-flex;align-items:center;gap:8px;
-    font-size:12px;font-weight:500;letter-spacing:.1em;color:#8f89a8;
+  .s1-ticker{
+    margin-top:18px;overflow:hidden;padding:10px 0;
+    background:rgba(6,5,4,.45);
+    border-top:1px solid color-mix(in srgb,var(--cream-100) 16%,transparent);
+    border-bottom:1px solid color-mix(in srgb,var(--cream-100) 16%,transparent);
   }
-  .s1-arrow{display:inline-block;animation:drift 2.6s ease-in-out infinite}
-  @keyframes drift{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(4px);opacity:1}}
+  .s1-track{
+    display:flex;gap:24px;width:max-content;white-space:nowrap;font-size:13px;
+    color:color-mix(in srgb,var(--cream-100) 72%,transparent);
+    animation:tickerRun 24s linear infinite;
+  }
+
+  .s1-spacer{flex:1}
+
+  .s1-cta{padding:18px 22px 50px}
+  /* the spec fills this pill with cream #f9f4ed, but the page already has one
+     CTA language — the lit doorway in section 4 — and cream belongs to neither
+     the product nor the street. same warm gradient here, so the two read as
+     the same control and the page keeps its warm/cold rule. */
+  .s1-btn{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    background:radial-gradient(64% 150% at 50% 120%, #ffd083, #f2a748 46%, #d9862f 100%);
+    color:#3a1c04;
+    font-family:"Suez One","Heebo",sans-serif;font-size:18px;
+    border-radius:999px;padding:17px;
+    box-shadow:0 0 30px rgba(255,170,72,.30);
+  }
+  .s1-btn:hover{background:radial-gradient(64% 150% at 50% 120%, #ffdb9c, #f6b158 46%, #e09135 100%)}
+  .s1-btn:active{background:var(--amber-300)}
+  .s1-btn:focus-visible{outline:2px solid var(--amber-300);outline-offset:2px}
+
+  /* rare and short on purpose: a faster flicker reads as a broken page */
+  @keyframes tubeFlicker{0%,96%,100%{opacity:1}97%{opacity:.35}98%{opacity:.9}99%{opacity:.5}}
+  @keyframes tickerRun{from{transform:translateX(0)}to{transform:translateX(50%)}}
+  @media (prefers-reduced-motion:reduce){.s1-sign,.s1-track{animation:none}}
+
+  @media (max-width:360px){.s1-title{font-size:46px}}
 </style>
 
 <script>
 (function(){
-  var clockEl = document.getElementById('jsClock'),
-      stateEl = document.getElementById('jsState'),
-      untilEl = document.getElementById('jsUntil'),
-      pillEl  = document.getElementById('jsStatus');
-  if(!clockEl) return;
+  var untilEl  = document.getElementById('jsUntil'),
+      hoursRow = document.getElementById('jsHours');
+  if(!untilEl || !hoursRow) return;
 
-  var OPEN = 23; /* נפתחים כל לילה ב־23:00 */
+  var OPEN = 23;   /* נפתחים כל לילה בשעה 23:00 */
 
   function pad(n){ return (n < 10 ? '0' : '') + n; }
   function hhmm(f){ return pad(Math.floor(f)) + ':' + pad(Math.round((f % 1) * 60)); }
 
-  /* "עוד 3 שעות ו־12 דקות" / "עוד שעתיים" / "עוד דקה" */
+  /* "עוד 3 שעות, 12 דקות" — no maqaf anywhere in the copy */
   function heDuration(mins){
     var h = Math.floor(mins / 60), m = mins % 60, parts = [];
     if(h === 1) parts.push('שעה');
@@ -258,24 +269,18 @@
     var d = new Date(),
         h = d.getHours() + d.getMinutes() / 60;
 
-    /* לילה שממשיך אחרי חצות עדיין שייך ליום שלפניו */
+    /* a night that runs past midnight still belongs to the evening before */
     var night = h < 12 ? (d.getDay() + 6) % 7 : d.getDay();
-    var CLOSE = (night === 5 || night === 6) ? 7 : 5.5;   /* שישי־שבת עד 07:00 */
+    var CLOSE = (night === 5 || night === 6) ? 7 : 5.5;   /* שישי ושבת עד 07:00 */
 
-    var isOpen = (h >= OPEN) || (h < CLOSE);
-
-    clockEl.innerHTML = '<bdi>' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + '</bdi>';
-
-    if(isOpen){
+    if((h >= OPEN) || (h < CLOSE)){
       var left = Math.round(((h >= OPEN ? CLOSE + 24 : CLOSE) - h) * 60);
-      pillEl.classList.remove('is-closed');
-      stateEl.textContent = 'פתוח עכשיו';
-      untilEl.innerHTML = 'אופים עד <bdi>' + hhmm(CLOSE) + '</bdi> · נשארו עוד ' + heDuration(left);
+      hoursRow.classList.remove('is-closed');
+      untilEl.innerHTML = 'אופים עד <bdi dir="ltr">' + hhmm(CLOSE) + '</bdi> · עוד ' + heDuration(left);
     } else {
       var till = Math.round((OPEN - h) * 60);
-      pillEl.classList.add('is-closed');
-      stateEl.textContent = 'סגור עכשיו';
-      untilEl.innerHTML = 'נפתחים בשעה <bdi>23:00</bdi> · עוד ' + heDuration(till);
+      hoursRow.classList.add('is-closed');
+      untilEl.innerHTML = 'התנור נדלק בשעה <bdi dir="ltr">23:00</bdi> · עוד ' + heDuration(till);
     }
   }
 
@@ -747,131 +752,144 @@
 
 
 <!-- ═════════════════════════════════════════════════════════════════
-     SECTION 4 · איפה — the practical close. it now stands on the same
-     street as everything above it: the storefront photograph again, but
-     cropped into the alley and the wet asphalt and pushed deep into the
-     night, so it reads as further down the road rather than a repeat.
+     SECTION 4 · אברבנאל 32 — built to closing-section.md (option 3a).
+     replaces the street photograph, the orange bar, the label-less giant
+     hours and the centred underlined phone. three departures, noted inline:
+     the CTA keeps the hero's amber, the day label avoids a dash, and
+     Assistant stays mapped to Heebo.
      ════════════════════════════════════════════════════════════════ -->
-<footer class="s4" id="where">
+<footer class="s4" id="where" dir="rtl">
+  <div class="s4-glow" aria-hidden="true"></div>
 
-  <div class="sec s4-head">
-    <!-- the night-blooming flower from the hero, closing the loop -->
-    <svg class="s4-flower" viewBox="0 0 100 100" aria-hidden="true">
-      <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z"/>
-        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(45 50 50)"/>
-        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(90 50 50)"/>
-        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(135 50 50)"/>
-        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(180 50 50)"/>
-        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(225 50 50)"/>
-        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(270 50 50)"/>
-        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(315 50 50)"/>
-        <circle cx="50" cy="50" r="5.5"/>
-      </g>
+  <div class="s4-top">
+    <span class="s4-kicker">פתוח הלילה</span>
+    <svg class="s4-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.75" stroke-linecap="round" aria-hidden="true">
+      <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/>
     </svg>
-
-    <h2 class="s4-addr display">אברבנאל <bdi>32</bdi></h2>
-    <p class="s4-sub">פלורנטין, תל אביב</p>
   </div>
 
-  <div class="sec s4-when">
-    <p class="day">ראשון עד חמישי</p>
-    <p class="time display"><bdi>23:00</bdi> עד <bdi>05:30</bdi></p>
+  <div class="s4-spacer"></div>
 
-    <p class="day">שישי ושבת</p>
-    <p class="time display"><bdi>23:00</bdi> עד <bdi>07:00</bdi></p>
-
-    <p class="sleep">בשעות היום ישנים</p>
+  <div class="s4-address">
+    <h2 class="s4-street">אברבנאל <bdi dir="ltr">32</bdi></h2>
+    <p class="s4-area">פלורנטין, תל אביב</p>
   </div>
 
-  <!-- the doorway, not a button: warm light spilling the full width -->
-  <a class="s4-door" href="https://waze.com/ul?q=%D7%90%D7%91%D7%A8%D7%91%D7%A0%D7%90%D7%9C%2032%20%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91">
-    <span class="s4-door-in">פתחו ניווט</span>
-  </a>
-
-  <div class="sec s4-foot">
-    <a class="s4-tel" href="tel:+97237770230"><bdi>03-777-0230</bdi></a>
-    <p class="s4-rules">בלי משלוחים · בלי הזמנה מראש · באים, מריחים, קונים.</p>
-    <p class="s4-mark">מלכת הלילה · פלורנטין</p>
+  <div class="s4-hours">
+    <!-- the spec writes "ראשון—חמישי"; this page's copy carries no dashes -->
+    <div class="s4-row">
+      <span class="s4-label"><i class="s4-dash"></i>ראשון עד חמישי</span>
+      <span class="s4-time"><bdi dir="ltr">23:00</bdi> עד <bdi dir="ltr">05:30</bdi></span>
+    </div>
+    <div class="s4-row s4-row--last">
+      <span class="s4-label"><i class="s4-dash"></i>שישי ושבת</span>
+      <span class="s4-time"><bdi dir="ltr">23:00</bdi> עד <bdi dir="ltr">07:00</bdi></span>
+    </div>
+    <p class="s4-note">בשעות היום ישנים</p>
   </div>
 
+  <div class="s4-spacer"></div>
+
+  <div class="s4-foot">
+    <a class="s4-cta" href="https://waze.com/ul?q=%D7%90%D7%91%D7%A8%D7%91%D7%A0%D7%90%D7%9C%2032%20%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91">פתחו ניווט</a>
+    <div class="s4-contact">
+      <span class="s4-fine">בלי משלוחים · באים, מריחים, קונים</span>
+      <a class="s4-phone" href="tel:037770230" aria-label="חייגו 03-777-0230"><bdi dir="ltr">03-777-0230</bdi></a>
+    </div>
+  </div>
 </footer>
 
 <style>
-  /* rule 3 + rule 4: the same street carries this section too. a different
-     crop of storefront.png — the alley and the wet asphalt — pushed deep
-     so it is texture, not a second look at the shopfront. */
   .s4{
-    position:relative;isolation:isolate;
-    padding-block:9vh 7vh;text-align:right;
-    /* bottom-left of the photograph: the alley floor and the wet asphalt.
-       an earlier crop at 170%/18% framed the shopfront again, which just
-       repeated section 3 instead of continuing the street. */
-    background:#06050c url("storefront.png") no-repeat left bottom;
-    background-size:280% auto;
-  }
-  .s4::before{
-    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-    /* let the alley actually read. at .97/.86/.93 the photograph was so far
-       down it may as well not have been there, which is half of why this
-       section felt flat. */
-    background:linear-gradient(to bottom,
-      rgba(6,5,12,.93) 0%, rgba(6,5,12,.58) 30%, rgba(6,5,12,.74) 62%, rgba(6,5,12,.92) 100%);
-  }
-  /* the warm spill from section 3 keeps running down over the top edge, so
-     the two read as one street instead of a photograph and then a footer */
-  .s4::after{
-    content:"";position:absolute;inset-inline:0;top:0;height:22vh;z-index:-1;pointer-events:none;
-    background:radial-gradient(58% 100% at 60.8% 0%, rgba(255,176,86,.20), transparent 72%);
+    --ink:#0d0c0c;
+    --neon-3a:#ff3d87;
+    --neon-3a-hover:#ff6ba5;
+
+    position:relative;overflow:hidden;
+    min-height:100vh;min-height:100dvh;
+    display:flex;flex-direction:column;
+    background:var(--ink);color:#fff;
+    /* the spec asks for Assistant; Heebo is this page's body face already */
+    font-family:"Heebo","Assistant",system-ui,sans-serif;
   }
 
-  .s4-flower{
-    width:26px;height:26px;color:var(--neon);display:block;
-    margin-inline-start:auto;margin-bottom:16px;
-    filter:drop-shadow(0 0 3px var(--neon)) drop-shadow(0 0 10px rgba(255,47,131,.7));
+  /* the shop window, rising out of the bottom of the screen */
+  .s4-glow{
+    position:absolute;left:50%;bottom:-190px;transform:translateX(-50%);
+    width:520px;height:360px;border-radius:999px;pointer-events:none;
+    filter:blur(24px);
+    background:radial-gradient(circle,rgba(255,214,150,.30) 0%,rgba(255,170,90,.12) 45%,transparent 72%);
   }
 
-  /* rule 6: the address runs past the column gutter to the frame edge,
-     the same move the hero name makes, so it is not another line in a stack */
-  .s4-addr{
-    font-size:clamp(44px,17vw,68px);line-height:1.02;color:#f3eefb;
-    margin-inline-start:-12px;
+  .s4-top{
+    position:relative;padding:74px 26px 0;
+    display:flex;justify-content:space-between;align-items:flex-start;
   }
-  .s4-sub{margin-top:10px;font-size:14px;font-weight:300;color:var(--muted)}
-
-  /* the hours are the story for a bakery that opens at night, so they get
-     display size instead of sitting in a 14px list like a contact table.
-     that list was the reason the whole section read as one flat rhythm. */
-  .s4-when{margin-top:6vh}
-  .s4-when .day{
-    font-size:12px;font-weight:500;letter-spacing:.14em;color:var(--muted);
-  }
-  .s4-when .time{
-    font-size:clamp(28px,9.5vw,38px);line-height:1.1;
-    color:#ded9ee;letter-spacing:.01em;
-    margin-top:4px;margin-bottom:26px;
-  }
-  .s4-when .sleep{
-    margin-top:6px;font-size:13px;font-weight:300;color:#6f6a86;
+  .s4-kicker{font-size:12px;letter-spacing:.14em;color:rgba(255,255,255,.62)}
+  .s4-mark{
+    width:22px;height:22px;color:var(--neon-3a);
+    filter:drop-shadow(0 0 8px rgba(255,61,135,.9));
   }
 
-  /* full bleed, and lit from within rather than filled flat */
-  .s4-door{
-    display:block;margin-top:6vh;position:relative;
-    padding-block:26px;text-align:center;
+  /* both spacers stay empty: they are what centres the address + hours block */
+  .s4-spacer{flex:1;min-height:40px}
+
+  .s4-address{position:relative;padding:0 26px}
+  .s4-street{
+    margin:0;font-family:"Suez One","Heebo",serif;font-weight:400;
+    font-size:62px;line-height:.94;
+  }
+  .s4-area{margin:10px 0 0;font-size:16px;color:rgba(255,255,255,.55)}
+
+  .s4-hours{position:relative;margin-top:34px;padding:0 26px;display:flex;flex-direction:column}
+  .s4-row{
+    display:flex;align-items:center;gap:14px;padding:16px 0;
+    border-top:1px solid rgba(255,255,255,.12);
+  }
+  .s4-row--last{border-bottom:1px solid rgba(255,255,255,.12)}
+  .s4-label{
+    flex:0 0 auto;min-width:104px;display:flex;align-items:center;gap:10px;
+    font-size:13px;color:rgba(255,255,255,.6);
+  }
+  /* the same pink dash the burekas labels use — this is what ties the
+     section back to the rest of the page */
+  .s4-dash{
+    width:18px;height:2px;flex:0 0 auto;
+    background:var(--neon-3a);box-shadow:0 0 8px rgba(255,61,135,.9);
+  }
+  .s4-time{font-family:"Suez One","Heebo",serif;font-size:26px}
+  .s4-note{margin:14px 0 0;font-size:14px;color:rgba(255,255,255,.62)}
+
+  .s4-foot{position:relative;padding:0 22px 46px;display:flex;flex-direction:column;gap:18px}
+
+  /* the spec fills this cream, matching what the hero used to be. the hero's
+     pill is amber now by request, so this carries the identical fill — one
+     CTA language across the page is the point either way. */
+  .s4-cta{
+    display:flex;align-items:center;justify-content:center;
     background:radial-gradient(64% 150% at 50% 120%, #ffd083, #f2a748 46%, #d9862f 100%);
-    box-shadow:0 -14px 46px rgba(255,170,72,.24);
+    color:#3a1c04;
+    font-family:"Suez One","Heebo",serif;font-size:18px;
+    border-radius:999px;padding:17px;
+    box-shadow:0 0 30px rgba(255,170,72,.30);
   }
-  .s4-door-in{font-size:17px;font-weight:700;letter-spacing:.03em;color:#3a1c04}
+  .s4-cta:hover{background:radial-gradient(64% 150% at 50% 120%, #ffdb9c, #f6b158 46%, #e09135 100%)}
 
-  .s4-foot{margin-top:6vh}
-  .s4-tel{
-    display:inline-block;
-    font-size:23px;font-weight:700;letter-spacing:.04em;color:#ded9ee;
-    border-bottom:1px solid rgba(255,255,255,.22);padding-bottom:3px;
+  .s4-contact{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+  .s4-fine{font-size:13px;color:rgba(255,255,255,.62)}
+  .s4-phone{
+    font-family:"Suez One","Heebo",serif;font-size:21px;color:var(--neon-3a);
+    text-shadow:0 0 14px rgba(255,61,135,.55);
   }
-  .s4-rules{margin-top:20px;font-size:12.5px;font-weight:300;color:#6f6a86;line-height:1.7}
-  .s4-mark{margin-top:26px;font-size:10.5px;font-weight:500;letter-spacing:.16em;color:#4c4763}
+  .s4-phone:hover{color:var(--neon-3a-hover)}
+
+  .s4 :focus-visible{outline:2px solid var(--neon-3a);outline-offset:2px}
+
+  @media (max-width:360px){
+    .s4-street{font-size:52px}
+    .s4-time{font-size:23px}
+  }
 </style>
 <!-- ═════ SECTION 4 END ═════ -->
 
