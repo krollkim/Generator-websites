@@ -747,75 +747,130 @@
 
 
 <!-- ═════════════════════════════════════════════════════════════════
-     SECTION 4 · איפה — the practical close, rebuilt so it stops
-     reading like a contact widget: no dividers, no boxed buttons.
+     SECTION 4 · איפה — the practical close. it now stands on the same
+     street as everything above it: the storefront photograph again, but
+     cropped into the alley and the wet asphalt and pushed deep into the
+     night, so it reads as further down the road rather than a repeat.
      ════════════════════════════════════════════════════════════════ -->
 <footer class="s4" id="where">
 
   <div class="sec s4-head">
-    <span class="eyebrow">איפה</span>
+    <!-- the night-blooming flower from the hero, closing the loop -->
+    <svg class="s4-flower" viewBox="0 0 100 100" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z"/>
+        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(45 50 50)"/>
+        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(90 50 50)"/>
+        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(135 50 50)"/>
+        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(180 50 50)"/>
+        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(225 50 50)"/>
+        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(270 50 50)"/>
+        <path d="M50 52 C41 38 41 22 50 11 C59 22 59 38 50 52 Z" transform="rotate(315 50 50)"/>
+        <circle cx="50" cy="50" r="5.5"/>
+      </g>
+    </svg>
+
     <h2 class="s4-addr display">אברבנאל <bdi>32</bdi></h2>
-    <p class="s4-sub">פלורנטין, תל אביב. השלט הוורוד הוא היחיד שדולק ברחוב.</p>
+    <p class="s4-sub">פלורנטין, תל אביב</p>
   </div>
 
-  <div class="sec s4-hours">
-    <p><span>ראשון עד חמישי</span><b><bdi>23:00</bdi> עד <bdi>05:30</bdi></b></p>
-    <p><span>שישי ושבת</span><b><bdi>23:00</bdi> עד <bdi>07:00</bdi></b></p>
-    <p class="off"><span>בשעות היום</span><b>ישנים</b></p>
-    <p class="drink"><span>ולשתות</span><b>שוקו חם, קפה שחור, תה נענע. <bdi>6 ₪</bdi></b></p>
+  <div class="sec s4-when">
+    <p class="day">ראשון עד חמישי</p>
+    <p class="time display"><bdi>23:00</bdi> עד <bdi>05:30</bdi></p>
+
+    <p class="day">שישי ושבת</p>
+    <p class="time display"><bdi>23:00</bdi> עד <bdi>07:00</bdi></p>
+
+    <p class="sleep">בשעות היום ישנים</p>
   </div>
 
-  <!-- rule 3: the one action runs the full width and off both edges -->
-  <a class="s4-bar" href="https://waze.com/ul?q=%D7%90%D7%91%D7%A8%D7%91%D7%A0%D7%90%D7%9C%2032%20%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91">פתחו ניווט</a>
+  <!-- the doorway, not a button: warm light spilling the full width -->
+  <a class="s4-door" href="https://waze.com/ul?q=%D7%90%D7%91%D7%A8%D7%91%D7%A0%D7%90%D7%9C%2032%20%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91">
+    <span class="s4-door-in">פתחו ניווט</span>
+  </a>
 
   <div class="sec s4-foot">
     <a class="s4-tel" href="tel:+97237770230"><bdi>03-777-0230</bdi></a>
     <p class="s4-rules">בלי משלוחים · בלי הזמנה מראש · באים, מריחים, קונים.</p>
-    <p class="s4-line">מלכת הלילה הוא פרח שנפתח רק אחרי חצות. גם אנחנו.</p>
     <p class="s4-mark">מלכת הלילה · פלורנטין</p>
   </div>
 
 </footer>
 
 <style>
-  .s4{background:var(--night);padding-block:7vh 6vh;text-align:right}
-
-  .s4-addr{font-size:clamp(40px,15vw,62px);line-height:1.04;margin-top:10px;color:#f3eefb}
-  .s4-sub{margin-top:12px;font-size:14px;font-weight:300;color:var(--muted);max-width:30ch}
-
-  /* hours as type, not as a table. no dividers — weight and colour do the work. */
-  .s4-hours{margin-top:5vh}
-  .s4-hours p{
-    display:flex;align-items:baseline;justify-content:space-between;gap:14px;
-    padding-block:9px;
-    font-size:14px;font-weight:300;color:var(--muted);
+  /* rule 3 + rule 4: the same street carries this section too. a different
+     crop of storefront.png — the alley and the wet asphalt — pushed deep
+     so it is texture, not a second look at the shopfront. */
+  .s4{
+    position:relative;isolation:isolate;
+    padding-block:9vh 7vh;text-align:right;
+    /* bottom-left of the photograph: the alley floor and the wet asphalt.
+       an earlier crop at 170%/18% framed the shopfront again, which just
+       repeated section 3 instead of continuing the street. */
+    background:#06050c url("storefront.png") no-repeat left bottom;
+    background-size:280% auto;
   }
-  .s4-hours b{font-weight:700;color:#ded9ee;letter-spacing:.02em}
-  .s4-hours .off b{font-weight:300;color:#6f6a86}
-  .s4-hours .drink{margin-top:14px}
-  .s4-hours .drink b{font-weight:400;color:#a49eba;font-size:13px}
-
-  /* full bleed, square, no shadow: a lit doorway rather than a UI button */
-  .s4-bar{
-    display:block;margin-block:5vh 0;
-    padding-block:22px;
-    text-align:center;
-    font-size:17px;font-weight:700;letter-spacing:.02em;
-    color:#3a1c04;
-    background:linear-gradient(180deg,#ffc873,#f0a343);
-    box-shadow:0 0 40px rgba(255,170,72,.22);
+  .s4::before{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    /* let the alley actually read. at .97/.86/.93 the photograph was so far
+       down it may as well not have been there, which is half of why this
+       section felt flat. */
+    background:linear-gradient(to bottom,
+      rgba(6,5,12,.93) 0%, rgba(6,5,12,.58) 30%, rgba(6,5,12,.74) 62%, rgba(6,5,12,.92) 100%);
+  }
+  /* the warm spill from section 3 keeps running down over the top edge, so
+     the two read as one street instead of a photograph and then a footer */
+  .s4::after{
+    content:"";position:absolute;inset-inline:0;top:0;height:22vh;z-index:-1;pointer-events:none;
+    background:radial-gradient(58% 100% at 60.8% 0%, rgba(255,176,86,.20), transparent 72%);
   }
 
-  .s4-foot{margin-top:5vh}
+  .s4-flower{
+    width:26px;height:26px;color:var(--neon);display:block;
+    margin-inline-start:auto;margin-bottom:16px;
+    filter:drop-shadow(0 0 3px var(--neon)) drop-shadow(0 0 10px rgba(255,47,131,.7));
+  }
+
+  /* rule 6: the address runs past the column gutter to the frame edge,
+     the same move the hero name makes, so it is not another line in a stack */
+  .s4-addr{
+    font-size:clamp(44px,17vw,68px);line-height:1.02;color:#f3eefb;
+    margin-inline-start:-12px;
+  }
+  .s4-sub{margin-top:10px;font-size:14px;font-weight:300;color:var(--muted)}
+
+  /* the hours are the story for a bakery that opens at night, so they get
+     display size instead of sitting in a 14px list like a contact table.
+     that list was the reason the whole section read as one flat rhythm. */
+  .s4-when{margin-top:6vh}
+  .s4-when .day{
+    font-size:12px;font-weight:500;letter-spacing:.14em;color:var(--muted);
+  }
+  .s4-when .time{
+    font-size:clamp(28px,9.5vw,38px);line-height:1.1;
+    color:#ded9ee;letter-spacing:.01em;
+    margin-top:4px;margin-bottom:26px;
+  }
+  .s4-when .sleep{
+    margin-top:6px;font-size:13px;font-weight:300;color:#6f6a86;
+  }
+
+  /* full bleed, and lit from within rather than filled flat */
+  .s4-door{
+    display:block;margin-top:6vh;position:relative;
+    padding-block:26px;text-align:center;
+    background:radial-gradient(64% 150% at 50% 120%, #ffd083, #f2a748 46%, #d9862f 100%);
+    box-shadow:0 -14px 46px rgba(255,170,72,.24);
+  }
+  .s4-door-in{font-size:17px;font-weight:700;letter-spacing:.03em;color:#3a1c04}
+
+  .s4-foot{margin-top:6vh}
   .s4-tel{
     display:inline-block;
-    font-size:22px;font-weight:700;letter-spacing:.04em;
-    color:#ded9ee;
-    border-bottom:1px solid rgba(255,255,255,.22);
-    padding-bottom:3px;
+    font-size:23px;font-weight:700;letter-spacing:.04em;color:#ded9ee;
+    border-bottom:1px solid rgba(255,255,255,.22);padding-bottom:3px;
   }
   .s4-rules{margin-top:20px;font-size:12.5px;font-weight:300;color:#6f6a86;line-height:1.7}
-  .s4-line{margin-top:22px;font-size:13px;font-weight:300;color:#7d7795;line-height:1.7;max-width:30ch}
   .s4-mark{margin-top:26px;font-size:10.5px;font-weight:500;letter-spacing:.16em;color:#4c4763}
 </style>
 <!-- ═════ SECTION 4 END ═════ -->
