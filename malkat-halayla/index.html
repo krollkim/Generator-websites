@@ -73,7 +73,7 @@
 <section class="s1" id="sign">
 
   <img class="s1-photo" src="pastry-table.webp"
-       alt="שולחן לילה עם בורקס, קנאפה, זלאביה וסמבוסק, טבעת ניאון ורודה מאחור" fetchpriority="high">
+       alt="שולחן לילה עם בורקס, קנאפה, זלאביה ואמפנדה, טבעת ניאון ורודה מאחור" fetchpriority="high">
   <div class="s1-scrim" aria-hidden="true"></div>
 
   <div class="s1-signrow">
@@ -87,7 +87,6 @@
     <h1 class="s1-title">התנור<br>לא נכבה<br>עד הבוקר</h1>
 
     <div class="s1-hours" id="jsHours">
-      <span class="s1-rule" aria-hidden="true"></span>
       <!-- the spec has a static hours line. the brief's first requirement is
            "is it open right now", so this line is driven by the clock. -->
       <span class="s1-hoursText" id="jsUntil" aria-live="polite">אופים עד <bdi dir="ltr">05:30</bdi></span>
@@ -98,7 +97,7 @@
     <!-- the list is authored twice and the track translates 50%: that is what
          makes the loop seamless. the spec's items were replaced with ours. -->
     <div class="s1-track">
-      <span>בורקס גבינה <bdi dir="ltr">00:40</bdi></span><span>·</span><span>סמבוסק <bdi dir="ltr">01:15</bdi></span><span>·</span><span>קנאפה <bdi dir="ltr">02:00</bdi></span><span>·</span><span>זלאביה <bdi dir="ltr">03:30</bdi></span><span>·</span><span>בורקס גבינה <bdi dir="ltr">00:40</bdi></span><span>·</span><span>סמבוסק <bdi dir="ltr">01:15</bdi></span><span>·</span><span>קנאפה <bdi dir="ltr">02:00</bdi></span><span>·</span><span>זלאביה <bdi dir="ltr">03:30</bdi></span><span>·</span>
+      <span>בורקס גבינה <bdi dir="ltr">00:40</bdi></span><span>·</span><span>אמפנדה <bdi dir="ltr">01:15</bdi></span><span>·</span><span>קנאפה <bdi dir="ltr">02:00</bdi></span><span>·</span><span>זלאביה <bdi dir="ltr">03:30</bdi></span><span>·</span><span>בורקס גבינה <bdi dir="ltr">00:40</bdi></span><span>·</span><span>אמפנדה <bdi dir="ltr">01:15</bdi></span><span>·</span><span>קנאפה <bdi dir="ltr">02:00</bdi></span><span>·</span><span>זלאביה <bdi dir="ltr">03:30</bdi></span><span>·</span>
     </div>
   </div>
 
@@ -174,7 +173,11 @@
      magenta halo. that is what makes small neon type read as coloured. */
   .s1-name{
     font-family:"Suez One","Heebo",sans-serif;
-    font-size:29px;line-height:1.05;color:#fff2f8;
+    /* 34, not 29: this and the h1 are the only two display-type objects on
+       the screen, so the jump between them IS the hierarchy. at 29 against a
+       52px headline the ratio was 1.79 and the name read as a caption under
+       a slogan — wrong for a business whose whole idea is the lit sign. */
+    font-size:34px;line-height:1.05;color:#fff2f8;
     text-shadow:0 0 1px #fff,
                 0 0 4px rgba(255,255,255,.5),
                 0 0 11px rgba(255,61,135,.95),
@@ -185,21 +188,25 @@
   .s1-copy{padding:34px 26px 0;display:flex;flex-direction:column;gap:14px}
   .s1-title{
     font-family:"Suez One","Heebo",sans-serif;font-weight:400;
-    font-size:52px;line-height:.98;color:#fff8ef;
+    /* fluid instead of a 52px step, so it tracks the sign across widths
+       rather than jumping at one breakpoint. the h1 stays the largest thing
+       here — it is the promise — but 48 against a 34px name is a 1.41 ratio
+       instead of 1.79, which is a hierarchy rather than a crush. */
+    font-size:clamp(40px,12vw,48px);line-height:.98;color:#fff8ef;
     text-shadow:0 6px 30px rgba(0,0,0,.8);
   }
-  .s1-hours{display:flex;align-items:center;gap:12px}
-  .s1-rule{
-    height:2px;width:46px;flex:0 0 auto;
-    background:var(--sage-300);box-shadow:0 0 10px var(--sage-400);
-  }
+  .s1-hours{display:flex;align-items:center}
   .s1-hoursText{
-    font-size:15px;white-space:nowrap;
+    /* no nowrap: this string is written by the clock and its length changes
+       with the countdown. pinned to one line it ran 300px wide in a 263px
+       slot and got cut off the edge of the screen. */
+    font-size:15px;
     color:color-mix(in srgb,var(--cream-100) 85%,transparent);
     text-shadow:0 2px 10px rgba(0,0,0,.8);
   }
-  /* when the oven is out, the sage rule goes out with it */
-  .s1-hours.is-closed .s1-rule{background:#4d5348;box-shadow:none}
+  /* when the oven is out the line dims. this used to be carried by a 46px
+     sage rule beside it, which was the handoff's open/closed tell — but it
+     ate a quarter of the row's width to say what the words already say. */
   .s1-hours.is-closed .s1-hoursText{color:color-mix(in srgb,var(--cream-100) 55%,transparent)}
 
   .s1-ticker{
@@ -237,8 +244,9 @@
   @keyframes tubeFlicker{0%,96%,100%{opacity:1}97%{opacity:.35}98%{opacity:.9}99%{opacity:.5}}
   @keyframes tickerRun{from{transform:translateX(0)}to{transform:translateX(50%)}}
   @media (prefers-reduced-motion:reduce){.s1-sign,.s1-track{animation:none}}
-
-  @media (max-width:360px){.s1-title{font-size:46px}}
+  /* the 360px step for .s1-title is gone: the clamp above covers every width,
+     and the old rule actually pushed the size back UP to 46 on the narrowest
+     phones, which is where it had the least room. */
 </style>
 
 <script>
@@ -319,10 +327,10 @@
 
   <article class="blk blk--left">
     <div class="blk-media">
-      <img class="blk-img" src="sambusak.png" alt="סמבוסק עם שומשום, תפוח אדמה מתובל נשפך מהקצה" decoding="async">
+      <img class="blk-img" src="sambusak.png" alt="אמפנדה עם שומשום, תפוח אדמה מתובל נשפך מהקצה" decoding="async">
     </div>
     <div class="blk-txt">
-      <h2 class="blk-name">סמבוסק</h2>
+      <h2 class="blk-name">אמפנדה</h2>
       <p class="blk-desc">בצק רך, תפוח אדמה מתובל, שומשום</p>
     </div>
   </article>
@@ -642,32 +650,46 @@
     <!-- the sign. measured from the photograph: wall band y 37%-51%, x 60.8% -->
     <h2 class="win-sign display">מלכת הלילה</h2>
 
-    <!-- the line the section was missing. sits low, over the dark asphalt. -->
-    <p class="win-say display">הרחוב חשוך.<br>החלון הזה לא.</p>
-
-    <!-- the window's light, painted AFTER the line so it washes across the
-         glyphs instead of sitting behind them -->
+    <!-- the window's light on the pavement. it is painted BEFORE the line now,
+         because the line screens over whatever is beneath it: the beam has to
+         already be on the ground for the letters to pick it up. -->
     <div class="win-glow" aria-hidden="true"></div>
+
+    <!-- the line the section was missing. sits low, over the dark asphalt.
+         three identical text layers in one place: base, bleed, thru. -->
+    <div class="win-line closing">
+      <p class="win-say display base"  aria-hidden="true">הרחוב חשוך.<br>החלון הזה לא.</p>
+      <p class="win-say display bleed" aria-hidden="true">הרחוב חשוך.<br>החלון הזה לא.</p>
+      <p class="win-say display thru">הרחוב חשוך.<br>החלון הזה לא.</p>
+    </div>
   </div>
 </section>
 
 <style>
-  .s3{position:relative;background:var(--night)}
+  .s3{
+    position:relative;background:var(--night);
+  }
   .win-stage{position:relative;height:100vh;overflow:hidden}
   .win-img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 42%}
 
   /* keep the street cold and the window warm: darken the ends, not the glow.
-     z-index matters here: ::after is the last child, so without it the scrim
-     paints OVER the sign and the line and swallows them. */
-  .win-stage::after{
-    content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+
+     paint order in this stage is now carried by ::before + DOM order instead
+     of z-index, and that is deliberate. a z-index on .win-line would make it
+     a stacking context, and mix-blend-mode:screen inside a stacking context
+     blends against that context's own backdrop — which is empty. the letters
+     would screen over nothing and the photograph would stop deciding
+     anything. with every layer at z-index:auto the order is simply the tree:
+     photo, scrim, sign, glow, line. */
+  .win-stage::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
     background:
       linear-gradient(to bottom, rgba(6,5,14,.50) 0%, rgba(6,5,14,0) 26%),
       linear-gradient(to top,   rgba(6,5,14,.88) 0%, rgba(6,5,14,.20) 34%, rgba(6,5,14,0) 52%);
   }
 
   .win-sign{
-    position:absolute;left:60.8%;top:36%;z-index:2;
+    position:absolute;left:60.8%;top:36%;
     transform:translate(-50%,-50%);
     max-width:6ch;text-align:center;
     font-size:30px;line-height:1.02;
@@ -679,51 +701,37 @@
   }
 
   /* rule 2 + rule 6: the biggest thing in this section, laid over the image */
+  /* the line lies on the pavement and is lit by the window.
+     three identical text layers stacked in one place:
+       .base   the unlit material, barely there
+       .bleed  the spill, blurred and screened
+       .thru   the letters themselves, screened
+     screen only ever adds light, so each layer brightens whatever the
+     photograph put behind it and the photograph decides the result. */
+  .win-line{
+    position:absolute;inset-inline:22px auto;bottom:7%;
+  }
+  /* typography, unchanged — all three layers share it */
   .win-say{
-    position:absolute;inset-inline:22px auto;bottom:7%;z-index:2;
-    text-align:right;
+    margin:0;text-align:right;
     font-size:clamp(38px,13vw,54px);
     line-height:1.06;
-
-    /* the window's light lands on the line. the stops are sampled from
-       storefront.png along the strip the text occupies: warmth (R-B) reads
-       -5 at the right edge, peaks +71 at 43% across, and falls to -58 at the
-       left where the cold alley light takes over. so the glow sits in the
-       middle of the line, not at an edge — a plain vertical ramp would lie.
-       the glyphs carry the beam's colour themselves. a screen-blended glow
-       cannot warm them: screen only ADDS light, and on a bluish base it
-       lifts the blue channel too, so the lit glyphs came out (202,193,190)
-       — a warmth of 12, invisible. the stops below are the beam's own
-       39%-83% of the frame, converted into this box's coordinates:
-       the text spans frame x 19.5%-94.6%, so the beam enters at 26% and
-       leaves at 85% of the element. */
-    background-image:linear-gradient(to right,
-      #565d70 0%, #565d70 22%,     /* outside the shaft: in shadow */
-      #6d7386 26%,
-      #d9c6a4 31%,                 /* the edge of the beam, hard */
-      #ffe9c4 40%,
-      #fff5e2 56%,                 /* dead centre of the shaft */
-      #ffe9c4 70%,
-      #d9c6a4 79%,
-      #6d7386 84%,
-      #565d70 88%, #565d70 100%);  /* outside again: in shadow */
-    -webkit-background-clip:text;background-clip:text;
-    color:transparent;
-    /* tight, so the glyph edge stays crisp — the wide soft halo was what
-       made the whole line read as one hazy grey mass */
-    text-shadow:0 1px 4px rgba(0,0,0,.85);
   }
-  /* if background-clip:text is unsupported the line would vanish */
-  @supports not ((background-clip:text) or (-webkit-background-clip:text)){
-    .win-say{color:#e6ebf8;background-image:none}
-  }
+  /* .base stays in flow and holds the box; the other two overlay it exactly */
+  .closing .bleed,
+  .closing .thru{position:absolute;inset:0;pointer-events:none}
 
-  /* the shaft out of the window. painted above the line, so where it crosses
-     a glyph it lights that glyph and nothing else. the core is kept narrow —
-     roughly the width of the window itself, centred on x 60.8%, the column
-     where the photograph's sampled warmth peaks (+71 R-B). */
+  .closing .base  { color:rgba(255,255,255,.10); }
+  .closing .bleed { color:rgba(255,236,196,.9); filter:blur(14px); mix-blend-mode:screen; }
+  .closing .thru  { color:rgba(255,244,222,.92); mix-blend-mode:screen; }
+
+  /* the shaft out of the window. painted below the line now: it lands on the
+     pavement first, and the line's screened layers then read it off the
+     ground. the core is kept narrow — roughly the width of the window
+     itself, centred on x 60.8%, the column where the photograph's sampled
+     warmth peaks (+71 R-B). */
   .win-glow{
-    position:absolute;inset:0;z-index:3;pointer-events:none;
+    position:absolute;inset:0;pointer-events:none;
     mix-blend-mode:screen;
     /* a SHAFT, not a cone. the window was measured at x 39%-83% of the frame,
        so the beam holds that width with defined shoulders instead of a hot
@@ -737,15 +745,15 @@
       rgba(255,214,164,.60) 76%,
       rgba(255,203,142,.30) 83%,
       transparent 88%);
-    /* the beam lands on the pavement ABOVE the line and fades before it.
-       while it covered the text area too it lit the ground behind the glyphs,
-       so a dark glyph read as a silhouette and a light one had nothing to
-       stand against. the text must sit on dark asphalt for its own lighting
-       to be visible at all. text spans 77.5%-93%; this is done by 80%. */
+    /* the beam runs all the way down through the line and fades at the very
+       bottom. it was cut off at 80% back when the glyphs were dark, so that
+       they would not read as a silhouette on lit ground — but the glyphs are
+       near-white now, so that cut just stopped the light short of the words
+       and made it look as though the window lit nothing. text spans 77.5%-93%. */
     -webkit-mask-image:linear-gradient(to bottom,
-      transparent 58%, rgba(0,0,0,.8) 66%, #000 71%, rgba(0,0,0,.45) 76%, transparent 80%);
+      transparent 57%, rgba(0,0,0,.72) 65%, #000 72%, #000 90%, transparent 100%);
     mask-image:linear-gradient(to bottom,
-      transparent 58%, rgba(0,0,0,.8) 66%, #000 71%, rgba(0,0,0,.45) 76%, transparent 80%);
+      transparent 57%, rgba(0,0,0,.72) 65%, #000 72%, #000 90%, transparent 100%);
   }
 </style>
 <!-- ═════ SECTION 3 END ═════ -->
@@ -793,9 +801,11 @@
 
   <div class="s4-foot">
     <a class="s4-cta" href="https://waze.com/ul?q=%D7%90%D7%91%D7%A8%D7%91%D7%A0%D7%90%D7%9C%2032%20%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91">פתחו ניווט</a>
+    <!-- no phone number here on purpose: an invented Tel Aviv landline can
+         easily belong to a real person who would then appear in a public
+         reel. the bakery takes no orders or deliveries anyway. -->
     <div class="s4-contact">
-      <span class="s4-fine">בלי משלוחים · באים, מריחים, קונים</span>
-      <a class="s4-phone" href="tel:037770230" aria-label="חייגו 03-777-0230"><bdi dir="ltr">03-777-0230</bdi></a>
+      <span class="s4-fine">בלי משלוחים · בלי הזמנות · באים, מריחים, קונים</span>
     </div>
   </div>
 </footer>
