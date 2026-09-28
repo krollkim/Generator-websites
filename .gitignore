@@ -47,3 +47,7 @@ next-env.d.ts
 */try*.png
 */*-v0.png
 */*-seedance.mp4
+
+# build-story states extracted from git history for the reel (47MB, reproducible
+# from history — except 01/, which predates the first commit and exists nowhere else)
+reel-states/
