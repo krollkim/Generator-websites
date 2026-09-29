@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>קילומטר ראשון · בית ספר לרישיון אופנוע</title>
+<meta name="description" content="בית ספר לרישיון אופנוע. חמש ידיות, שתיים ברגליים ושלוש בידיים, ואנחנו מראים לכם איפה כל אחת. שיעור ניסיון בלי התחייבות.">
+<link rel="icon" href="data:,">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   tokens. one accent only: the orange of a hi vis vest. it is
+   allowed in exactly three places and nowhere else:
+     1. buttons
+     2. the .lbl-line rules in the scroll section
+     3. the trial lesson section
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --white:#ffffff;
+  --cream:#faf6f0;
+  --ink:#141110;
+  --muted:#6f665c;
+  --line:#e9e1d6;
+  --orange:#ff6a00;
+  --orange-ink:#2b1200;
+  --r:22px;
+  --r-lg:30px;
+  /* system stack only. no webfont, no network call from this page. */
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Hebrew","Helvetica Neue",Arial,sans-serif;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--white);color:var(--ink);
+  font-family:var(--sans);
+  font-size:17px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.015em;line-height:1.06}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+
+/* the page is built for 405px first. .wrap is the text column. */
+.wrap{width:100%;max-width:520px;margin-inline:auto;padding-inline:22px}
+
+.btn{
+  display:flex;align-items:center;justify-content:center;
+  min-height:60px;padding:16px 24px;
+  background:var(--orange);color:#fff;
+  font-size:18px;font-weight:800;
+  border:0;border-radius:999px;
+  text-decoration:none;cursor:pointer;
+  font-family:inherit;width:100%;
+}
+.btn:active{background:#e85f00}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+
+.fine{font-size:14px;line-height:1.5;color:var(--muted)}
+
+/* ═════════════════════════════════════════════════════════════════
+   SECTION 1 · hero. the headline talks to the feeling, not to the
+   service. the photograph sits BELOW all of the text, never behind
+   it, so no line has to fight a bright sky for contrast.
+   ═════════════════════════════════════════════════════════════════ */
+.s1{padding-top:26px;background:var(--white)}
+.s1-brand{display:flex;align-items:baseline;gap:9px;padding-bottom:40px}
+.s1-brand b{font-size:17px;font-weight:800;letter-spacing:-.01em}
+.s1-brand span{font-size:13px;color:var(--muted)}
+
+.s1 h1{font-size:40px;margin-bottom:20px}
+.s1-lede{font-size:18px;line-height:1.5;color:#3d362f;margin-bottom:30px}
+.s1-cta{margin-bottom:14px}
+.s1 .fine{padding-bottom:34px}
+
+/* full width, edge to edge. it was inset by 22px with a 30px radius,
+   which is not what the brief asked for: the photograph is the floor
+   of the hero, not a card sitting on it. */
+.s1-photo-pad{padding:0}
+/* cropped to the subject, not to the fold. the riders occupy a 252px
+   band once the photo is 405 wide; 310 holds that band whole with
+   roughly 30px of air over and under it, and drops the empty quarter
+   of sky at the top that was eating the first screen. */
+.s1-photo{width:100%;height:310px;object-fit:cover;object-position:50% 50%;border-radius:0}
+
+/* ═════════════════════════════════════════════════════════════════
+   SECTION 2 · it is normal to start late. three flat statements.
+   no invented statistics: every line is about the reader, not about
+   a number we would have had to make up.
+   ═════════════════════════════════════════════════════════════════ */
+.s2{background:var(--cream);padding:54px 0;margin-top:44px}
+.s2 li{
+  font-size:21px;font-weight:700;line-height:1.35;
+  padding:22px 0;border-bottom:1px solid var(--line);
+}
+.s2 li:first-child{padding-top:0}
+.s2 li:last-child{border-bottom:0;padding-bottom:0}
+
+/* ═════════════════════════════════════════════════════════════════
+   SECTION 3 · the five controls. the section that stops the scroll.
+
+   a 500vh block with a sticky stage inside it. the canvas paints one
+   frame out of a sequence, and the scroll position picks the index.
+   this is NOT a <video> tag.
+   ═════════════════════════════════════════════════════════════════ */
+.s3{background:var(--ink);color:#fff}
+
+/* back to 500vh: there are four chapters and two camera moves again,
+   so there is enough happening to earn the scroll. */
+.blk--pin{height:500vh;position:relative}
+.pin-stage{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--ink)}
+.pin-canvas{display:block;width:100%;height:100%;object-fit:cover}
+
+/* the still that stands in when the frame sequence is not on disk.
+   it sits under the canvas and is revealed by .is-fallback. */
+.pin-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+.pin-stage.is-fallback .pin-canvas{display:none}
+.pin-stage.is-fallback .pin-fallback{display:block}
+
+/* last resort: neither the sequence nor the still exists yet. the
+   labels still place themselves correctly, because the maths only
+   needs the stage size. */
+.pin-empty{position:absolute;inset:0;display:none;background:linear-gradient(160deg,#241f1b 0%,#141110 62%)}
+.pin-stage.is-empty .pin-canvas,
+.pin-stage.is-empty .pin-fallback{display:none}
+.pin-stage.is-empty .pin-empty{display:block}
+.pin-empty span{
+  position:absolute;inset-inline:0;bottom:36px;
+  text-align:center;font-size:13px;color:#5f574f;
+}
+
+/* the heading that stays put for the whole section */
+.pin-title{
+  position:absolute;inset-inline:0;top:0;z-index:3;
+  padding:26px 22px 44px;
+  font-size:23px;font-weight:800;line-height:1.2;color:#fff;
+  text-shadow:0 2px 18px rgba(0,0,0,.75);
+  background:linear-gradient(to bottom,rgba(20,17,16,.85),rgba(20,17,16,0));
+  pointer-events:none;
+}
+
+/* ── the labels. HTML, not painted into the canvas ──
+   direction:ltr on .lbl is what puts the rule to the LEFT of the
+   Hebrew text. without it the rule jumps to the wrong side. */
+.lbl{
+  position:absolute;left:10px;
+  /* an explicit even line-height, so the row is exactly 18px tall and
+     translateY(-50%) shifts it by a whole 9px. with the default the
+     height was fractional, the rule landed between device pixels and
+     got anti aliased into a fainter, thinner looking line than its
+     neighbours. the other half of the fix is the rounding in place(). */
+  line-height:18px;
+  transform:translateY(-50%);
+  display:flex;align-items:center;gap:7px;
+  direction:ltr;opacity:0;
+  z-index:4;pointer-events:none;
+}
+.lbl-text{
+  direction:rtl;unicode-bidi:isolate;text-align:right;
+  font-size:15px;font-weight:800;color:#fff;white-space:nowrap;
+  text-shadow:0 1px 10px rgba(0,0,0,.9);
+}
+.lbl-line{
+  flex:1;height:1px;min-width:14px;
+  background:var(--orange);
+  transform:scaleX(var(--ls,0));
+  transform-origin:left center;
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   SECTION 4 · the trial lesson, minute by minute.
+   this is the section that carries the orange.
+   ═════════════════════════════════════════════════════════════════ */
+.s4{background:var(--orange);color:var(--orange-ink);padding:60px 0}
+.s4 h2{font-size:30px;margin-bottom:8px}
+.s4-sub{font-size:16px;margin-bottom:30px;color:#5a2800}
+.s4 li{
+  display:flex;gap:16px;align-items:baseline;
+  padding:18px 0;border-top:1px solid rgba(43,18,0,.2);
+}
+.s4 li:last-child{border-bottom:1px solid rgba(43,18,0,.2)}
+.s4-min{
+  flex:0 0 62px;font-size:14px;font-weight:800;
+  font-variant-numeric:tabular-nums;color:#7a3a00;
+}
+.s4-do{font-size:17px;line-height:1.45;font-weight:600}
+.s4-after{margin-top:28px;font-size:15px;color:#5a2800;line-height:1.5}
+
+/* ═════════════════════════════════════════════════════════════════
+   SECTION 5 · hours. evenings and friday, because they work.
+   ═════════════════════════════════════════════════════════════════ */
+.s5{background:var(--white);padding:60px 0}
+.s5 h2{font-size:30px;margin-bottom:24px}
+.s5-row{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:18px 0;border-top:1px solid var(--line);
+}
+.s5-row:last-of-type{border-bottom:1px solid var(--line)}
+.s5-day{font-size:16px;font-weight:700}
+.s5-time{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.s5-note{margin-top:22px;font-size:16px;line-height:1.5;color:var(--muted)}
+
+/* ═════════════════════════════════════════════════════════════════
+   SECTION 6 · the price of the trial lesson. in the open, and big.
+   no price table on purpose: one number is the whole answer.
+   ═════════════════════════════════════════════════════════════════ */
+.s6{background:var(--cream);padding:64px 0;text-align:center}
+.s6-label{font-size:16px;color:var(--muted);margin-bottom:10px}
+.s6-price{
+  font-size:74px;font-weight:800;line-height:1;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;
+}
+.s6-note{margin-top:18px;font-size:16px;color:var(--muted);line-height:1.5}
+
+/* ═════════════════════════════════════════════════════════════════
+   SECTION 7 · the car lessons. two lines, deliberately small.
+   ═════════════════════════════════════════════════════════════════ */
+.s7{background:var(--white);padding:40px 0;border-top:1px solid var(--line)}
+.s7 h3{font-size:19px;margin-bottom:8px}
+.s7 p{font-size:16px;color:var(--muted);line-height:1.5}
+.s7 a{display:inline-block;margin-top:14px;font-size:16px;font-weight:700;text-decoration:underline;text-underline-offset:4px}
+
+/* ═════════════════════════════════════════════════════════════════
+   SECTION 8 · booking. day and hour are chips, never a date picker.
+   ═════════════════════════════════════════════════════════════════ */
+.s8{background:var(--cream);padding:60px 0 72px}
+.s8 h2{font-size:30px;margin-bottom:8px}
+.s8-sub{font-size:16px;color:var(--muted);margin-bottom:28px}
+.fld{margin-bottom:22px}
+.fld label{display:block;font-size:15px;font-weight:700;margin-bottom:9px}
+.fld input[type=text],.fld input[type=tel]{
+  width:100%;min-height:56px;padding:14px 18px;
+  font-family:inherit;font-size:17px;color:var(--ink);
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+}
+.fld input:focus{outline:2px solid var(--ink);outline-offset:1px}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;width:0;height:0}
+.chip span{
+  display:block;padding:12px 17px;
+  background:var(--white);border:1px solid var(--line);border-radius:999px;
+  font-size:16px;font-weight:600;cursor:pointer;
+  font-variant-numeric:tabular-nums;
+}
+.chip input:checked + span{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip input:focus-visible + span{outline:2px solid var(--ink);outline-offset:2px}
+.s8-hint{margin-top:10px;font-size:14px;color:var(--muted);line-height:1.5}
+.s8-done{
+  display:none;margin-top:18px;padding:18px 20px;
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+  font-size:16px;line-height:1.5;
+}
+.s8-done.is-on{display:block}
+
+.foot{background:var(--ink);color:#8d857b;padding:30px 0;font-size:14px}
+.foot b{color:#fff;font-weight:800}
+
+/* ── wider screens. the phone layout is the source of truth; this
+      only stops the page from looking stranded on a desktop. ── */
+@media (min-width:700px){
+  .wrap{max-width:660px}
+  .s1 h1{font-size:54px}
+  .s1-lede{font-size:20px}
+  .s4 h2,.s5 h2,.s8 h2{font-size:38px}
+  .pin-title{font-size:28px;padding:34px 30px 52px}
+  .s6-price{font-size:104px}
+  .btn{width:auto;min-width:320px}
+  .s1-cta{display:flex}
+}
+
+/* ── reduced motion: the pin is cancelled entirely. repeated inline
+      in JS, because CSS alone cannot draw the frame. ── */
+@media (prefers-reduced-motion:reduce){
+  .blk--pin{height:100vh}
+  .pin-stage{position:relative}
+}
+</style>
+</head>
+<body>
+
+<!-- ═════ SECTION 1 · HERO ═════ -->
+<header class="s1" id="top">
+  <div class="wrap">
+    <div class="s1-brand">
+      <b>קילומטר ראשון</b>
+      <span>בית ספר לרישיון אופנוע</span>
+    </div>
+
+    <h1>אף אחד לא יודע לרכוב<br>עד שמישהו מלמד אותו</h1>
+
+    <p class="s1-lede">
+      חמש ידיות. שתיים ברגליים, שלוש בידיים.
+      זה מה שיש ללמוד, ואנחנו מראים לכם איפה כל אחת מהן יושבת.
+    </p>
+
+    <div class="s1-cta">
+      <a class="btn" href="#book">לקביעת שיעור ניסיון</a>
+    </div>
+
+    <p class="fine">
+      שיעור אחד על אופנוע, בלי התחייבות להמשך.
+      אם אחריו תחליטו שזה לא בשבילכם, נשמח שבאתם.
+    </p>
+  </div>
+
+  <div class="s1-photo-pad">
+    <img class="s1-photo" src="images/hero.png"
+         alt="שני רוכבים בשנות השלושים יושבים על אופנועים קטנים במגרש אספלט ריק ביום שמשי"
+         width="928" height="1152" fetchpriority="high">
+  </div>
+</header>
+
+<!-- ═════ SECTION 2 · IT IS NORMAL TO START LATE ═════ -->
+<section class="s2">
+  <div class="wrap">
+    <ul>
+      <li>רוב מי שמגיע אלינו לא נגע באופנוע מעולם</li>
+      <li>גם מי שנוהג באוטו שנים מתחיל כאן מאותה נקודה</li>
+      <li>אף אחד לא שואל אתכם למה רק עכשיו</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═════ SECTION 3 · THE FIVE CONTROLS ═════ -->
+<section class="s3" id="controls">
+  <!-- no heading out here on purpose. the section gets exactly one
+       title and it lives inside the stage, so it stays put for the
+       whole pin instead of scrolling away at the top. -->
+  <div class="blk--pin" id="pin">
+    <div class="pin-stage" id="stage">
+      <!-- 716x1284 is the native size of the delivered frames. it was 810x1452,
+           which was a guess; the real sequence is 716 wide and was deliberately
+           not upscaled, so the canvas matches it exactly. -->
+      <canvas class="pin-canvas" id="canvas" width="716" height="1284"></canvas>
+
+      <!-- stand in for the frame sequence, per the brief -->
+      <!-- .png, not .jpg: that is what Higgsfield returns and there is no
+           encoder here to convert it. same call as hero.png. -->
+      <img class="pin-fallback" id="fallback" src="images/controls-wide.png" alt="" aria-hidden="true">
+
+      <!-- and a floor under that, so the section is never a blank box -->
+      <div class="pin-empty" id="empty" aria-hidden="true"><span>הרצף עוד לא כאן</span></div>
+
+      <p class="pin-title">חמש ידיות.<br>שתיים ברגליים, שלוש בידיים.</p>
+
+      <!-- five labels across two chapters, split by which side of the bike
+           each control lives on: the right side head on, the left side in
+           profile. the JS reads data-grp and data-k, so order matters. -->
+      <div class="lbl" data-grp="front" data-k="0"><span class="lbl-text">גז</span><span class="lbl-line"></span></div>
+      <div class="lbl" data-grp="front" data-k="1"><span class="lbl-text">ברקס קדמי</span><span class="lbl-line"></span></div>
+      <div class="lbl" data-grp="front" data-k="2"><span class="lbl-text">ברקס אחורי</span><span class="lbl-line"></span></div>
+      <div class="lbl" data-grp="side"  data-k="0"><span class="lbl-text">מצמד</span><span class="lbl-line"></span></div>
+      <div class="lbl" data-grp="side"  data-k="1"><span class="lbl-text">הילוכים</span><span class="lbl-line"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ SECTION 4 · THE TRIAL LESSON ═════ -->
+<section class="s4" id="lesson">
+  <div class="wrap">
+    <h2>מה קורה בשיעור ניסיון</h2>
+    <p class="s4-sub">שעה אחת, מגרש סגור, מדריך אחד עליכם.</p>
+    <ul>
+      <li><span class="s4-min">דקה 0</span><span class="s4-do">מכירים את האופנוע. עומד, כבוי, ואתם נוגעים בו.</span></li>
+      <li><span class="s4-min">דקה 10</span><span class="s4-do">חמש הידיות. מראים לכם איפה כל אחת, ואתם מפעילים אותן במקום.</span></li>
+      <li><span class="s4-min">דקה 20</span><span class="s4-do">מתניעים. עדיין לא זזים.</span></li>
+      <li><span class="s4-min">דקה 30</span><span class="s4-do">הנסיעה הראשונה. קו ישר, מגרש ריק, מדריך צועד לצידכם.</span></li>
+      <li><span class="s4-min">דקה 45</span><span class="s4-do">עוצרים, מדברים, ואתם מחליטים אם ממשיכים.</span></li>
+    </ul>
+    <p class="s4-after">לא צריך להביא כלום. קסדה וכפפות מחכות לכם במקום.</p>
+  </div>
+</section>
+
+<!-- ═════ SECTION 5 · HOURS ═════ -->
+<section class="s5" id="hours">
+  <div class="wrap">
+    <h2>מתי אנחנו פתוחים</h2>
+    <div class="s5-row">
+      <span class="s5-day">ראשון עד חמישי</span>
+      <span class="s5-time"><bdi dir="ltr">16:00</bdi> עד <bdi dir="ltr">21:00</bdi></span>
+    </div>
+    <div class="s5-row">
+      <span class="s5-day">שישי</span>
+      <span class="s5-time"><bdi dir="ltr">07:00</bdi> עד <bdi dir="ltr">13:00</bdi></span>
+    </div>
+    <p class="s5-note">
+      אנחנו יודעים שאתם עובדים. רוב השיעורים אצלנו נופלים אחרי חמש,
+      ובשישי בבוקר המגרש הכי ריק.
+    </p>
+  </div>
+</section>
+
+<!-- ═════ SECTION 6 · PRICE ═════ -->
+<section class="s6" id="price">
+  <div class="wrap">
+    <p class="s6-label">שיעור ניסיון על אופנוע</p>
+    <p class="s6-price"><bdi dir="ltr">250 ₪</bdi></p>
+    <p class="s6-note">
+      משלמים בסוף השיעור, לא לפניו.
+      אין דמי הרשמה ואין תשלום על הקסדה.
+    </p>
+  </div>
+</section>
+
+<!-- ═════ SECTION 7 · CAR LESSONS ═════ -->
+<section class="s7" id="car">
+  <div class="wrap">
+    <h3>גם שיעורים על אוטו</h3>
+    <p>אותו צוות ואותה גישה, בלי לחץ ובלי הרמת קול.</p>
+    <a href="#book">לפרטים על שיעורי אוטו</a>
+  </div>
+</section>
+
+<!-- ═════ SECTION 8 · BOOKING ═════ -->
+<section class="s8" id="book">
+  <div class="wrap">
+    <h2>קביעת שיעור ניסיון</h2>
+    <p class="s8-sub">שתי שורות ובחירה של יום ושעה. זה כל מה שאנחנו צריכים.</p>
+
+    <form id="bookForm" novalidate>
+      <div class="fld">
+        <label for="nm">איך קוראים לכם</label>
+        <input type="text" id="nm" name="nm" autocomplete="name">
+      </div>
+
+      <div class="fld">
+        <label for="ph">טלפון</label>
+        <input type="tel" id="ph" name="ph" autocomplete="tel" inputmode="tel">
+      </div>
+
+      <div class="fld">
+        <label>איזה יום נוח לכם</label>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="day" value="ראשון"><span>ראשון</span></label>
+          <label class="chip"><input type="radio" name="day" value="שני"><span>שני</span></label>
+          <label class="chip"><input type="radio" name="day" value="שלישי"><span>שלישי</span></label>
+          <label class="chip"><input type="radio" name="day" value="רביעי"><span>רביעי</span></label>
+          <label class="chip"><input type="radio" name="day" value="חמישי"><span>חמישי</span></label>
+          <label class="chip"><input type="radio" name="day" value="שישי"><span>שישי</span></label>
+        </div>
+      </div>
+
+      <div class="fld">
+        <label>ובאיזו שעה</label>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="hr" value="08:00"><span><bdi dir="ltr">08:00</bdi></span></label>
+          <label class="chip"><input type="radio" name="hr" value="10:00"><span><bdi dir="ltr">10:00</bdi></span></label>
+          <label class="chip"><input type="radio" name="hr" value="16:00"><span><bdi dir="ltr">16:00</bdi></span></label>
+          <label class="chip"><input type="radio" name="hr" value="17:00"><span><bdi dir="ltr">17:00</bdi></span></label>
+          <label class="chip"><input type="radio" name="hr" value="18:00"><span><bdi dir="ltr">18:00</bdi></span></label>
+          <label class="chip"><input type="radio" name="hr" value="19:00"><span><bdi dir="ltr">19:00</bdi></span></label>
+          <label class="chip"><input type="radio" name="hr" value="20:00"><span><bdi dir="ltr">20:00</bdi></span></label>
+        </div>
+        <p class="s8-hint">שעות הבוקר פתוחות בשישי בלבד.</p>
+      </div>
+
+      <!-- the button says what happens next, not "שליחה" -->
+      <button class="btn" type="submit">שלחו ונחזור אליכם בוואטסאפ</button>
+      <p class="s8-hint">נחזור אליכם תוך יום עסקים אחד, ונסגור שעה מדויקת.</p>
+
+      <p class="s8-done" id="done" role="status"></p>
+    </form>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap"><b>קילומטר ראשון</b> · בית ספר לרישיון אופנוע ואוטו</div>
+</footer>
+
+<script>
+/* ═════════════════════════════════════════════════════════════════
+   SECTION 3 · the scroll driven five controls.
+
+   ── anchor points ──────────────────────────────────────────────
+   two groups, because the sequence now has two viewpoints.
+
+   five controls, split by WHICH SIDE OF THE BIKE they live on. that
+   is the anatomy, and it happens to match what each chapter can show:
+
+     RIGHT side of the machine  →  גז, ברקס קדמי, ברקס אחורי
+     LEFT  side of the machine  →  מצמד, הילוכים
+
+   head on, the bike's right side faces our left and is wide open.
+   in a left side profile, the left side controls are the near ones.
+
+   FRONT, on seq/f_001.webp, the head on frame.
+     0  גז          the twist grip, rider's RIGHT hand, on our left
+     1  ברקס קדמי   the lever just ahead of that same grip
+     2  ברקס אחורי  the RIGHT foot peg, low on our left
+
+   ברקס יד and ברקס קדמי are one control, so only one of them appears.
+   the right hand lever IS the front brake. an earlier pass named it
+   twice, once at the lever and once at the disc, which quietly turned
+   five controls into four.
+
+   ברקס אחורי is NOT MEASURED AND NOT VISIBLE. the pedal sits behind
+   the front wheel and the engine from this angle, so no frame in this
+   sequence shows it. the anchor points at where the pedal physically
+   is, on the right peg. placed on Kim's explicit call: a line and a
+   label that say where it lives beat leaving the fifth one unnamed.
+
+   SIDE, measured on seq/f_073.webp, the profile frame.
+     0  מצמד        the near grip. in a LEFT side profile the near bar
+                    end is the rider's LEFT hand, which is the clutch.
+                    this is the anchor that came back measured; only
+                    its name is corrected here.
+     1  הילוכים     the gear lever beside the boot
+
+   y  = the anchor's vertical centre, as a percent of the frame
+   l  = the anchor's left edge,       as a percent of the frame
+   dy = a COSMETIC nudge of the label row in px, nothing to do with
+        the measurement. the grip and its lever sit at almost the same
+        height, so without this their rows collide and read as one
+        smear. y and l are never touched by it.
+   ───────────────────────────────────────────────────────────── */
+/* measured at 5x on f_001 with a one percent grid:
+     the glove on the grip   x 30-37%   y 35-38.5%
+     the front brake lever   x 36-44%   y 37.5-38.5%   runs inboard
+     the indicator lamp      x 35-41%   y 39.3-41%
+   the grip is the throttle, so its rule stops at the OUTER edge of the
+   glove. the lever runs inboard from the grip toward the middle of the
+   bike, so its rule has to cross the glove and stop at the lever's
+   INNER tip; stopping at 35 parked it inside the glove, pointing at the
+   same place as the throttle, and 38.5 dropped it onto the indicator.
+
+   WATCH THE dy HERE. it moves the whole row, rule included, so a nudge
+   on an anchor that sits just above a different part will shove the rule
+   onto that part. +16 on the lever pushed its rule from 38.0 down to
+   40.2, which is the indicator lamp. the separation is therefore taken
+   out of the throttle only, upward into empty sky, and the lever keeps
+   dy 0 so its rule stays exactly on the lever. */
+var GEO_FRONT = [
+  { y: 36.30, l: 30.00, dy: -12 },
+  { y: 38.00, l: 43.00, dy:   0 },
+  { y: 59.00, l: 38.00, dy:   0 }
+];
+var GEO_SIDE = [
+  { y: 38.94, l: 37.99, dy: 0 },
+  { y: 59.81, l: 60.06, dy: 0 }
+];
+
+/* 145 frames: the arc, reversed so it plays front to side, joined to
+   the ride out and sharing a single frame at the junction. A_END is
+   that junction, the profile frame, as a zero based index. */
+var TOTAL = 145;
+var A_END = 72;
+
+(function(){
+  var pin      = document.getElementById('pin'),
+      stage    = document.getElementById('stage'),
+      canvas   = document.getElementById('canvas'),
+      fallback = document.getElementById('fallback'),
+      ctx      = canvas.getContext('2d'),
+      labels   = [].slice.call(document.querySelectorAll('.lbl'));
+
+  /* the timeline. four chapters, and the frame is held still in two of
+     them. a group's fade out always ENDS where the next move BEGINS,
+     so no label is ever left hanging over a frame that has started to
+     move. that shift back by LBL_OUT is the whole trick.
+
+       0        .. TURN_START   frame 0, the head on view. front labels in
+       TURN_START .. TURN_END   the arc scrubs, front to side
+       TURN_END   .. RIDE_START frame A_END, the profile. side labels in
+       RIDE_START .. 1          the ride out scrubs to the end
+
+     the front group is three labels inside a window that closes at
+     TURN_START - LBL_OUT = 0.18, so its step and fade have to be tight:
+     at 0.04 and 0.04 the third one is full at 0.12 and still holds 0.06
+     before the fade starts. at 0.07 it never reached full at all. */
+  var FRONT_STEP = 0.04, FRONT_FADE = 0.04,
+      TURN_START = 0.24, TURN_END   = 0.44,
+      SIDE_BASE  = 0.48, SIDE_STEP  = 0.09, SIDE_FADE = 0.05,
+      RIDE_START = 0.76, LBL_OUT    = 0.06;
+
+  var frames = new Array(TOTAL), started = false,
+      queued = false, shown = -1, mode = 'seq';
+
+  function clamp01(v){ return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function lerp(a, b, t){ return a + (b - a) * t; }
+  function src(i){ var n = '' + (i + 1); while(n.length < 3) n = '0' + n; return 'seq/f_' + n + '.webp'; }
+
+  /* ── label placement, by the object-fit:cover maths.
+        the frame is authored at 810 by 1452; the stage is whatever
+        the phone gives us. recomputed on every resize. ── */
+  function place(){
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if(!w || !h) return;
+    var s  = Math.max(w / 716, h / 1284),
+        dw = 716 * s, dh = 1284 * s,
+        ox = (w - dw) / 2, oy = (h - dh) / 2;
+    for(var i = 0; i < labels.length; i++){
+      var el = labels[i],
+          G  = (el.getAttribute('data-grp') === 'front' ? GEO_FRONT : GEO_SIDE)[+el.getAttribute('data-k')];
+      if(!G) continue;
+      /* snapped to the half pixel so the 1px rule always lands on a
+         whole device pixel at dpr 2. unsnapped, each label fell on a
+         different fraction and they rendered at visibly different
+         weights, one solid and one washed out. */
+      var top = Math.round((oy + G.y / 100 * dh + (G.dy || 0)) * 2) / 2;
+      el.style.top   = top + 'px';
+      el.style.right = (w - (ox + G.l / 100 * dw)) + 'px';
+    }
+  }
+
+  function show(el, t){
+    el.style.opacity = t;
+    el.style.setProperty('--ls', t.toFixed(3));
+  }
+
+  function paint(i){
+    if(mode !== 'seq' || i === shown) return;
+    var img = frames[i];
+    if(img && img.complete && img.naturalWidth){
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      shown = i;
+    }
+  }
+
+  function tick(){
+    queued = false;
+    /* in either degraded mode the still does not move, so the labels
+       must not move either: they stay up, all five of them. without
+       this guard the loop below would drive them back down on the
+       next scroll event and the fallback would look half broken. */
+    if(mode !== 'seq') return;
+    var scrub = pin.offsetHeight - window.innerHeight;
+    var p = scrub > 0 ? (-pin.getBoundingClientRect().top) / scrub : 0;
+    p = clamp01(p);
+
+    /* the frame */
+    var i;
+    if(p < TURN_START)      i = 0;
+    else if(p < TURN_END)   i = Math.round(lerp(0, A_END, (p - TURN_START) / (TURN_END - TURN_START)));
+    else if(p < RIDE_START) i = A_END;
+    else                    i = Math.round(lerp(A_END, TOTAL - 1, (p - RIDE_START) / (1 - RIDE_START)));
+    paint(i);
+
+    /* the labels. a label MUST be gone before the frame starts to
+       move, or it hangs in the air pointing at nothing. that is the
+       single most important rule in this section.
+
+       the fade therefore ENDS where the motion begins: it is shifted
+       back by LBL_OUT, so it runs across [MOVE-LBL_OUT, MOVE] and the
+       label is already at zero on the first frame that moves. */
+    for(var n = 0; n < labels.length; n++){
+      var el = labels[n], k = +el.getAttribute('data-k'), t;
+      if(el.getAttribute('data-grp') === 'front'){
+        t = clamp01((p - k * FRONT_STEP) / FRONT_FADE) *
+            (1 - clamp01((p - (TURN_START - LBL_OUT)) / LBL_OUT));
+      } else {
+        t = clamp01((p - SIDE_BASE - k * SIDE_STEP) / SIDE_FADE) *
+            (1 - clamp01((p - (RIDE_START - LBL_OUT)) / LBL_OUT));
+      }
+      show(el, t);
+    }
+  }
+
+  function queue(){ if(!queued){ queued = true; requestAnimationFrame(tick); } }
+
+  /* ── what to show when there is no sequence yet ──
+        first the still from the brief, and under that a plain panel,
+        so the section is never an empty black box. in both cases all
+        five labels stand still and fully visible. ── */
+  function degrade(kind){
+    mode = kind;
+    stage.classList.add(kind === 'still' ? 'is-fallback' : 'is-empty');
+    place();
+    for(var n = 0; n < labels.length; n++) show(labels[n], 1);
+  }
+
+  function useFallback(){
+    if(fallback.complete){
+      degrade(fallback.naturalWidth ? 'still' : 'empty');
+    } else {
+      fallback.onload  = function(){ degrade('still'); };
+      fallback.onerror = function(){ degrade('empty'); };
+    }
+  }
+
+  function preload(){
+    if(started) return;
+    started = true;
+
+    /* probe the first frame. if it is not on disk then the whole
+       sequence is not on disk, and we degrade straight away. */
+    var probe = new Image();
+    probe.onerror = useFallback;
+    probe.onload  = function(){
+      frames[0] = probe;
+      var loaded = 1;
+      for(var i = 1; i < TOTAL; i++){
+        (function(i){
+          var img = new Image();
+          img.decoding = 'async';
+          img.onload = img.onerror = function(){ if(++loaded === TOTAL) tick(); };
+          img.src = src(i);
+          frames[i] = img;
+        })(i);
+      }
+      paint(0); place(); tick();
+    };
+    probe.src = src(0);
+  }
+
+  function maybePreload(){
+    if(!started && pin.getBoundingClientRect().top < window.innerHeight * 1.5) preload();
+  }
+
+  /* ── reduced motion. the pin is cancelled, the frame stands on the
+        profile at A_END, and only the two side labels are shown, since
+        the front anchors do not correspond to anything in that frame.
+        set inline here as well, not only in the stylesheet. ── */
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    pin.style.height = '100vh';
+    stage.style.position = 'relative';
+
+    var settle = function(){
+      place();
+      for(var n = 0; n < labels.length; n++){
+        var el = labels[n];
+        show(el, el.getAttribute('data-grp') === 'side' ? 1 : 0);
+      }
+    };
+    var still = new Image();
+    still.onload  = function(){ ctx.drawImage(still, 0, 0, canvas.width, canvas.height); settle(); };
+    still.onerror = function(){
+      if(fallback.complete && fallback.naturalWidth) stage.classList.add('is-fallback');
+      else stage.classList.add('is-empty');
+      settle();
+    };
+    still.src = src(A_END);
+    addEventListener('resize', settle);
+  } else {
+    place();
+    maybePreload();
+    addEventListener('scroll', function(){ maybePreload(); queue(); }, {passive:true});
+    addEventListener('resize', function(){ place(); queue(); });
+    tick();
+  }
+})();
+
+/* ═════════════════════════════════════════════════════════════════
+   SECTION 8 · the form. there is no backend on this page and it
+   makes no network call, so a submit is confirmed in place.
+   ═════════════════════════════════════════════════════════════════ */
+(function(){
+  var form = document.getElementById('bookForm'),
+      done = document.getElementById('done');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var nm  = form.nm.value.trim(),
+        day = form.querySelector('input[name=day]:checked'),
+        hr  = form.querySelector('input[name=hr]:checked');
+    if(!nm || !form.ph.value.trim()){
+      done.textContent = 'חסרים שם או טלפון. מלאו את שניהם ונחזור אליכם.';
+      done.className = 's8-done is-on';
+      return;
+    }
+    done.textContent = 'קיבלנו, ' + nm + '. ' +
+      (day && hr ? 'רשמנו ' + day.value + ' בשעה ' + hr.value + '. ' : '') +
+      'נחזור אליכם בוואטסאפ תוך יום עסקים אחד.';
+    done.className = 's8-done is-on';
+  });
+})();
+</script>
+</body>
+</html>
