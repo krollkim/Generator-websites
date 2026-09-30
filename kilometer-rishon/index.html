@@ -65,25 +65,66 @@ ul{margin:0;padding:0;list-style:none}
    service. the photograph sits BELOW all of the text, never behind
    it, so no line has to fight a bright sky for contrast.
    ═════════════════════════════════════════════════════════════════ */
-.s1{padding-top:26px;background:var(--white)}
-.s1-brand{display:flex;align-items:baseline;gap:9px;padding-bottom:40px}
-.s1-brand b{font-size:17px;font-weight:800;letter-spacing:-.01em}
-.s1-brand span{font-size:13px;color:var(--muted)}
+.s1{
+  position:relative;
+  min-height:100vh;min-height:100dvh;
+  background:var(--white);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+.s1-photo{
+  position:absolute;inset:0;z-index:0;
+  width:100%;height:100%;
+  /* at 405 by 560 the 928x1152 source is cropped on the WIDTH, so the
+     whole height of the picture is on screen and object-position's Y
+     has nothing left to move. the sky lands in the top 45 percent,
+     which is exactly where the type goes. */
+  object-fit:cover;object-position:50% 50%;
+}
+/* NOT a wash over the whole frame. the first version laid white over
+   everything and drained the picture, which was the whole point of
+   putting a photograph there. this one darkens the lower part only and
+   reads as shade on the asphalt: the sky, the riders and their bikes
+   stay at full strength. */
+.s1-veil{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(0deg,
+    rgba(12,9,8,.82) 0%,
+    rgba(12,9,8,.74) 26%,
+    rgba(12,9,8,.58) 45%,
+    rgba(12,9,8,.32) 62%,
+    rgba(12,9,8,.08) 76%,
+    rgba(12,9,8,0)   88%);
+}
 
-.s1 h1{font-size:40px;margin-bottom:20px}
-.s1-lede{font-size:18px;line-height:1.5;color:#3d362f;margin-bottom:30px}
-.s1-cta{margin-bottom:14px}
-.s1 .fine{padding-bottom:34px}
+/* the nav sits on the bright sky at the top, so it stays dark ink. */
+.nav{
+  position:absolute;inset-inline:0;top:0;z-index:3;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 20px;
+}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.logo-mark{
+  flex:0 0 auto;width:30px;height:30px;border-radius:10px;
+  background:var(--orange);color:#fff;
+  display:grid;place-items:center;
+  font-size:16px;font-weight:800;line-height:1;
+}
+.logo-name{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.nav-cta{
+  flex:0 0 auto;font-size:13px;font-weight:700;color:var(--ink);
+  text-decoration:none;padding:7px 14px;border-radius:999px;
+  border:1px solid rgba(20,17,16,.28);background:rgba(255,255,255,.5);
+}
 
-/* full width, edge to edge. it was inset by 22px with a 30px radius,
-   which is not what the brief asked for: the photograph is the floor
-   of the hero, not a card sitting on it. */
-.s1-photo-pad{padding:0}
-/* cropped to the subject, not to the fold. the riders occupy a 252px
-   band once the photo is 405 wide; 310 holds that band whole with
-   roughly 30px of air over and under it, and drops the empty quarter
-   of sky at the top that was eating the first screen. */
-.s1-photo{width:100%;height:310px;object-fit:cover;object-position:50% 50%;border-radius:0}
+/* the copy lives at the BOTTOM now, over the shaded asphalt, in light
+   ink. that is what let the veil come off the top of the picture. */
+.s1-content{position:relative;z-index:2;margin-top:auto;padding-bottom:34px}
+
+.s1 h1{font-size:40px;margin-bottom:14px;color:#fff}
+.s1-lede{font-size:17px;line-height:1.42;color:rgba(255,255,255,.93);margin-bottom:20px;max-width:19em}
+.s1-cta{margin-bottom:12px}
+.s1 .fine{color:rgba(255,255,255,.8);max-width:23em}
 
 /* ═════════════════════════════════════════════════════════════════
    SECTION 2 · it is normal to start late. three flat statements.
@@ -189,6 +230,16 @@ ul{margin:0;padding:0;list-style:none}
 .s4-after{margin-top:28px;font-size:15px;color:#5a2800;line-height:1.5}
 
 /* ═════════════════════════════════════════════════════════════════
+   SECTION 4b · the payoff picture. full bleed, same treatment as the
+   hero photo: cropped to the subject rather than shown whole, so the
+   band carries the rider instead of a lot of empty sky.
+   ═════════════════════════════════════════════════════════════════ */
+.s4b{background:var(--ink)}
+/* 44% and not 52%: at 52 the crop window sat low enough to slice the
+   helmet in half. pulling it up puts the whole rider inside the band. */
+.s4b-photo{width:100%;height:340px;object-fit:cover;object-position:50% 44%;display:block}
+
+/* ═════════════════════════════════════════════════════════════════
    SECTION 5 · hours. evenings and friday, because they work.
    ═════════════════════════════════════════════════════════════════ */
 .s5{background:var(--white);padding:60px 0}
@@ -223,37 +274,16 @@ ul{margin:0;padding:0;list-style:none}
 .s7 a{display:inline-block;margin-top:14px;font-size:16px;font-weight:700;text-decoration:underline;text-underline-offset:4px}
 
 /* ═════════════════════════════════════════════════════════════════
-   SECTION 8 · booking. day and hour are chips, never a date picker.
+   SECTION 8 · booking. the whole section is the framed card document.
+   the chip and field styles that used to live here are gone with the
+   inline form they dressed; the framed document carries its own.
    ═════════════════════════════════════════════════════════════════ */
-.s8{background:var(--cream);padding:60px 0 72px}
-.s8 h2{font-size:30px;margin-bottom:8px}
-.s8-sub{font-size:16px;color:var(--muted);margin-bottom:28px}
-.fld{margin-bottom:22px}
-.fld label{display:block;font-size:15px;font-weight:700;margin-bottom:9px}
-.fld input[type=text],.fld input[type=tel]{
-  width:100%;min-height:56px;padding:14px 18px;
-  font-family:inherit;font-size:17px;color:var(--ink);
-  background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+.s8{background:var(--cream);line-height:0}
+.s8-frame{
+  display:block;width:100%;height:1335px;border:0;
+  /* 1335 is the framed document's own height at 405 wide, measured, so
+     it never scrolls inside the frame and reads as part of the page. */
 }
-.fld input:focus{outline:2px solid var(--ink);outline-offset:1px}
-.chips{display:flex;flex-wrap:wrap;gap:9px}
-.chip{position:relative}
-.chip input{position:absolute;opacity:0;width:0;height:0}
-.chip span{
-  display:block;padding:12px 17px;
-  background:var(--white);border:1px solid var(--line);border-radius:999px;
-  font-size:16px;font-weight:600;cursor:pointer;
-  font-variant-numeric:tabular-nums;
-}
-.chip input:checked + span{background:var(--ink);border-color:var(--ink);color:#fff}
-.chip input:focus-visible + span{outline:2px solid var(--ink);outline-offset:2px}
-.s8-hint{margin-top:10px;font-size:14px;color:var(--muted);line-height:1.5}
-.s8-done{
-  display:none;margin-top:18px;padding:18px 20px;
-  background:var(--white);border:1px solid var(--line);border-radius:var(--r);
-  font-size:16px;line-height:1.5;
-}
-.s8-done.is-on{display:block}
 
 .foot{background:var(--ink);color:#8d857b;padding:30px 0;font-size:14px}
 .foot b{color:#fff;font-weight:800}
@@ -283,12 +313,25 @@ ul{margin:0;padding:0;list-style:none}
 
 <!-- ═════ SECTION 1 · HERO ═════ -->
 <header class="s1" id="top">
-  <div class="wrap">
-    <div class="s1-brand">
-      <b>קילומטר ראשון</b>
-      <span>בית ספר לרישיון אופנוע</span>
-    </div>
 
+  <!-- the photograph IS the section: full bleed, full height, behind
+       everything. the veil over it is WHITE, not black, so the hero stays
+       bright the way the brief asks; it only lifts the sky far enough for
+       dark ink to sit on it. -->
+  <img class="s1-photo" src="images/hero.png"
+       alt="שני רוכבים בשנות השלושים יושבים על אופנועים קטנים במגרש אספלט ריק ביום שמשי"
+       width="928" height="1152" fetchpriority="high">
+  <div class="s1-veil" aria-hidden="true"></div>
+
+  <nav class="nav">
+    <a class="logo" href="#top">
+      <span class="logo-mark" aria-hidden="true">1</span>
+      <span class="logo-name">קילומטר ראשון</span>
+    </a>
+    <a class="nav-cta" href="#book">שיעור ניסיון</a>
+  </nav>
+
+  <div class="wrap s1-content">
     <h1>אף אחד לא יודע לרכוב<br>עד שמישהו מלמד אותו</h1>
 
     <p class="s1-lede">
@@ -306,11 +349,6 @@ ul{margin:0;padding:0;list-style:none}
     </p>
   </div>
 
-  <div class="s1-photo-pad">
-    <img class="s1-photo" src="images/hero.png"
-         alt="שני רוכבים בשנות השלושים יושבים על אופנועים קטנים במגרש אספלט ריק ביום שמשי"
-         width="928" height="1152" fetchpriority="high">
-  </div>
 </header>
 
 <!-- ═════ SECTION 2 · IT IS NORMAL TO START LATE ═════ -->
@@ -374,6 +412,17 @@ ul{margin:0;padding:0;list-style:none}
   </div>
 </section>
 
+<!-- ═════ SECTION 4b · THE PAYOFF PICTURE ═════
+     no copy on purpose. the lesson section ends on "you decide whether
+     you carry on", and this is a picture of someone who did. it also
+     breaks what was 4.5 straight screens of text between the scroll
+     moment and the form. ═════ -->
+<section class="s4b">
+  <img class="s4b-photo" src="images/controls-wide-try1.png"
+       alt="רוכב באפוד זוהר כתום יושב על אופנוע במגרש אספלט פתוח ביום שמשי"
+       width="1536" height="2752" loading="lazy" decoding="async">
+</section>
+
 <!-- ═════ SECTION 5 · HOURS ═════ -->
 <section class="s5" id="hours">
   <div class="wrap">
@@ -415,55 +464,14 @@ ul{margin:0;padding:0;list-style:none}
 </section>
 
 <!-- ═════ SECTION 8 · BOOKING ═════ -->
+<!-- the booking card lives in its own document and is framed in here.
+     it carries its own import map, its own type stack and a three.js
+     custom element, and merging all of that inline would collide with
+     this page's CSS for no gain on screen. the frame renders identically
+     and can be lifted back out in one line. -->
 <section class="s8" id="book">
-  <div class="wrap">
-    <h2>קביעת שיעור ניסיון</h2>
-    <p class="s8-sub">שתי שורות ובחירה של יום ושעה. זה כל מה שאנחנו צריכים.</p>
-
-    <form id="bookForm" novalidate>
-      <div class="fld">
-        <label for="nm">איך קוראים לכם</label>
-        <input type="text" id="nm" name="nm" autocomplete="name">
-      </div>
-
-      <div class="fld">
-        <label for="ph">טלפון</label>
-        <input type="tel" id="ph" name="ph" autocomplete="tel" inputmode="tel">
-      </div>
-
-      <div class="fld">
-        <label>איזה יום נוח לכם</label>
-        <div class="chips">
-          <label class="chip"><input type="radio" name="day" value="ראשון"><span>ראשון</span></label>
-          <label class="chip"><input type="radio" name="day" value="שני"><span>שני</span></label>
-          <label class="chip"><input type="radio" name="day" value="שלישי"><span>שלישי</span></label>
-          <label class="chip"><input type="radio" name="day" value="רביעי"><span>רביעי</span></label>
-          <label class="chip"><input type="radio" name="day" value="חמישי"><span>חמישי</span></label>
-          <label class="chip"><input type="radio" name="day" value="שישי"><span>שישי</span></label>
-        </div>
-      </div>
-
-      <div class="fld">
-        <label>ובאיזו שעה</label>
-        <div class="chips">
-          <label class="chip"><input type="radio" name="hr" value="08:00"><span><bdi dir="ltr">08:00</bdi></span></label>
-          <label class="chip"><input type="radio" name="hr" value="10:00"><span><bdi dir="ltr">10:00</bdi></span></label>
-          <label class="chip"><input type="radio" name="hr" value="16:00"><span><bdi dir="ltr">16:00</bdi></span></label>
-          <label class="chip"><input type="radio" name="hr" value="17:00"><span><bdi dir="ltr">17:00</bdi></span></label>
-          <label class="chip"><input type="radio" name="hr" value="18:00"><span><bdi dir="ltr">18:00</bdi></span></label>
-          <label class="chip"><input type="radio" name="hr" value="19:00"><span><bdi dir="ltr">19:00</bdi></span></label>
-          <label class="chip"><input type="radio" name="hr" value="20:00"><span><bdi dir="ltr">20:00</bdi></span></label>
-        </div>
-        <p class="s8-hint">שעות הבוקר פתוחות בשישי בלבד.</p>
-      </div>
-
-      <!-- the button says what happens next, not "שליחה" -->
-      <button class="btn" type="submit">שלחו ונחזור אליכם בוואטסאפ</button>
-      <p class="s8-hint">נחזור אליכם תוך יום עסקים אחד, ונסגור שעה מדויקת.</p>
-
-      <p class="s8-done" id="done" role="status"></p>
-    </form>
-  </div>
+  <iframe class="s8-frame" src="appointment-form/Trial Booking v2 - standalone.html"
+          title="קביעת שיעור ניסיון" loading="lazy"></iframe>
 </section>
 
 <footer class="foot">
@@ -742,30 +750,8 @@ var A_END = 72;
   }
 })();
 
-/* ═════════════════════════════════════════════════════════════════
-   SECTION 8 · the form. there is no backend on this page and it
-   makes no network call, so a submit is confirmed in place.
-   ═════════════════════════════════════════════════════════════════ */
-(function(){
-  var form = document.getElementById('bookForm'),
-      done = document.getElementById('done');
-  if(!form) return;
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var nm  = form.nm.value.trim(),
-        day = form.querySelector('input[name=day]:checked'),
-        hr  = form.querySelector('input[name=hr]:checked');
-    if(!nm || !form.ph.value.trim()){
-      done.textContent = 'חסרים שם או טלפון. מלאו את שניהם ונחזור אליכם.';
-      done.className = 's8-done is-on';
-      return;
-    }
-    done.textContent = 'קיבלנו, ' + nm + '. ' +
-      (day && hr ? 'רשמנו ' + day.value + ' בשעה ' + hr.value + '. ' : '') +
-      'נחזור אליכם בוואטסאפ תוך יום עסקים אחד.';
-    done.className = 's8-done is-on';
-  });
-})();
+/* SECTION 8 has no script here any more. the booking card is a framed
+   document and owns its own behaviour, including the submit. */
 </script>
 </body>
 </html>
