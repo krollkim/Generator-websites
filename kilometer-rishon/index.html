@@ -105,8 +105,11 @@ ul{margin:0;padding:0;list-style:none}
 }
 .logo{display:flex;align-items:center;gap:9px;text-decoration:none}
 .logo-mark{
+  /* ink, not orange. the accent is allowed in buttons, in the label
+     rules of the scroll section, and in the trial lesson section. a
+     logo mark is none of those. */
   flex:0 0 auto;width:30px;height:30px;border-radius:10px;
-  background:var(--orange);color:#fff;
+  background:var(--ink);color:#fff;
   display:grid;place-items:center;
   font-size:16px;font-weight:800;line-height:1;
 }
@@ -124,20 +127,35 @@ ul{margin:0;padding:0;list-style:none}
 .s1 h1{font-size:40px;margin-bottom:14px;color:#fff}
 .s1-lede{font-size:17px;line-height:1.42;color:rgba(255,255,255,.93);margin-bottom:20px;max-width:19em}
 .s1-cta{margin-bottom:12px}
-.s1 .fine{color:rgba(255,255,255,.8);max-width:23em}
+/* centred, and no max-width. this stopped being a paragraph the
+   moment it became one line: it is now a caption on the button, and a
+   caption shares its subject axis. right aligned under a full width
+   button whose own label is centred, it read as a stray line that
+   happened to land there rather than as part of the press. */
+.s1 .fine{color:rgba(255,255,255,.8);text-align:center}
 
 /* ═════════════════════════════════════════════════════════════════
    SECTION 2 · it is normal to start late. three flat statements.
    no invented statistics: every line is about the reader, not about
    a number we would have had to make up.
    ═════════════════════════════════════════════════════════════════ */
-.s2{background:var(--cream);padding:54px 0;margin-top:44px}
+/* no rules between the lines. a divider says "these are items in a list",
+   and these are not items: they are one statement in three beats, and the
+   only place on the page that speaks to the shame head on. set as a block
+   of large type instead, with the last beat carrying the weight. */
+/* no margin-top. it was 44px of breathing room from back when the hero
+   ended in an inset photograph; with a full bleed hero it is just a bare
+   white band of the body showing between two sections. */
+.s2{background:var(--cream);padding:58px 0 62px}
 .s2 li{
-  font-size:21px;font-weight:700;line-height:1.35;
-  padding:22px 0;border-bottom:1px solid var(--line);
+  font-size:25px;font-weight:700;line-height:1.28;
+  color:#4a423a;
+  padding:0 0 18px 0;
 }
-.s2 li:first-child{padding-top:0}
-.s2 li:last-child{border-bottom:0;padding-bottom:0}
+/* colour only, never weight. the system stack resolves to Segoe UI here,
+   where 700 and 800 are two different physical faces, so bumping the
+   weight swapped the typeface mid paragraph instead of emphasising it. */
+.s2 li:last-child{padding-bottom:0;color:var(--ink)}
 
 /* ═════════════════════════════════════════════════════════════════
    SECTION 3 · the five controls. the section that stops the scroll.
@@ -185,49 +203,136 @@ ul{margin:0;padding:0;list-style:none}
 /* ── the labels. HTML, not painted into the canvas ──
    direction:ltr on .lbl is what puts the rule to the LEFT of the
    Hebrew text. without it the rule jumps to the wrong side. */
+/* no left. the box is anchored by its RIGHT edge, on the control, and
+   shrink wraps leftward from there. */
 .lbl{
-  position:absolute;left:10px;
-  /* an explicit even line-height, so the row is exactly 18px tall and
-     translateY(-50%) shifts it by a whole 9px. with the default the
+  position:absolute;
+  /* an explicit even line-height, so the row is exactly 24px tall and
+     translateY(-50%) shifts it by a whole 12px. with the default the
      height was fractional, the rule landed between device pixels and
      got anti aliased into a fainter, thinner looking line than its
      neighbours. the other half of the fix is the rounding in place(). */
-  line-height:18px;
+  line-height:24px;
   transform:translateY(-50%);
-  display:flex;align-items:center;gap:7px;
+  display:flex;align-items:center;gap:9px;
   direction:ltr;opacity:0;
   z-index:4;pointer-events:none;
 }
 .lbl-text{
   direction:rtl;unicode-bidi:isolate;text-align:right;
-  font-size:15px;font-weight:800;color:#fff;white-space:nowrap;
-  text-shadow:0 1px 10px rgba(0,0,0,.9);
+  font-size:19px;font-weight:800;color:#fff;white-space:nowrap;
+  /* a real dark rim, drawn OUTSIDE the glyph by paint-order, plus one
+     soft drop for depth. a blurred shadow alone was doing nothing over
+     the pale sky in the head on frames: white on light grey with a
+     10px glow behind it is still white on light grey. */
+  -webkit-text-stroke:3px rgba(0,0,0,.6);
+  paint-order:stroke fill;
+  text-shadow:0 2px 12px rgba(0,0,0,.55);
 }
+/* a FIXED leader, the same length on every callout, instead of a rule
+   that stretched from the edge of the screen to whatever it pointed at.
+   the old one was as long as 184px on a 405px frame, nearly half the
+   width, which is what flattened the shot: a rule that long stops
+   reading as a pointer and starts reading as a rule across the image.
+   fixed length also means the text sits a constant distance from its
+   control, so the words follow the shape of the bike instead of piling
+   up against the left edge. */
 .lbl-line{
-  flex:1;height:1px;min-width:14px;
+  flex:0 0 44px;height:2.5px;border-radius:2px;
   background:var(--orange);
   transform:scaleX(var(--ls,0));
   transform-origin:left center;
 }
+/* the tip. the rule alone stops in mid air next to the control; a dot
+   sitting ON it is what makes the pair read as pointing rather than as
+   an underline that ran out. it grows in with the rule, not with the
+   label, so the two arrive as one gesture. */
+.lbl::after{
+  content:"";position:absolute;inset-inline-end:-4px;top:50%;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--orange);
+  box-shadow:0 0 0 2px rgba(0,0,0,.25);
+  transform:translateY(-50%) scale(var(--ls,0));
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   SECTION 3b · the catch. one line and the button, nothing else, so it
+   reads as a breath between the dark scroll moment and the orange one.
+   ═════════════════════════════════════════════════════════════════ */
+/* cream, like every other text rest on the page. it was briefly white on
+   the grounds that it looked like .s2, but .s2 is 2800px and five screens
+   above it and the two are never on screen together, so that swap bought
+   nothing and broke the one rule the palette has. */
+.s3b{background:var(--cream);padding:38px 0 42px;text-align:center}
+.s3b-line{font-size:21px;font-weight:700;line-height:1.35;margin-bottom:20px}
 
 /* ═════════════════════════════════════════════════════════════════
    SECTION 4 · the trial lesson, minute by minute.
    this is the section that carries the orange.
    ═════════════════════════════════════════════════════════════════ */
-.s4{background:var(--orange);color:var(--orange-ink);padding:60px 0}
+/* the section CARRIES the accent, it is not painted in it. a hi vis
+   orange flooding a whole screen stops being a highlight and turns into
+   a wall, and near black type on saturated orange is heavy in a page
+   whose whole brief is bright and welcoming. white ground, and the
+   orange goes back to marking things: the dots, the minutes, and the
+   one stop that matters. */
+.s4{background:var(--white);color:var(--ink);padding:60px 0}
 .s4 h2{font-size:30px;margin-bottom:8px}
-.s4-sub{font-size:16px;margin-bottom:30px;color:#5a2800}
-.s4 li{
-  display:flex;gap:16px;align-items:baseline;
-  padding:18px 0;border-top:1px solid rgba(43,18,0,.2);
+.s4-sub{font-size:16px;margin-bottom:30px;color:var(--muted)}
+/* the timeline. the spine is a dotted border on the list itself and the
+   dots are ::before on each item, so the whole thing is two rules and no
+   extra markup. RTL: the spine sits on the right, dots hang off it. */
+/* inline-START, not end: in RTL the start edge is the right one, and the
+   spine belongs beside the minute markers. inline-end put the whole thing
+   on the left with the text floating away from it. */
+.tl{position:relative;padding-inline-start:26px;padding-inline-end:0;margin:0}
+.tl::before{
+  content:"";position:absolute;top:10px;bottom:10px;inset-inline-start:5px;
+  border-inline-start:2px dashed var(--line);
 }
-.s4 li:last-child{border-bottom:1px solid rgba(43,18,0,.2)}
-.s4-min{
-  flex:0 0 62px;font-size:14px;font-weight:800;
-  font-variant-numeric:tabular-nums;color:#7a3a00;
+.tl-i{position:relative;display:block;padding:0 0 26px 0}
+.tl-i:last-child{padding-bottom:0}
+/* orange dots on a white ground: this is what the accent is for. */
+.tl-i::before{
+  content:"";position:absolute;inset-inline-start:-26px;top:7px;
+  width:11px;height:11px;border-radius:50%;
+  background:var(--orange);
+  box-shadow:0 0 0 4px var(--white);
 }
-.s4-do{font-size:17px;line-height:1.45;font-weight:600}
-.s4-after{margin-top:28px;font-size:15px;color:#5a2800;line-height:1.5}
+.tl-m{
+  display:block;font-size:13px;font-weight:700;color:var(--orange);
+  margin-bottom:3px;
+}
+.tl-m b{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums}
+/* 700, not 600. the page runs a three step scale, 400 body / 700
+   emphasis / 800 display, and 600 was the only thing sitting between
+   two of them. in a system stack every step is a different physical
+   face, so a lone in-between weight reads as a different typeface. */
+.tl-d{display:block;font-size:17px;line-height:1.42;font-weight:700}
+
+/* the one stop that matters gets lifted onto a card. static by design:
+   it marks the moment, it is not a fake selected state. */
+/* the card bleeds into the LEFT gutter only. bleeding on the right too
+   pushed its dot 44px past the frame and gave the page 14px of sideways
+   scroll; keeping the right edge aligned with the other items means the
+   dot needs no special offset at all. */
+/* the one stop that matters is the ONE place the orange fills a shape.
+   a white card on a white section is invisible, and the flood belongs
+   here, on the first ride, not across the whole screen.
+   the card bleeds into the far gutter only, never toward the spine:
+   bleeding both ways pushed its dot past the frame and gave the page
+   14px of sideways scroll. */
+.tl-i.is-key{
+  background:var(--orange);border-radius:18px;
+  padding:16px 18px;
+  margin-inline-start:0;margin-inline-end:-18px;margin-bottom:26px;
+  box-shadow:0 10px 24px rgba(255,106,0,.28);
+}
+.tl-i.is-key::before{top:23px;background:var(--orange);box-shadow:0 0 0 4px var(--white)}
+.tl-i.is-key .tl-m{color:rgba(255,255,255,.85)}
+.tl-i.is-key .tl-d{color:#fff}
+
+.s4-after{margin-top:30px;font-size:15px;color:var(--muted);line-height:1.5}
 
 /* ═════════════════════════════════════════════════════════════════
    SECTION 4b · the payoff picture. full bleed, same treatment as the
@@ -240,45 +345,46 @@ ul{margin:0;padding:0;list-style:none}
 .s4b-photo{width:100%;height:340px;object-fit:cover;object-position:50% 44%;display:block}
 
 /* ═════════════════════════════════════════════════════════════════
-   SECTION 5 · hours. evenings and friday, because they work.
+   SECTION 5 · the details: price, hours, and the car line. one section
+   where there used to be three, with a real hierarchy between them.
+   the price leads because it is the only number anyone is looking for;
+   the hours sit under it; the car line is a footnote, as it should be.
    ═════════════════════════════════════════════════════════════════ */
-.s5{background:var(--white);padding:60px 0}
-.s5 h2{font-size:30px;margin-bottom:24px}
-.s5-row{
-  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
-  padding:18px 0;border-top:1px solid var(--line);
-}
-.s5-row:last-of-type{border-bottom:1px solid var(--line)}
-.s5-day{font-size:16px;font-weight:700}
-.s5-time{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
-.s5-note{margin-top:22px;font-size:16px;line-height:1.5;color:var(--muted)}
-
-/* ═════════════════════════════════════════════════════════════════
-   SECTION 6 · the price of the trial lesson. in the open, and big.
-   no price table on purpose: one number is the whole answer.
-   ═════════════════════════════════════════════════════════════════ */
-.s6{background:var(--cream);padding:64px 0;text-align:center}
-.s6-label{font-size:16px;color:var(--muted);margin-bottom:10px}
-.s6-price{
+.s5{background:var(--cream);padding:56px 0 48px;text-align:center}
+.s5-label{font-size:16px;color:var(--muted);margin-bottom:8px}
+.s5-price{
   font-size:74px;font-weight:800;line-height:1;letter-spacing:-.03em;
   font-variant-numeric:tabular-nums;
 }
-.s6-note{margin-top:18px;font-size:16px;color:var(--muted);line-height:1.5}
-
-/* ═════════════════════════════════════════════════════════════════
-   SECTION 7 · the car lessons. two lines, deliberately small.
-   ═════════════════════════════════════════════════════════════════ */
-.s7{background:var(--white);padding:40px 0;border-top:1px solid var(--line)}
-.s7 h3{font-size:19px;margin-bottom:8px}
-.s7 p{font-size:16px;color:var(--muted);line-height:1.5}
-.s7 a{display:inline-block;margin-top:14px;font-size:16px;font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.s5-note{margin-top:14px;font-size:15px;color:var(--muted);line-height:1.5}
+.s5-rows{margin-top:32px;text-align:right}
+.s5-row{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:14px 0;border-top:1px solid var(--line);
+}
+.s5-row:last-child{border-bottom:1px solid var(--line)}
+.s5-day{font-size:16px;font-weight:700}
+.s5-time{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.s5-hint{margin-top:14px;font-size:15px;color:var(--muted);line-height:1.5;text-align:right}
+.s5-car{
+  margin-top:34px;padding:20px 20px 22px;
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+  text-align:right;
+}
+.s5-car-h{font-size:18px;font-weight:800;color:var(--ink);margin-bottom:6px}
+.s5-car-p{font-size:15px;line-height:1.55;color:#4a423a}
+.s5-cta{margin-top:26px;display:flex;justify-content:center}
+.s5-cta .btn{max-width:340px}
 
 /* ═════════════════════════════════════════════════════════════════
    SECTION 8 · booking. the whole section is the framed card document.
    the chip and field styles that used to live here are gone with the
    inline form they dressed; the framed document carries its own.
    ═════════════════════════════════════════════════════════════════ */
-.s8{background:var(--cream);line-height:0}
+/* white with a rule above it: .s5 immediately before is cream and the
+   framed document is near cream too, so the one action on the page used
+   to arrive with no seam at all. */
+.s8{background:var(--white);border-top:1px solid var(--line);line-height:0}
 .s8-frame{
   display:block;width:100%;height:1335px;border:0;
   /* 1335 is the framed document's own height at 405 wide, measured, so
@@ -328,25 +434,29 @@ ul{margin:0;padding:0;list-style:none}
       <span class="logo-mark" aria-hidden="true">1</span>
       <span class="logo-name">קילומטר ראשון</span>
     </a>
-    <a class="nav-cta" href="#book">שיעור ניסיון</a>
+    <!-- no second button here. it was a ghost outline, which is the kind
+         nobody sees, and it sat in the same screen as the hero's own
+         solid one. two calls to action in one view, one of them faint. -->
   </nav>
 
   <div class="wrap s1-content">
     <h1>אף אחד לא יודע לרכוב<br>עד שמישהו מלמד אותו</h1>
 
     <p class="s1-lede">
-      חמש ידיות. שתיים ברגליים, שלוש בידיים.
-      זה מה שיש ללמוד, ואנחנו מראים לכם איפה כל אחת מהן יושבת.
+      שיעור אחד, מגרש סגור, ואתם על האופנוע.
+      לא צריך לדעת כלום לפני שבאים.
     </p>
 
     <div class="s1-cta">
       <a class="btn" href="#book">לקביעת שיעור ניסיון</a>
     </div>
 
-    <p class="fine">
-      שיעור אחד על אופנוע, בלי התחייבות להמשך.
-      אם אחריו תחליטו שזה לא בשבילכם, נשמח שבאתם.
-    </p>
+    <!-- one line, not four. the job here is the last objection before
+         the press, and that is one idea: nothing follows the lesson
+         unless you want it to. the old version spent its first sentence
+         repeating the lede word for word ("שיעור אחד" / "על אופנוע")
+         and only got to the point in its second. -->
+    <p class="fine">אחרי השיעור אתם מחליטים אם ממשיכים.</p>
   </div>
 
 </header>
@@ -355,9 +465,9 @@ ul{margin:0;padding:0;list-style:none}
 <section class="s2">
   <div class="wrap">
     <ul>
-      <li>רוב מי שמגיע אלינו לא נגע באופנוע מעולם</li>
-      <li>גם מי שנוהג באוטו שנים מתחיל כאן מאותה נקודה</li>
-      <li>אף אחד לא שואל אתכם למה רק עכשיו</li>
+      <li>רוב מי שעולה כאן על אופנוע בפעם הראשונה הוא לא בן שבע עשרה</li>
+      <li>שנים של נהיגה באוטו לא עוזרות כאן. כולם מתחילים מאותה נקודה</li>
+      <li>ואף אחד לא ישאל אתכם למה רק עכשיו</li>
     </ul>
   </div>
 </section>
@@ -382,7 +492,7 @@ ul{margin:0;padding:0;list-style:none}
       <!-- and a floor under that, so the section is never a blank box -->
       <div class="pin-empty" id="empty" aria-hidden="true"><span>הרצף עוד לא כאן</span></div>
 
-      <p class="pin-title">חמש ידיות.<br>שתיים ברגליים, שלוש בידיים.</p>
+      <p class="pin-title">קודם מכירים את הכלי.<br>אחר כך נוסעים עליו.</p>
 
       <!-- five labels across two chapters, split by which side of the bike
            each control lives on: the right side head on, the left side in
@@ -396,18 +506,36 @@ ul{margin:0;padding:0;list-style:none}
   </div>
 </section>
 
+<!-- ═════ SECTION 3b · THE CATCH ═════
+     the hero button sat at y 412 and the next pressable thing was the
+     form at y 5636. that is 5159px, nine and a quarter screens, covering
+     the whole signature moment with no way to act on it. this band closes
+     the gap at the exact point the reader has just been shown the five
+     controls. ═════ -->
+<section class="s3b">
+  <div class="wrap">
+    <p class="s3b-line">ראיתם איפה הכל יושב. בשיעור אתם גם מפעילים.</p>
+    <a class="btn" href="#book">לקביעת שיעור ניסיון</a>
+  </div>
+</section>
+
 <!-- ═════ SECTION 4 · THE TRIAL LESSON ═════ -->
 <section class="s4" id="lesson">
   <div class="wrap">
     <h2>מה קורה בשיעור ניסיון</h2>
     <p class="s4-sub">שעה אחת, מגרש סגור, מדריך אחד עליכם.</p>
-    <ul>
-      <li><span class="s4-min">דקה 0</span><span class="s4-do">מכירים את האופנוע. עומד, כבוי, ואתם נוגעים בו.</span></li>
-      <li><span class="s4-min">דקה 10</span><span class="s4-do">חמש הידיות. מראים לכם איפה כל אחת, ואתם מפעילים אותן במקום.</span></li>
-      <li><span class="s4-min">דקה 20</span><span class="s4-do">מתניעים. עדיין לא זזים.</span></li>
-      <li><span class="s4-min">דקה 30</span><span class="s4-do">הנסיעה הראשונה. קו ישר, מגרש ריק, מדריך צועד לצידכם.</span></li>
-      <li><span class="s4-min">דקה 45</span><span class="s4-do">עוצרים, מדברים, ואתם מחליטים אם ממשיכים.</span></li>
-    </ul>
+    <!-- a timeline, not a list of bordered rows: a dotted spine, a dot per
+         stop and the minute beside it. the ride is marked as the one that
+         matters, because it is the thing the reader came to find out about.
+         no play control and no progress bar: this is not a video, and the
+         page is only allowed one thing to press. -->
+    <ol class="tl">
+      <li class="tl-i"><span class="tl-m">דקה <b>0</b></span><span class="tl-d">מסתובבים סביב האופנוע. מסבירים מה כל חלק עושה ואתם נוגעים בו.</span></li>
+      <li class="tl-i"><span class="tl-m">דקה <b>10</b></span><span class="tl-d">עולים עליו. רגליים על הפדלים, ידיים על הכידון, מנוע עדיין כבוי.</span></li>
+      <li class="tl-i is-key"><span class="tl-m">דקה <b>20</b></span><span class="tl-d">מתניעים ונוסעים ישר. קו אחד, מגרש ריק, מדריך צועד לצידכם.</span></li>
+      <li class="tl-i"><span class="tl-m">דקה <b>35</b></span><span class="tl-d">סללום בין קונוסים, סיבובים, שמיניות. כאן מתחילים להרגיש את האופנוע.</span></li>
+      <li class="tl-i"><span class="tl-m">דקה <b>50</b></span><span class="tl-d">מאיצים ועוצרים, שוב ושוב, עד שהברקס מרגיש לכם טבעי.</span></li>
+    </ol>
     <p class="s4-after">לא צריך להביא כלום. קסדה וכפפות מחכות לכם במקום.</p>
   </div>
 </section>
@@ -423,43 +551,42 @@ ul{margin:0;padding:0;list-style:none}
        width="1536" height="2752" loading="lazy" decoding="async">
 </section>
 
-<!-- ═════ SECTION 5 · HOURS ═════ -->
-<section class="s5" id="hours">
+<!-- ═════ SECTION 5 · THE DETAILS ═════
+     hours, price and the car line were three separate sections running
+     1.53 screens of small type with no hierarchy between them. one
+     section now, with the price given the size it deserves and the rest
+     sized underneath it. ═════ -->
+<section class="s5" id="details">
   <div class="wrap">
-    <h2>מתי אנחנו פתוחים</h2>
-    <div class="s5-row">
-      <span class="s5-day">ראשון עד חמישי</span>
-      <span class="s5-time"><bdi dir="ltr">16:00</bdi> עד <bdi dir="ltr">21:00</bdi></span>
-    </div>
-    <div class="s5-row">
-      <span class="s5-day">שישי</span>
-      <span class="s5-time"><bdi dir="ltr">07:00</bdi> עד <bdi dir="ltr">13:00</bdi></span>
-    </div>
-    <p class="s5-note">
-      אנחנו יודעים שאתם עובדים. רוב השיעורים אצלנו נופלים אחרי חמש,
-      ובשישי בבוקר המגרש הכי ריק.
-    </p>
-  </div>
-</section>
+    <p class="s5-label">שעה על האופנוע</p>
+    <p class="s5-price"><bdi dir="ltr">250 ₪</bdi></p>
+    <p class="s5-note">משלמים בסוף, אחרי שנסעתם. הקסדה והכפפות שלנו.</p>
 
-<!-- ═════ SECTION 6 · PRICE ═════ -->
-<section class="s6" id="price">
-  <div class="wrap">
-    <p class="s6-label">שיעור ניסיון על אופנוע</p>
-    <p class="s6-price"><bdi dir="ltr">250 ₪</bdi></p>
-    <p class="s6-note">
-      משלמים בסוף השיעור, לא לפניו.
-      אין דמי הרשמה ואין תשלום על הקסדה.
-    </p>
-  </div>
-</section>
+    <!-- the price is the highest intent moment on the page and the largest
+         type on it. without this there was nothing pressable for 1800px,
+         3.2 screens, and the reader had to scroll past the number to act. -->
+    <div class="s5-cta"><a class="btn" href="#book">לקביעת שיעור ניסיון</a></div>
 
-<!-- ═════ SECTION 7 · CAR LESSONS ═════ -->
-<section class="s7" id="car">
-  <div class="wrap">
-    <h3>גם שיעורים על אוטו</h3>
-    <p>אותו צוות ואותה גישה, בלי לחץ ובלי הרמת קול.</p>
-    <a href="#book">לפרטים על שיעורי אוטו</a>
+    <div class="s5-rows">
+      <div class="s5-row">
+        <span class="s5-day">ראשון עד חמישי</span>
+        <span class="s5-time"><bdi dir="ltr">16:00</bdi> עד <bdi dir="ltr">21:00</bdi></span>
+      </div>
+      <div class="s5-row">
+        <span class="s5-day">שישי</span>
+        <span class="s5-time"><bdi dir="ltr">07:00</bdi> עד <bdi dir="ltr">13:00</bdi></span>
+      </div>
+    </div>
+    <p class="s5-hint">רוב האנשים מגיעים אלינו אחרי העבודה. בשישי בבוקר המגרש הכי ריק.</p>
+
+    <!-- it was a grey footnote in muted type and nobody could read it.
+         it is a second product; it gets its own block and its own voice,
+         still small, but legible. no link: the only form on this page is
+         the motorcycle one and pointing at it here would be a lie. -->
+    <div class="s5-car">
+      <p class="s5-car-h">גם שיעורים על אוטו</p>
+      <p class="s5-car-p">המדריכים אותם מדריכים. חלק מהתלמידים שלנו התחילו כאן על אופנוע והמשיכו איתנו גם לרישיון רכב. תשאלו אותנו כשתגיעו.</p>
+    </div>
   </div>
 </section>
 
@@ -470,12 +597,16 @@ ul{margin:0;padding:0;list-style:none}
      this page's CSS for no gain on screen. the frame renders identically
      and can be lifted back out in one line. -->
 <section class="s8" id="book">
+  <!-- eager, not lazy. lazily loaded it shows the bundler's own
+       placeholder panel and an "Unpacking" badge until it decodes, and
+       this page gets recorded as a single scroll pass: the last section
+       would have gone to video as a loading screen. -->
   <iframe class="s8-frame" src="appointment-form/Trial Booking v2 - standalone.html"
-          title="קביעת שיעור ניסיון" loading="lazy"></iframe>
+          title="קביעת שיעור ניסיון" loading="eager"></iframe>
 </section>
 
 <footer class="foot">
-  <div class="wrap"><b>קילומטר ראשון</b> · בית ספר לרישיון אופנוע ואוטו</div>
+  <div class="wrap"><b>קילומטר ראשון</b> · בית ספר לנהיגה על אופנוע ואוטו</div>
 </footer>
 
 <script>
@@ -600,8 +731,9 @@ var A_END = 72;
         dw = 716 * s, dh = 1284 * s,
         ox = (w - dw) / 2, oy = (h - dh) / 2;
     for(var i = 0; i < labels.length; i++){
-      var el = labels[i],
-          G  = (el.getAttribute('data-grp') === 'front' ? GEO_FRONT : GEO_SIDE)[+el.getAttribute('data-k')];
+      var el  = labels[i],
+          grp = el.getAttribute('data-grp'),
+          G   = (grp === 'front' ? GEO_FRONT : GEO_SIDE)[+el.getAttribute('data-k')];
       if(!G) continue;
       /* snapped to the half pixel so the 1px rule always lands on a
          whole device pixel at dpr 2. unsnapped, each label fell on a
